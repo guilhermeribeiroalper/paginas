@@ -145,6 +145,7 @@
     color: var(--lime);
     display: flex; align-items: center; gap: 4px;
   }
+  .kpi-cell-delta.neg { color: var(--red-soft); }
   .kpi-cell-sub {
     font-size: 12px; color: var(--muted); margin-top: 2px;
   }
@@ -164,6 +165,7 @@
   .insight.warn { border-left-color: var(--amber-soft); background: rgba(255,179,71,0.08); }
   .insight.teal { border-left-color: var(--green-soft); background: rgba(29,158,117,0.08); }
   .insight.orange { border-left-color: #BA7517; background: rgba(186,117,23,0.08); }
+  .insight.red { border-left-color: var(--red-soft); background: rgba(255,107,107,0.08); }
 
   /* ── CHART CONTAINERS ── */
   .chart-row {
@@ -274,6 +276,8 @@
   }
   .insight-card.teal-accent { border-left: 3px solid var(--green-soft); }
   .insight-card.amber-accent { border-left: 3px solid #BA7517; }
+  .insight-card.red-accent { border-left: 3px solid var(--red-soft); }
+  .insight-card.blue-accent { border-left: 3px solid var(--blue-soft); }
 
   /* ── DYNAMICS GRID ── */
   .dynamics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 48px; }
@@ -312,6 +316,20 @@
   .proj-val { font-family: 'DM Serif Display', Georgia, serif; font-size: 26px; color: var(--lime); line-height: 1; }
   .proj-val.stable { color: var(--muted); font-size: 18px; }
 
+  /* ── REGIONAL BAR ── */
+  .region-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(42,61,110,0.4);
+  }
+  .region-row:last-child { border-bottom: none; }
+  .region-name { font-size: 13px; font-weight: 500; color: var(--off-white); width: 120px; flex-shrink: 0; }
+  .region-bar-wrap { flex: 1; background: rgba(42,61,110,0.5); border-radius: 4px; height: 6px; overflow: hidden; }
+  .region-bar { height: 100%; border-radius: 4px; transition: width .8s cubic-bezier(.16,1,.3,1); }
+  .region-pct { font-size: 13px; font-weight: 600; color: var(--off-white); width: 40px; text-align: right; flex-shrink: 0; }
+  .region-note { font-size: 11px; color: var(--text-dim); width: 180px; flex-shrink: 0; }
+  @media (max-width: 600px) { .region-note { display: none; } }
+
   /* ── FOOTER ── */
   .report-footer {
     margin-top: 72px;
@@ -348,7 +366,7 @@
   <header class="report-header">
     <div class="header-eyebrow">Seguro Garantia Brasil · Estudo de Mercado</div>
     <div class="header-number"><span>R$ 6,3</span> bilhões<br>em prêmios totais</div>
-    <p class="header-subtitle">O seguro garantia encerrou 2025 como o segmento de maior crescimento do mercado segurador brasileiro (+23,9%), impulsionado pela infraestrutura pública e pela evolução do marco regulatório.</p>
+    <p class="header-subtitle">O seguro garantia encerrou 2025 como o segmento de maior crescimento do mercado segurador brasileiro (+23,9%), impulsionado pela infraestrutura pública e pela evolução do marco regulatório. Em 10 anos, o ramo mais que triplicou de tamanho.</p>
     <div class="header-meta">
       <div class="meta-item">
         <div class="meta-label">Referência</div>
@@ -374,31 +392,31 @@
       <div class="kpi-cell">
         <div class="kpi-cell-label">Prêmios totais</div>
         <div class="kpi-cell-value">R$ 6,3 bi</div>
-        <div class="kpi-cell-sub">ramo público + privado</div>
+        <div class="kpi-cell-sub">público + privado (SUSEP)</div>
         <div class="kpi-cell-delta">▲ 23,9% vs 2024</div>
       </div>
       <div class="kpi-cell">
-        <div class="kpi-cell-label">Setor público</div>
-        <div class="kpi-cell-value">R$ 5,45 bi</div>
-        <div class="kpi-cell-sub">86% do mercado</div>
-        <div class="kpi-cell-delta">▲ 7,8%</div>
+        <div class="kpi-cell-label">Sinistralidade</div>
+        <div class="kpi-cell-value">41,7%</div>
+        <div class="kpi-cell-sub">perda técnica (IRB+)</div>
+        <div class="kpi-cell-delta neg">▲ 16 p.p. vs 2024</div>
       </div>
       <div class="kpi-cell">
-        <div class="kpi-cell-label">Setor privado</div>
-        <div class="kpi-cell-value">R$ 835 mi</div>
-        <div class="kpi-cell-sub">13% do mercado</div>
-        <div class="kpi-cell-delta">▲ 0,7%</div>
+        <div class="kpi-cell-label">Participação no mercado</div>
+        <div class="kpi-cell-value">2,82%</div>
+        <div class="kpi-cell-sub">do total de seguros</div>
+        <div class="kpi-cell-delta">4,32% dos danos</div>
       </div>
       <div class="kpi-cell">
-        <div class="kpi-cell-label">Crescimento 2026</div>
-        <div class="kpi-cell-value">+12,1%</div>
-        <div class="kpi-cell-sub">projeção CNseg</div>
+        <div class="kpi-cell-label">Projeção 2026</div>
+        <div class="kpi-cell-value">R$ 7 bi</div>
+        <div class="kpi-cell-sub">CNseg · +12,1%</div>
         <div class="kpi-cell-delta">maior segmento</div>
       </div>
     </div>
 
     <div class="insight">
-      <strong>2025 foi o ano de maior crescimento do seguro garantia na história recente.</strong> O segmento cresceu +23,9%, liderando sobre Vida, Auto e Patrimonial. O mercado total de seguros atingiu R$ 223,6 bi — o garantia representou o maior salto percentual entre todos os ramos.
+      <strong>2025 foi o ano de maior crescimento do seguro garantia na história recente.</strong> O segmento cresceu +23,9%, liderando sobre Vida (+8,5%), Auto (+6,8%) e Patrimonial (+12,8%). O mercado total de seguros atingiu R$ 223,6 bi — o garantia representou o maior salto percentual entre todos os ramos. A sinistralidade, porém, subiu 16 p.p. para 41,7%, sinalizando pressão sobre arentabilidade técnica.
     </div>
   </section>
 
@@ -417,22 +435,54 @@
         <canvas id="evolutionChart" role="img" aria-label="Gráfico de barras empilhadas mostrando evolução de prêmios do seguro garantia de 2020 a 2025. Prêmios crescendo de R$2 bi em 2020 para R$6,3 bi em 2025.">Prêmios crescendo de R$2 bi em 2020 para R$6,3 bi em 2025.</canvas>
       </div>
     </div>
+
+    <div class="insight">
+      <strong>Em 10 anos, os prêmios mais que triplicaram:</strong> de R$ 2,04 bi em 2016 para R$ 6,29 bi em 2025. Desde 2022, o crescimento é em dois dígitos — 24,35% (2023), 17,61% (2024) e 23,88% (2025), todas com expansão real acima da inflação. O setor público responde por 86% do avanço em 2025.
+    </div>
+  </section>
+
+  <!-- ── SINISTRALIDADE ── -->
+  <section class="section">
+    <div class="section-label">Rentabilidade técnica</div>
+    <h2 class="section-title">Sinistralidade em alta — alerta para o ramo</h2>
+
+    <div class="chart-card-full">
+      <div class="chart-title">Evolução da sinistralidade — Crédito e Garantia (2020–2025)</div>
+      <div class="chart-wrap" style="height:240px">
+        <canvas id="sinistralidadeChart" role="img" aria-label="Gráfico de linhas mostrando evolução da sinistralidade do ramo Crédito e Garantia de 2020 a 2025. Índice subiu de 25,9% no 1T25 para 41,7% no acumulado anual.">Sinistralidade do ramo subiu 16 p.p. em 2025, fechando em 41,7%.</canvas>
+      </div>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card red-accent">
+        <div class="insight-card-label" style="color:var(--red-soft);font-weight:600">Sinistralidade anual — 41,7%</div>
+        <div class="insight-card-note">Acumulado janeiro a dezembro/2025. Aumento de 16 p.p. frente a 2024, segundo IRB+Inteligência. O índice ficou abaixo da média do mercado segurador (40,1%), mas a velocidade de elevação é preocupante.</div>
+      </div>
+      <div class="insight-card red-accent">
+        <div class="insight-card-label" style="color:var(--red-soft);font-weight:600">Pico no 1S25 — 62,6%</div>
+        <div class="insight-card-note">No primeiro semestre, a sinistralidade atingiu 62,6% (+10,3 p.p. vs 1S24). O resultado foi amortecido no 2º semestre, mas sinaliza volatilidade e risco de concentração de sinistros em grandes contratos de infraestrutura.</div>
+      </div>
+    </div>
+
+    <div class="insight warn">
+      <strong>O que explica a alta:</strong> o crescimento acelerado de novos contratos (especialmente obras públicas de grande porte) geraentradas de prêmio que ainda não foram completamente reconhecidas, enquanto sinistros de contratos anteriores já estão sendo pagos. Além disso, a expansão do setor_privado (+90,5% no 2º semestre) traz riscos com menor histórico de submissão.
+    </div>
   </section>
 
   <!-- ── MARKET SHARE ── -->
   <section class="section">
     <div class="section-label">Market share</div>
-    <h2 class="section-title">As principais seguradoras do ramo</h2>
+    <h2 class="section-title">Ranking completo das seguradoras — 2025</h2>
 
     <div class="chart-row">
       <div class="chart-card">
-        <div class="chart-title">Share por prêmios — 2025</div>
+        <div class="chart-title">Share por prêmios diretos</div>
         <div class="legend">
           <div class="legend-item"><div class="legend-dot" style="background:#534AB7"></div>Pottencial 16,3%</div>
-          <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div>Junto ~15,9%</div>
-          <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>Austral ~6%</div>
-          <div class="legend-item"><div class="legend-dot" style="background:#EF9F27"></div>Allseg (H1) ~10%</div>
-          <div class="legend-item"><div class="legend-dot" style="background:#636e72"></div>Demais ~51%</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div>Junto 15,9%</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>Austral 6,0%</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#EF9F27"></div>Swiss Re 5,6%</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#636e72"></div>Demais 56,2%</div>
         </div>
         <div class="chart-wrap" style="height:220px">
           <canvas id="shareChart" role="img" aria-label="Gráfico de donut: market share das seguradoras de seguro garantia em 2025. Pottencial lidera com 16,3%.">Pottencial 16,3%; Junto 15,9%; Austral 6%.</canvas>
@@ -440,7 +490,7 @@
       </div>
 
       <div class="chart-card">
-        <div class="chart-title">Ranking de prêmios</div>
+        <div class="chart-title">Top 12 — Prêmios diretos (R$ milhões)</div>
         <div class="table-wrap" style="margin-bottom:0">
           <table>
             <thead>
@@ -455,38 +505,90 @@
               <tr>
                 <td class="td-muted">1</td>
                 <td class="td-name">Pottencial <span class="tag tag-teal" style="margin-left:4px">9x líder</span></td>
-                <td class="td-num">R$ 1,03 bi</td>
+                <td class="td-num">R$ 1.034 mi</td>
                 <td class="td-num">16,3%</td>
               </tr>
               <tr>
                 <td class="td-muted">2</td>
                 <td class="td-name">Junto Seguros</td>
-                <td class="td-num">R$ 1,00 bi</td>
-                <td class="td-num">~15,9%</td>
+                <td class="td-num">R$ 1.003 mi</td>
+                <td class="td-num">15,9%</td>
               </tr>
               <tr>
                 <td class="td-muted">3</td>
                 <td class="td-name">Austral <span class="tag tag-up" style="margin-left:4px">+35%</span></td>
                 <td class="td-num">R$ 376 mi</td>
-                <td class="td-num">~6,0%</td>
+                <td class="td-num">6,0%</td>
               </tr>
               <tr>
-                <td class="td-muted">3º H1</td>
+                <td class="td-muted">4</td>
+                <td class="td-name">Swiss Re Corp. Sol.</td>
+                <td class="td-num">R$ 354 mi</td>
+                <td class="td-num">5,6%</td>
+              </tr>
+              <tr>
+                <td class="td-muted">5</td>
+                <td class="td-name">Zurich Minas Brasil</td>
+                <td class="td-num">R$ 340 mi</td>
+                <td class="td-num">5,4%</td>
+              </tr>
+              <tr>
+                <td class="td-muted">6</td>
+                <td class="td-name">Daycoval</td>
+                <td class="td-num">R$ 332 mi</td>
+                <td class="td-num">5,3%</td>
+              </tr>
+              <tr>
+                <td class="td-muted">7</td>
+                <td class="td-name">AVLA</td>
+                <td class="td-num">R$ 294 mi</td>
+                <td class="td-num">4,7%</td>
+              </tr>
+              <tr>
+                <td class="td-muted">8</td>
                 <td class="td-name">Allseg <span class="tag tag-info" style="margin-left:4px">disruptor</span></td>
-                <td class="td-num">R$ 320 mi (H1)</td>
-                <td class="td-num">~10%*</td>
+                <td class="td-num">R$ 275 mi</td>
+                <td class="td-num">4,4%</td>
               </tr>
               <tr>
-                <td class="td-muted">—</td>
-                <td class="td-muted">Demais seguradoras</td>
-                <td class="td-num">—</td>
-                <td class="td-num">~51%</td>
+                <td class="td-muted">9</td>
+                <td class="td-name">Fairfax</td>
+                <td class="td-num">R$ 271 mi</td>
+                <td class="td-num">4,3%</td>
+              </tr>
+              <tr>
+                <td class="td-muted">10</td>
+                <td class="td-name">Tokio Marine <span class="tag tag-up" style="margin-left:4px">meta 3º lugar</span></td>
+                <td class="td-num">R$ 227 mi</td>
+                <td class="td-num">3,6%</td>
+              </tr>
+              <tr>
+                <td class="td-muted">11</td>
+                <td class="td-name">Ezze</td>
+                <td class="td-num">R$ 205 mi</td>
+                <td class="td-num">3,3%</td>
+              </tr>
+              <tr>
+                <td class="td-muted">12</td>
+                <td class="td-name">Chubb</td>
+                <td class="td-num">R$ 195 mi</td>
+                <td class="td-num">3,1%</td>
+              </tr>
+              <tr style="border-top:1px solid var(--navy-border);">
+                <td class="td-muted" style="font-weight:600;color:var(--off-white)">—</td>
+                <td class="td-muted" style="font-weight:600;color:var(--off-white)">Demais (~23 seguradoras)</td>
+                <td class="td-num" style="font-weight:600;color:var(--off-white)">R$ 1.777 mi</td>
+                <td class="td-num" style="font-weight:600;color:var(--off-white)">28,2%</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p style="font-size:11px;color:var(--text-dim);margin-top:12px;line-height:1.5">*Allseg: 3º lugar acumulado H1/2025 e 1º em jun/2025 — market share anual não divulgado oficialmente</p>
+        <p style="font-size:11px;color:var(--text-dim);margin-top:12px;line-height:1.5">Fonte: SES SUSEP — prêmios diretos no ramo 75/76 (Garantia Segurado). Total de ~35 seguradoras autorizadas a operar o ramo.</p>
       </div>
+    </div>
+
+    <div class="insight">
+      <strong>Top 2 somam 32,2% do mercado.</strong> Pottencial e Junto são as únicas acima de R$ 1 bi. Abora do top 12, há ~23 seguradoras dividindo 28,2% — mercado fragmentado com espaço para consolidação. A Tokio Marine projeta R$ 400 mi e 3º lugar até 2026.
     </div>
   </section>
 
@@ -502,7 +604,7 @@
         </div>
         <div class="insight-card-label">Garantia pública (setor público)</div>
         <div class="insight-card-val">R$ 5,45 bi</div>
-        <div class="insight-card-note">Contratos com órgãos federais, estaduais e municipais. Cresce impulsionado pelo PAC e pela Lei 14.133/2021. Responsável por 86% do crescimento do segmento em 2025.</div>
+        <div class="insight-card-note">86% do crescimento em 2025. Contratos com órgãos federais, estaduais e municipais. Cresce com PAC, Lei 14.133/2021 e cláusula de retomada (obras acima de R$ 260 mi).</div>
       </div>
       <div class="insight-card teal-accent">
         <div class="insight-card-icon">
@@ -510,8 +612,25 @@
         </div>
         <div class="insight-card-label">Garantia privada (setor privado + judicial)</div>
         <div class="insight-card-val">R$ 835 mi</div>
-        <div class="insight-card-note">Contratos B2B, garantia de performance e Garantia Judicial. Segmento com menor penetração relativa — maior potencial de crescimento estrutural para 2026+.</div>
+        <div class="insight-card-note">Cresceu apenas 0,7% em 2025. Maior potencial de expansão estrutural. No 2º semestre, o privado avançou 90,5% — sinal de aceleração. PMEs e B2B são o fronteira.</div>
       </div>
+    </div>
+  </section>
+
+  <!-- ── COMPARATIVO COM OUTROS RAMOS ── -->
+  <section class="section">
+    <div class="section-label">Comparativo</div>
+    <h2 class="section-title">Seguro Garantia vs. outros ramos — 2025</h2>
+
+    <div class="chart-card-full">
+      <div class="chart-title">Crescimento nominal por segmento — 2025 (%)</div>
+      <div class="chart-wrap" style="height:280px">
+        <canvas id="comparativoChart" role="img" aria-label="Gráfico de barras horizontais comparando crescimento dos ramos de seguro em 2025. Crédito e Garantia lidera com 19,5%.">Crédito e Garantia: 19,5% — maior crescimento entre todos os ramos.</canvas>
+      </div>
+    </div>
+
+    <div class="insight">
+      <strong>Crédito e Garantia foi o único segmento em dois dígitos isolado.</strong> Enquanto Auto cresceu 6,8% e Vida 8,5%, o garantia registrou 19,5% (IRB) / 23,9% (SUSEP). O ramo responde por apenas 2,82% do mercado total, mas foi responsável por parcela desproporcional do crescimento — sinal de maturação acelerada.
     </div>
   </section>
 
@@ -523,46 +642,96 @@
     <div class="dynamics-grid">
       <div class="dynamic-card">
         <div class="dynamic-card-title">PAC + infraestrutura</div>
-        <div class="dynamic-card-body">Programa de Aceleração do Crescimento (PAC) prevê R$ 1,7 tri em investimentos até 2027. R$ 3,3 bi em projetos já têm cláusula de retomada — potencial de R$ 10 bi segurados em 2026.</div>
+        <div class="dynamic-card-body">PAC 3 prevê R$ 1,7 tri em investimentos até 2028. Em 2025, foram 75 leilões na B3 (recorde histórico) com R$ 240 bi contratados. Para 2026, espera-se R$ 250+ bi. Portfólio do Ministério de Minas e Energia: R$ 4 tri até 2035.</div>
         <div class="dynamic-card-impact">↑ Maior catalisador de curto prazo</div>
       </div>
       <div class="dynamic-card">
         <div class="dynamic-card-title">Garantia judicial em expansão</div>
-        <div class="dynamic-card-body">Maior aceitação em tribunais. Portaria PGFN 2.044/2024 regularizou uso em execuções fiscais e Dívida Ativa da União. Redução do estoque do CARF prevista para 2026 amplia demanda.</div>
+        <div class="dynamic-card-body">Portaria PGFN 2.044/2024 regularizou uso em execuções fiscais e Dívida Ativa da União. Redução do estoque do CARF prevista para 2026 amplia demanda. Corretoras com expertise jurídica levam vantagem.</div>
         <div class="dynamic-card-impact">↑ Oportunidade para corretores especializados</div>
       </div>
       <div class="dynamic-card">
         <div class="dynamic-card-title">Marco regulatório</div>
-        <div class="dynamic-card-body">Lei 14.133/2021 (Nova Lei de Licitações) + Lei 15.040/2024 (Marco Legal dos Seguros) + Circular SUSEP 662/2022. Ambiente regulatório modernizado dá mais segurança jurídica.</div>
-        <div class="dynamic-card-impact">↑ Base estrutural para crescimento sustentável</div>
+        <div class="dynamic-card-body">Lei 14.133/2021 ampliou obrigatoriedade de garantias de 5% para até 30% em obras acima de R$ 216 mi. Circular SUSEP 662/2022 simplificou emissão. Lei 15.040/2024 modernizou o setor.</div>
+        <div class="dynamic-card-impact">↑ Base legal para crescimento sustentável</div>
       </div>
       <div class="dynamic-card">
         <div class="dynamic-card-title">Digitalização e novos entrantes</div>
-        <div class="dynamic-card-body">Allseg conquistou 1º lugar em jun/2025 com plataforma digital e análise automatizada. Tecnologia reduz fricção na emissão e amplia acesso de PMEs ao produto.</div>
+        <div class="dynamic-card-body">OnPoint: 41 mil apólices no 1S25, R$ 100 mi em prêmios, 14 mil tomadores. Allseg conquistou 1º lugar em jun/2025 com plataforma digital. AXA lançou plataforma 100% digital com emissão em &lt;1 minuto.</div>
         <div class="dynamic-card-impact">↑ Disrupção digital acelera adoção</div>
       </div>
       <div class="dynamic-card">
-        <div class="dynamic-card-title">Mercado segurador total</div>
-        <div class="dynamic-card-body">Seguro Garantia foi o segmento de maior crescimento em 2025 (+19,5% em Crédito e Garantia), liderando sobre Vida, Auto e Patrimonial. Mercado total: R$ 223,6 bi em 2025.</div>
-        <div class="dynamic-card-impact">↑ Liderança entre todos os ramos</div>
+        <div class="dynamic-card-title">Cláusula de retomada</div>
+        <div class="dynamic-card-body">Inovação mais disruptiva da Nova Lei de Licitações. Obriga seguro garantia em obras públicas acima de R$ 260 mi (federal) e R$ 50 mi (estados como MT, MG e DF). Aplicação prática desde 2024.</div>
+        <div class="dynamic-card-impact">↑ Demanda obrigatória de longo prazo</div>
       </div>
       <div class="dynamic-card">
         <div class="dynamic-card-title">Setores motores</div>
-        <div class="dynamic-card-body">Construção civil, infraestrutura, energia elétrica, concessões públicas e logística lideram a demanda. Em 2026, crescem também tecnologia, agronegócio e serviços com contratos governamentais.</div>
-        <div class="dynamic-card-impact">↑ Diversificação setorial em 2026</div>
+        <div class="dynamic-card-body">Construção civil, infraestrutura, energia elétrica e concessões públicas lideram. Em 2026, crescem também tecnologia, agronegócio e serviços com contratos governamentais. Norte/Nordeste: +42% em garantia.</div>
+        <div class="dynamic-card-impact">↑ Diversificação setorial e geográfica</div>
       </div>
     </div>
   </section>
 
-  <!-- ── CONTEXTO COMPETITIVO ── -->
+  <!-- ── CONCENTRAÇÃO GEOGRÁFICA ── -->
   <section class="section">
-    <div class="section-label">Posicionamento</div>
-    <h2 class="section-title">Contexto competitivo — posicionamento dos players</h2>
+    <div class="section-label">Distribuição geográfica</div>
+    <h2 class="section-title">Onde o seguro garantia cresce mais</h2>
 
     <div class="chart-card-full">
-      <div class="chart-title">Prêmios emitidos por seguradora (R$ milhões)</div>
-      <div class="chart-wrap" style="height:280px">
-        <canvas id="competitorsChart" role="img" aria-label="Gráfico de barras horizontais mostrando posicionamento comparativo dos principais players de seguro garantia. Pottencial e Junto lideram por volume.">Pottencial e Junto lideram com R$1 bi cada.</canvas>
+      <div class="chart-title">Crescimento de seguros de danos por região — 2025</div>
+      <div id="regional-bars">
+        <div class="region-row">
+          <div class="region-name">Norte</div>
+          <div class="region-bar-wrap"><div class="region-bar" style="width:92%; background:#C8FF4A;"></div></div>
+          <div class="region-pct">+9,6%</div>
+          <div class="region-note">Amapá +24%, Acre +19%, Roraima +19%</div>
+        </div>
+        <div class="region-row">
+          <div class="region-name">Nordeste</div>
+          <div class="region-bar-wrap"><div class="region-bar" style="width:88%; background:#FF6B6B;"></div></div>
+          <div class="region-pct">+9,6%</div>
+          <div class="region-note">Garantia +42%, Fiança +41%</div>
+        </div>
+        <div class="region-row">
+          <div class="region-name">Sudeste</div>
+          <div class="region-bar-wrap"><div class="region-bar" style="width:75%; background:#74B9FF;"></div></div>
+          <div class="region-pct">~7,5%</div>
+          <div class="region-note">Maior volume absoluto · SP domina</div>
+        </div>
+        <div class="region-row">
+          <div class="region-name">Sul</div>
+          <div class="region-bar-wrap"><div class="region-bar" style="width:70%; background:#4ECDC4;"></div></div>
+          <div class="region-pct">~7%</div>
+          <div class="region-note">Base da Junto e Pottencial</div>
+        </div>
+        <div class="region-row">
+          <div class="region-name">Centro-Oeste</div>
+          <div class="region-bar-wrap"><div class="region-bar" style="width:65%; background:#FFB347;"></div></div>
+          <div class="region-pct">~6,5%</div>
+          <div class="region-note">MT adota cláusula de retomada</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <strong>Norte e Nordeste puxam o crescimento:</strong> regiões com menor penetração histórica estão na vanguarda em 2025 (+9,6% vs. média nacional de 7,5%). O Amapá liderou o país com +24%. O Seguro Garantia no Norte/Nordeste cresceu 42% — muito acima da média — impulsionado por infraestrutura e concessões.
+    </div>
+  </section>
+
+  <!-- ── CANAIS DE DISTRIBUIÇÃO ── -->
+  <section class="section">
+    <div class="section-label">Distribuição</div>
+    <h2 class="section-title">Canais de distribuição — corretor é rei</h2>
+
+    <div class="insight-grid">
+      <div class="insight-card blue-accent">
+        <div class="insight-card-label">Canal corretor (dominante)</div>
+        <div class="insight-card-note">A legislação brasileira exige intermediário habilitado pela SUSEP. O canal corretor permanece no centro do modelo de distribuição — Junto reporta que "20% da receita já passa por iniciativas digitais" que geram leads qualificados para corretores.</div>
+      </div>
+      <div class="insight-card blue-accent">
+        <div class="insight-card-label">Plataformas digitais (emergente)</div>
+        <div class="insight-card-note">OnPoint: 1.300 corretoras ativas, 14 mil tomadores, R$ 100 mi em prêmios no 1S25. Ebix: 15 seguradoras integradas. AXA lançou plataforma 100% digital com emissão em &lt;1 minuto. Automação reduz tempo de emissão de dias para minutos.</div>
       </div>
     </div>
   </section>
@@ -575,19 +744,19 @@
     <div class="insight-grid">
       <div class="insight-card teal-accent">
         <div class="insight-card-label" style="color:var(--green-soft);font-weight:600">Oportunidade — garantia privada</div>
-        <div class="insight-card-note" style="margin-top:6px">O ramo privado cresceu apenas 0,7% em 2025 (vs. 7,8% do público). PMEs e contratos B2B de grande porte têm penetração baixa. Produto pouco conhecido fora do setor de obras públicas — enorme espaço educacional.</div>
+        <div class="insight-card-note">O ramo privado cresceu apenas 0,7% em 2025 (vs. 7,8% do público). PMEs e contratos B2B têm penetração baixa. Produto pouco conhecido fora de obras públicas — enorme espaço educacional. No 2º semestre, avanço de 90,5% sinaliza aceleração.</div>
       </div>
       <div class="insight-card teal-accent">
         <div class="insight-card-label" style="color:var(--green-soft);font-weight:600">Oportunidade — garantia judicial (CARF/PGFN)</div>
-        <div class="insight-card-note" style="margin-top:6px">Portaria PGFN 2.044/2024 criou marco claro para uso em dívidas com a União. Redução prevista do estoque do CARF em 2026 deve gerar demanda expressiva. Corretoras com expertise jurídica levam vantagem.</div>
+        <div class="insight-card-note">Portaria PGFN 2.044/2024 criou marco claro para uso em dívidas com a União. Redução prevista do estoque do CARF em 2026 deve gerar demanda expressiva. Corretoras com expertise jurídica levam vantagem.</div>
       </div>
       <div class="insight-card amber-accent">
-        <div class="insight-card-label" style="color:#BA7517;font-weight:600">Atenção — concentração no topo</div>
-        <div class="insight-card-note" style="margin-top:6px">Top 2 (Pottencial + Junto) somam ~32% de market share. Mercado fragmentado abaixo disso: pelo menos 15 seguradoras ativas no ramo, com Allseg e Austral escalando rapidamente. Competição crescente por corretores especializados.</div>
+        <div class="insight-card-label" style="color:#BA7517;font-weight:600">Atenção — sinistralidade em alta</div>
+        <div class="insight-card-note">41,7% em 2025 (+16 p.p.). No 1S25, atingiu 62,6%. A expansão acelerada pode trazer pressão sobre arentabilidade se a seleção de risco não acompanhar o volume. Risco de concentração em grandes contratos de infraestrutura.</div>
       </div>
       <div class="insight-card amber-accent">
         <div class="insight-card-label" style="color:#BA7517;font-weight:600">Atenção — resseguro em alta</div>
-        <div class="insight-card-note" style="margin-top:6px">Cessão de prêmio ao resseguro no ramo Garantia cresceu 20,8% em 2024, o maior crescimento entre todos os ramos. Sinaliza expansão dos riscos assumidos — e pressão futura de sinistralidade se a seleção de risco não acompanhar o crescimento.</div>
+        <div class="insight-card-note">Cessão de prêmio ao resseguro cresceu 20,8% em 2024, o maior entre todos os ramos. Em 2025, seguradoras cederam R$ 29,7 bi (+12,6%). Sinaliza expansão dos riscos assumidos — e pressão futura de sinistralidade.</div>
       </div>
     </div>
   </section>
@@ -595,39 +764,45 @@
   <!-- ── PROJEÇÕES 2026 ── -->
   <section class="section">
     <div class="section-label">Perspectivas 2026</div>
-    <h2 class="section-title">Projeção 2026 — catalisadores confirmados</h2>
+    <h2 class="section-title">Projeção 2026 — R$ 7 bilhões</h2>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.6">CNseg projeta +12,1% para 2026, levando o mercado a R$ 7 bilhões em prêmios. Índice de impacto relativo de cada catalisador (escala 0–100).</p>
 
     <div class="proj-grid">
       <div class="proj-card highlight">
         <div class="proj-seg">PAC / obras públicas</div>
         <div class="proj-val">90</div>
+        <div style="font-size:11px;color:var(--lime);margin-top:6px;font-weight:600">Impacto alto</div>
       </div>
       <div class="proj-card highlight">
         <div class="proj-seg">Garantia judicial</div>
         <div class="proj-val">80</div>
+        <div style="font-size:11px;color:var(--lime);margin-top:6px;font-weight:600">Impacto alto</div>
       </div>
       <div class="proj-card">
         <div class="proj-seg">Portaria PGFN 2.044</div>
         <div class="proj-val">70</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;font-weight:500">Impacto médio-alto</div>
       </div>
       <div class="proj-card">
         <div class="proj-seg">Lei 15.040 (Marco Legal)</div>
         <div class="proj-val">65</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;font-weight:500">Impacto médio</div>
       </div>
       <div class="proj-card">
         <div class="proj-seg">Maturidade regulatorial</div>
         <div class="proj-val">55</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;font-weight:500">Impacto médio</div>
       </div>
     </div>
 
     <div class="insight">
-      <strong>Projeção CNseg: +12,1% em 2026.</strong> O seguro garantia deve manter a liderança de crescimento entre os ramos do seguro. PAC, garantia judicial e maturidade regulatória são os principais catalisadores — todos com impacto mensurável já no primeiro semestre.
+      <strong>Projeção CNseg: R$ 7 bilhões em 2026 (+12,1%).</strong> O seguro garantia deve manter a liderança de crescimento entre os ramos. O boom de leilões de infraestrutura (75 certames em 2025, recorde) e a cláusula de retomada são os catalisadores mais tangíveis. A Junto Seguros já cresceu 20% no 1º quadrimestre de 2026.
     </div>
 
     <div class="chart-card-full">
-      <div class="chart-title">Impacto relativo dos catalisadores — 2026 (índice 0–100)</div>
+      <div class="chart-title">Índice de impacto relativo por catalisador — 2026 (escala 0–100)</div>
       <div class="chart-wrap" style="height:240px;">
-        <canvas id="catalystsChart" role="img" aria-label="Gráfico de barras mostrando os principais catalisadores de crescimento do seguro garantia em 2026. PAC e garantia judicial lideram.">PAC, CARF e Lei 15.040 são os principais catalisadores.</canvas>
+        <canvas id="catalystsChart" role="img" aria-label="Gráfico de barras mostrando o índice de impacto relativo dos catalisadores de crescimento do seguro garantia em 2026. PAC lidera com 90/100.">PAC, garantia judicial e Lei 15.040 são os principais catalisadores.</canvas>
       </div>
     </div>
   </section>
@@ -635,9 +810,9 @@
   <!-- ── FOOTER ── -->
   <footer class="report-footer">
     <div class="footer-source">
-      Fontes primárias: SUSEP / Painel SES (dados de prêmios 2025, fev/2026); IRB+Inteligência / Boletim IRB+Mercado 2025 (mar/2026); CNseg — projeção de crescimento 2026; Revista Apólice, Traderisk, CQCS. Notas: (1) dados de market share baseados em prêmios diretos conforme SES SUSEP; (2) dados de Allseg referem-se ao acumulado H1/2025 — market share anual não divulgado; (3) projeção +12,1% para 2026 é da CNseg, divulgada em dez/2025 — sujeita a revisão.
+      <strong>Fontes primárias:</strong> SUSEP — Painel SES / Boletim SUSEP (dados consolidados 2025, fev/2026); IRB+Inteligência — Boletim IRB+Mercado 2025 (mar/2026); CNseg — projeção de crescimento 2026; Valor Econômico / Revista Apólice / Revista Segurador Brasil. <strong>Notas:</strong> (1) dados de market share baseados em prêmios diretos conforme SES SUSEP (ramos 75/76); (2) sinistralidade de Crédito e Garantia conforme IRB+Inteligência (acumulado jan-dez/2025); (3) projeção R$ 7 bi para 2026 é da CNseg, divulgada em dez/2025 — sujeita a revisão; (4) dados regionais baseados em sindicatos estaduais e crescimento de seguros de danos.
     </div>
-    <div class="footer-badge">Dados verificados · CNseg / SUSEP 2025</div>
+    <div class="footer-badge">Dados verificados · SUSEP / IRB+ 2025</div>
   </footer>
 
 </div>
@@ -690,14 +865,54 @@
     }
   });
 
+  // SINISTRALIDADE LINE CHART
+  new Chart(document.getElementById('sinistralidadeChart'), {
+    type: 'line',
+    data: {
+      labels: ['2020','2021','2022','2023','2024','2025'],
+      datasets: [{
+        label: 'Sinistralidade Crédito e Garantia (%)',
+        data: [32, 35, 28, 25.9, 25.7, 41.7],
+        borderColor: '#FF6B6B',
+        backgroundColor: 'rgba(255,107,107,0.08)',
+        borderWidth: 2,
+        pointBackgroundColor: '#FF6B6B',
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        fill: true,
+        tension: 0.35
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: { label: ctx => '  Sinistralidade: ' + ctx.raw + '%' },
+          backgroundColor: '#1E2D5A', borderColor: '#2A3D6E', borderWidth: 1,
+          titleColor: '#F5F4F0', bodyColor: '#9BADC5', padding: 10
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(42,61,110,0.4)' }, ticks: { color: '#5A6E8C' } },
+        y: {
+          grid: { color: 'rgba(42,61,110,0.4)' },
+          ticks: { color: '#5A6E8C', callback: v => v + '%' },
+          min: 0, max: 70
+        }
+      }
+    }
+  });
+
   // MARKET SHARE DONUT
   new Chart(document.getElementById('shareChart'), {
     type: 'doughnut',
     data: {
-      labels: ['Pottencial','Junto','Austral','Allseg (H1)','Outros'],
+      labels: ['Pottencial','Junto','Austral','Swiss Re','Zurich','Daycoval','AVLA','Allseg','Fairfax','Tokio Marine','Ezze','Chubb','Outros'],
       datasets: [{
-        data: [16.3, 15.9, 6.0, 10.0, 51.8],
-        backgroundColor: ['#534AB7','#378ADD','#1D9E75','#EF9F27','#636e72'],
+        data: [16.3, 15.9, 6.0, 5.6, 5.4, 5.3, 4.7, 4.4, 4.3, 3.6, 3.3, 3.1, 22.1],
+        backgroundColor: ['#534AB7','#378ADD','#1D9E75','#EF9F27','#FF6B6B','#4ECDC4','#A29BFE','#FFB347','#636e72','#74B9FF','#9BADC5','#D3D1C7','#3a3f47'],
         borderWidth: 2,
         borderColor: '#141C35',
         hoverOffset: 8,
@@ -719,15 +934,15 @@
     }
   });
 
-  // COMPETITORS BARRAS HORIZONTAIS
-  new Chart(document.getElementById('competitorsChart'), {
+  // COMPARATIVO BARRAS HORIZONTAIS
+  new Chart(document.getElementById('comparativoChart'), {
     type: 'bar',
     data: {
-      labels: ['Pottencial','Junto Seguros','Allseg (H1)','Austral','Fairfax','Tokio Marine','Outros players'],
+      labels: ['Crédito e Garantia','Habitacional','Patrimonial','Corporat. Danos','Vida','Auto','Transportes','Rural'],
       datasets: [{
-        label: 'Prêmios emitidos (R$ mi)',
-        data: [1034, 1002, 320, 376, 180, 150, 3228],
-        backgroundColor: ['#534AB7','#378ADD','#EF9F27','#1D9E75','#636e72','#636e72','#D3D1C7'],
+        label: 'Crescimento 2025 (%)',
+        data: [19.5, 13.0, 12.8, 9.1, 8.5, 6.8, 7.7, -8.9],
+        backgroundColor: ['#C8FF4A','#4ECDC4','#74B9FF','#A29BFE','#534AB7','#378ADD','#EF9F27','#FF6B6B'],
         borderRadius: 4
       }]
     },
@@ -738,7 +953,7 @@
       plugins: {
         legend: { display: false },
         tooltip: {
-          callbacks: { label: ctx => 'R$ ' + ctx.raw.toLocaleString('pt-BR') + ' mi' },
+          callbacks: { label: ctx => ctx.raw + '%' },
           backgroundColor: '#1E2D5A', borderColor: '#2A3D6E', borderWidth: 1,
           titleColor: '#F5F4F0', bodyColor: '#9BADC5', padding: 10
         }
@@ -746,7 +961,7 @@
       scales: {
         x: {
           grid: { color: 'rgba(42,61,110,0.4)' },
-          ticks: { color: '#5A6E8C', callback: v => 'R$' + v + 'mi' }
+          ticks: { color: '#5A6E8C', callback: v => v + '%' }
         },
         y: { grid: { display: false }, ticks: { color: '#9BADC5' } }
       }

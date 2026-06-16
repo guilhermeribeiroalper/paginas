@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Sequência de Nutrição — Leads de Consórcio · Alper</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#003894;
+    --panel-blue:#004f94;
+    --panel-sky:#0082DE;
+    --panel-mint:#00d4ab;
+    --panel-green:#05a35c;
+    --panel-teal:#007378;
+    --accent:#7ded8a;
+    --ink:#f5f8ff;
+    --ink-muted:rgba(245,248,255,0.62);
+    --ink-faint:rgba(245,248,255,0.36);
+    --scale:0.7;
+    --pad:128px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{
+    width:100%;height:100%;
+    background:var(--bg);
+    overflow:hidden;
+    font-family:'Inter',sans-serif;
+  }
+  #viewport{
+    position:fixed; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--bg);
+  }
+  #stage{
+    position:relative;
+    width:1920px; height:1080px;
+    transform:scale(var(--scale));
+    transform-origin:center center;
+    flex-shrink:0;
+  }
+  .slide{
+    position:absolute; inset:0;
+    width:1920px; height:1080px;
+    background:var(--bg);
+    color:var(--ink);
+    padding:var(--pad);
+    display:none;
+    flex-direction:column;
+  }
+  .slide.active{ display:flex; }
+
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:22px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--accent); font-weight:500;
+  }
+  .display{ font-family:'Inter Tight',sans-serif; font-weight:700; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+
+  .chip{
+    display:inline-flex; align-items:center; justify-content:center;
+    border-radius:8px; padding:10px 20px;
+    font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:500;
+    letter-spacing:0.04em;
+  }
+  .chip-white{ color:#fff; }
+  .chip-navy{ color:var(--bg); }
+
+  .divider{ width:100%; height:1px; background:rgba(245,248,255,0.14); }
+  .vdivider{ width:1px; background:rgba(245,248,255,0.14); }
+
+  /* corner badges */
+  #badge-left, #badge-right{
+    position:fixed; bottom:28px;
+    font-family:'JetBrains Mono',monospace; font-size:14px;
+    color:rgba(245,248,255,0.5); letter-spacing:0.08em; text-transform:uppercase;
+    z-index:50;
+  }
+  #badge-left{ left:32px; }
+  #badge-right{ right:32px; }
+
+  ::selection{ background:var(--accent); color:var(--bg); }
+</style>
+</head>
+<body>
+
+<div id="viewport">
+  <div id="stage">
+
+    <!-- 1. COVER -->
+    <section class="slide active" data-slide-id="1">
+      <div style="display:flex; flex-direction:column; height:100%; justify-content:space-between;">
+        <div class="eyebrow">Apresentação para o time de marketing</div>
+
+        <div style="display:flex; flex-direction:column; gap:32px;">
+          <svg width="640" height="64" viewBox="0 0 640 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 52 C 90 52, 90 12, 180 12 C 270 12, 270 40, 360 40 C 450 40, 450 8, 540 8 C 580 8, 600 8, 630 8" stroke="#00d4ab" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="0" cy="52" r="6" fill="#7ded8a"/>
+            <circle cx="180" cy="12" r="6" fill="#0082DE"/>
+            <circle cx="360" cy="40" r="6" fill="#05a35c"/>
+            <circle cx="630" cy="8" r="9" fill="#00d4ab"/>
+          </svg>
+          <h1 class="display" style="font-size:160px; line-height:0.98; color:var(--ink); max-width:1500px;">
+            Do formulário<br>à proposta.
+          </h1>
+          <div class="display" style="font-size:48px; color:var(--accent); font-weight:600;">
+            Sequência de nutrição — Leads de Consórcio
+          </div>
+        </div>
+
+        <div style="display:flex; gap:64px; align-items:center;">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div class="mono" style="font-size:18px; color:var(--ink-faint); letter-spacing:0.1em;">E-MAILS</div>
+            <div class="display" style="font-size:64px; color:var(--ink);">06</div>
+          </div>
+          <div class="vdivider" style="height:64px;"></div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div class="mono" style="font-size:18px; color:var(--ink-faint); letter-spacing:0.1em;">DURAÇÃO</div>
+            <div class="display" style="font-size:64px; color:var(--ink);">25 dias</div>
+          </div>
+          <div class="vdivider" style="height:64px;"></div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div class="mono" style="font-size:18px; color:var(--ink-faint); letter-spacing:0.1em;">ORIGEM</div>
+            <div style="font-size:28px; color:var(--ink-muted); padding-top:6px;">LP "Tire seus sonhos do papel"</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. VISÃO GERAL -->
+    <section class="slide" data-slide-id="2">
+      <div class="eyebrow">A régua em números</div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:56px;">
+        <div>
+          <div class="display" style="font-size:120px; color:var(--ink);">6 e-mails <span style="color:var(--accent);">·</span> 25 dias</div>
+          <div style="font-size:36px; color:var(--ink-muted); margin-top:16px; max-width:1300px;">
+            Da simulação na landing page até a proposta enviada por um consultor.
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div style="display:flex; gap:96px;">
+          <div style="flex:1;">
+            <div class="mono" style="font-size:22px; color:var(--accent); letter-spacing:0.08em;">GATILHO</div>
+            <div style="font-size:32px; color:var(--ink); margin-top:14px; line-height:1.35;">
+              Formulário enviado na LP de consórcio — pedido de simulação
+            </div>
+          </div>
+          <div class="vdivider"></div>
+          <div style="flex:1;">
+            <div class="mono" style="font-size:22px; color:var(--accent); letter-spacing:0.08em;">PÚBLICO</div>
+            <div style="font-size:32px; color:var(--ink); margin-top:14px; line-height:1.35;">
+              Leads que simularam, mas ainda não converteram em proposta
+            </div>
+          </div>
+          <div class="vdivider"></div>
+          <div style="flex:1;">
+            <div class="mono" style="font-size:22px; color:var(--accent); letter-spacing:0.08em;">SEGMENTOS</div>
+            <div style="font-size:32px; color:var(--ink); margin-top:14px; line-height:1.35;">
+              Imóvel · Automóvel · Energia solar · Serviços
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. FUNIL -->
+    <section class="slide" data-slide-id="3">
+      <div class="eyebrow">Jornada do consorciado</div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:72px;">
+        <div style="display:flex; align-items:center; gap:0;">
+          <div style="flex:1; text-align:center; padding:28px 8px; border-radius:14px; border:1px solid rgba(245,248,255,0.18);">
+            <div style="font-size:28px; color:var(--ink-faint);">Descoberta</div>
+          </div>
+          <div style="width:48px; height:1px; background:rgba(245,248,255,0.25);"></div>
+          <div style="flex:1.3; text-align:center; padding:36px 8px; border-radius:14px; background:var(--accent);">
+            <div class="display" style="font-size:40px; color:var(--bg);">Consideração</div>
+          </div>
+          <div style="width:48px; height:1px; background:rgba(245,248,255,0.25);"></div>
+          <div style="flex:1; text-align:center; padding:28px 8px; border-radius:14px; border:1px solid rgba(245,248,255,0.18);">
+            <div style="font-size:28px; color:var(--ink-faint);">Decisão</div>
+          </div>
+          <div style="width:48px; height:1px; background:rgba(245,248,255,0.25);"></div>
+          <div style="flex:1; text-align:center; padding:28px 8px; border-radius:14px; border:1px solid rgba(245,248,255,0.18);">
+            <div style="font-size:28px; color:var(--ink-faint);">Onboarding</div>
+          </div>
+          <div style="width:48px; height:1px; background:rgba(245,248,255,0.25);"></div>
+          <div style="flex:1; text-align:center; padding:28px 8px; border-radius:14px; border:1px solid rgba(245,248,255,0.18);">
+            <div style="font-size:28px; color:var(--ink-faint);">Retenção</div>
+          </div>
+        </div>
+        <div class="display" style="font-size:48px; color:var(--ink); max-width:1500px; line-height:1.3;">
+          Esta régua vive entre a simulação e a decisão de fechar — exatamente onde mais leads se perdem.
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. TIMELINE -->
+    <section class="slide" data-slide-id="4">
+      <div class="eyebrow">A régua, em 6 paradas</div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div style="position:relative; height:420px;">
+          <div style="position:absolute; top:64px; left:0; right:0; height:2px; background:rgba(245,248,255,0.18);"></div>
+          <!-- stop 1 -->
+          <div style="position:absolute; left:0%; top:0; width:300px; display:flex; flex-direction:column; align-items:flex-start; gap:24px;">
+            <div style="width:22px; height:22px; border-radius:50%; background:#004f94; margin-left:54px; box-shadow:0 0 0 6px var(--bg);"></div>
+            <div class="mono" style="font-size:22px; color:var(--ink-faint);">DIA 0</div>
+            <div style="font-size:30px; color:var(--ink); line-height:1.3;">Confirmação<br>da simulação</div>
+          </div>
+          <!-- stop 2 -->
+          <div style="position:absolute; left:17%; top:0; width:300px; display:flex; flex-direction:column; align-items:flex-start; gap:24px;">
+            <div style="width:22px; height:22px; border-radius:50%; background:#0082DE; margin-left:54px; box-shadow:0 0 0 6px var(--bg);"></div>
+            <div class="mono" style="font-size:22px; color:var(--ink-faint);">DIA 2</div>
+            <div style="font-size:30px; color:var(--ink); line-height:1.3;">Quebra de<br>objeção nº1</div>
+          </div>
+          <!-- stop 3 -->
+          <div style="position:absolute; left:34%; top:0; width:300px; display:flex; flex-direction:column; align-items:flex-start; gap:24px;">
+            <div style="width:22px; height:22px; border-radius:50%; background:#7ded8a; margin-left:54px; box-shadow:0 0 0 6px var(--bg);"></div>
+            <div class="mono" style="font-size:22px; color:var(--ink-faint);">DIA 5</div>
+            <div style="font-size:30px; color:var(--ink); line-height:1.3;">Autoridade &<br>prova social</div>
+          </div>
+          <!-- stop 4 -->
+          <div style="position:absolute; left:51%; top:0; width:300px; display:flex; flex-direction:column; align-items:flex-start; gap:24px;">
+            <div style="width:22px; height:22px; border-radius:50%; background:#05a35c; margin-left:54px; box-shadow:0 0 0 6px var(--bg);"></div>
+            <div class="mono" style="font-size:22px; color:var(--ink-faint);">DIA 10</div>
+            <div style="font-size:30px; color:var(--ink); line-height:1.3;">Comparativo<br>com financiamento</div>
+          </div>
+          <!-- stop 5 -->
+          <div style="position:absolute; left:68%; top:0; width:300px; display:flex; flex-direction:column; align-items:flex-start; gap:24px;">
+            <div style="width:22px; height:22px; border-radius:50%; background:#007378; margin-left:54px; box-shadow:0 0 0 6px var(--bg);"></div>
+            <div class="mono" style="font-size:22px; color:var(--ink-faint);">DIA 15</div>
+            <div style="font-size:30px; color:var(--ink); line-height:1.3;">Últimas<br>objeções</div>
+          </div>
+          <!-- stop 6 -->
+          <div style="position:absolute; left:85%; top:0; width:300px; display:flex; flex-direction:column; align-items:flex-start; gap:24px;">
+            <div style="width:26px; height:26px; border-radius:50%; background:#00d4ab; margin-left:52px; box-shadow:0 0 0 6px var(--bg);"></div>
+            <div class="mono" style="font-size:22px; color:var(--accent);">DIA 22–25</div>
+            <div style="font-size:30px; color:var(--ink); line-height:1.3; font-weight:600;">Urgência real<br>+ última chance</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. EMAIL 1 -->
+    <section class="slide" data-slide-id="5">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">A jornada em 6 e-mails</div>
+        <span class="chip chip-white" style="background:#004f94;">E-MAIL 1 / 6</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:48px;">
+        <div class="display" style="font-size:120px; color:#004f94;">DIA 0</div>
+        <div class="display" style="font-size:64px; color:var(--ink); max-width:1500px; line-height:1.25;">
+          "Sua simulação de consórcio já está pronta"
+        </div>
+        <div style="font-size:32px; color:var(--ink-muted); max-width:1300px; line-height:1.45;">
+          Confirma o recebimento, entrega valor imediato e prepara o lead para o contato do consultor.
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div class="mono" style="font-size:20px; color:var(--ink-faint);">PREVIEW TEXT</div>
+          <div style="font-size:26px; color:var(--ink-muted); margin-top:8px;">O próximo passo é simples — e gratuito.</div>
+        </div>
+        <span class="chip chip-white" style="background:#004f94; font-size:26px;">CTA → Falar com um consultor agora</span>
+      </div>
+    </section>
+
+    <!-- 6. EMAIL 2 -->
+    <section class="slide" data-slide-id="6">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">A jornada em 6 e-mails</div>
+        <span class="chip chip-white" style="background:#0082DE;">E-MAIL 2 / 6</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:48px;">
+        <div class="display" style="font-size:120px; color:#0082DE;">DIA 2</div>
+        <div class="display" style="font-size:64px; color:var(--ink); max-width:1500px; line-height:1.25;">
+          "A dúvida nº1 sobre consórcio (e a resposta real)"
+        </div>
+        <div style="font-size:32px; color:var(--ink-muted); max-width:1300px; line-height:1.45;">
+          A contemplação pode acontecer já no primeiro mês — por sorteio ou por lance. Neutraliza a objeção mais comum antes que ela trave a decisão.
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div class="mono" style="font-size:20px; color:var(--ink-faint);">PREVIEW TEXT</div>
+          <div style="font-size:26px; color:var(--ink-muted); margin-top:8px;">A resposta pode te surpreender.</div>
+        </div>
+        <span class="chip chip-white" style="background:#0082DE; font-size:26px;">CTA → Entender as estratégias de lance</span>
+      </div>
+    </section>
+
+    <!-- 7. EMAIL 3 -->
+    <section class="slide" data-slide-id="7">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">A jornada em 6 e-mails</div>
+        <span class="chip chip-navy" style="background:#7ded8a;">E-MAIL 3 / 6</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:48px;">
+        <div class="display" style="font-size:120px; color:#7ded8a;">DIA 5</div>
+        <div class="display" style="font-size:64px; color:var(--ink); max-width:1500px; line-height:1.25;">
+          "As maiores administradoras do Brasil, em um único lugar"
+        </div>
+        <div style="font-size:32px; color:var(--ink-muted); max-width:1300px; line-height:1.45;">
+          Unifisa, Bradesco Seguros, Rodobens e Âncora comparadas por um consultor dedicado — reduz o risco percebido de escolher a administradora errada.
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div class="mono" style="font-size:20px; color:var(--ink-faint);">PREVIEW TEXT</div>
+          <div style="font-size:26px; color:var(--ink-muted); margin-top:8px;">Você não precisa pesquisar uma por uma. A gente já fez isso.</div>
+        </div>
+        <span class="chip chip-navy" style="background:#7ded8a; font-size:26px;">CTA → Ver as melhores condições para o meu perfil</span>
+      </div>
+    </section>
+
+    <!-- 8. EMAIL 4 -->
+    <section class="slide" data-slide-id="8">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">A jornada em 6 e-mails</div>
+        <span class="chip chip-navy" style="background:#05a35c;">E-MAIL 4 / 6</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:48px;">
+        <div class="display" style="font-size:120px; color:#05a35c;">DIA 10</div>
+        <div class="display" style="font-size:64px; color:var(--ink); max-width:1500px; line-height:1.25;">
+          "No financiamento, você paga o mesmo bem duas vezes"
+        </div>
+        <div style="font-size:32px; color:var(--ink-muted); max-width:1300px; line-height:1.45;">
+          O argumento racional mais forte do consórcio: juros que quase dobram o valor total pago. <span style="color:var(--accent);">Pendência: inserir números reais por segmento.</span>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div class="mono" style="font-size:20px; color:var(--ink-faint);">PREVIEW TEXT</div>
+          <div style="font-size:26px; color:var(--ink-muted); margin-top:8px;">Faça a comparação antes de decidir.</div>
+        </div>
+        <span class="chip chip-navy" style="background:#05a35c; font-size:26px;">CTA → Comparar minha simulação com um financiamento</span>
+      </div>
+    </section>
+
+    <!-- 9. EMAIL 5 -->
+    <section class="slide" data-slide-id="9">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">A jornada em 6 e-mails</div>
+        <span class="chip chip-white" style="background:#007378;">E-MAIL 5 / 6</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:48px;">
+        <div class="display" style="font-size:120px; color:#007378;">DIA 15</div>
+        <div class="display" style="font-size:64px; color:var(--ink); max-width:1500px; line-height:1.25;">
+          "Taxa de administração: vale a pena? E se meu nome está sujo?"
+        </div>
+        <div style="font-size:32px; color:var(--ink-muted); max-width:1300px; line-height:1.45;">
+          Resolve as duas últimas objeções sem prometer elegibilidade — direciona análise individual para o consultor.
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div class="mono" style="font-size:20px; color:var(--ink-faint);">PREVIEW TEXT</div>
+          <div style="font-size:26px; color:var(--ink-muted); margin-top:8px;">Sem letra pequena, sem enrolação.</div>
+        </div>
+        <span class="chip chip-white" style="background:#007378; font-size:26px;">CTA → Tirar minhas dúvidas com um consultor</span>
+      </div>
+    </section>
+
+    <!-- 10. EMAIL 6 -->
+    <section class="slide" data-slide-id="10">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">A jornada em 6 e-mails</div>
+        <span class="chip chip-navy" style="background:#00d4ab;">E-MAIL 6 / 6</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:48px;">
+        <div class="display" style="font-size:120px; color:#00d4ab;">DIA 22–25</div>
+        <div class="display" style="font-size:64px; color:var(--ink); max-width:1500px; line-height:1.25;">
+          "Taxa reduzida termina em breve"
+        </div>
+        <div style="font-size:32px; color:var(--ink-muted); max-width:1300px; line-height:1.45;">
+          Urgência real, aproveitando a promoção vigente da LP — não inventada. <span style="color:var(--accent);">Confirmar vigência antes de disparar.</span>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div class="mono" style="font-size:20px; color:var(--ink-faint);">PREVIEW TEXT</div>
+          <div style="font-size:26px; color:var(--ink-muted); margin-top:8px;">Não deixe o planejamento parar por falta de um empurrão.</div>
+        </div>
+        <span class="chip chip-navy" style="background:#00d4ab; font-size:26px;">CTA → Falar com um consultor agora</span>
+      </div>
+    </section>
+
+    <!-- 11. LÓGICA DE SAÍDA -->
+    <section class="slide" data-slide-id="11">
+      <div class="eyebrow">Quando o lead sai da régua</div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:0;">
+
+        <div style="display:flex; align-items:center; padding:36px 0; border-bottom:1px solid rgba(245,248,255,0.14);">
+          <div style="width:18px; height:18px; border-radius:50%; background:var(--accent); margin-right:40px; flex-shrink:0;"></div>
+          <div style="font-size:34px; color:var(--ink); flex:1;">Agendou conversa ou pediu proposta</div>
+          <svg width="40" height="24" viewBox="0 0 40 24" style="margin:0 32px; flex-shrink:0;"><path d="M0 12H36M36 12L26 2M36 12L26 22" stroke="rgba(245,248,255,0.4)" stroke-width="2" fill="none"/></svg>
+          <div style="font-size:34px; color:var(--ink-muted); flex:1.2;">Sai da régua → fluxo comercial (Decisão)</div>
+        </div>
+
+        <div style="display:flex; align-items:center; padding:36px 0; border-bottom:1px solid rgba(245,248,255,0.14);">
+          <div style="width:18px; height:18px; border-radius:50%; background:#0082DE; margin-right:40px; flex-shrink:0;"></div>
+          <div style="font-size:34px; color:var(--ink); flex:1;">Clicou em 2+ e-mails sem converter</div>
+          <svg width="40" height="24" viewBox="0 0 40 24" style="margin:0 32px; flex-shrink:0;"><path d="M0 12H36M36 12L26 2M36 12L26 22" stroke="rgba(245,248,255,0.4)" stroke-width="2" fill="none"/></svg>
+          <div style="font-size:34px; color:var(--ink-muted); flex:1.2;">Tag "engajado" → prioriza contato do consultor</div>
+        </div>
+
+        <div style="display:flex; align-items:center; padding:36px 0; border-bottom:1px solid rgba(245,248,255,0.14);">
+          <div style="width:18px; height:18px; border-radius:50%; background:#007378; margin-right:40px; flex-shrink:0;"></div>
+          <div style="font-size:34px; color:var(--ink); flex:1;">Sem abertura/clique após o e-mail 6</div>
+          <svg width="40" height="24" viewBox="0 0 40 24" style="margin:0 32px; flex-shrink:0;"><path d="M0 12H36M36 12L26 2M36 12L26 22" stroke="rgba(245,248,255,0.4)" stroke-width="2" fill="none"/></svg>
+          <div style="font-size:34px; color:var(--ink-muted); flex:1.2;">Move para régua de reengajamento</div>
+        </div>
+
+        <div style="display:flex; align-items:center; padding:36px 0;">
+          <div style="width:18px; height:18px; border-radius:50%; background:rgba(245,248,255,0.4); margin-right:40px; flex-shrink:0;"></div>
+          <div style="font-size:34px; color:var(--ink); flex:1;">Pediu para não receber mais</div>
+          <svg width="40" height="24" viewBox="0 0 40 24" style="margin:0 32px; flex-shrink:0;"><path d="M0 12H36M36 12L26 2M36 12L26 22" stroke="rgba(245,248,255,0.4)" stroke-width="2" fill="none"/></svg>
+          <div style="font-size:34px; color:var(--ink-muted); flex:1.2;">Remove da régua imediatamente</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 12. COMPLIANCE -->
+    <section class="slide" data-slide-id="12">
+      <div class="eyebrow">Antes de ativar</div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:44px;">
+
+        <div style="display:flex; align-items:flex-start; gap:36px;">
+          <svg width="44" height="44" viewBox="0 0 44 44" style="flex-shrink:0;"><circle cx="22" cy="22" r="22" fill="var(--accent)"/><path d="M13 23l6 6 12-14" stroke="#003894" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div style="font-size:38px; color:var(--ink); padding-top:2px;">Nenhum e-mail promete data garantida de contemplação</div>
+        </div>
+
+        <div style="display:flex; align-items:flex-start; gap:36px;">
+          <svg width="44" height="44" viewBox="0 0 44 44" style="flex-shrink:0;"><circle cx="22" cy="22" r="22" fill="var(--accent)"/><path d="M13 23l6 6 12-14" stroke="#003894" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div style="font-size:38px; color:var(--ink); padding-top:2px;">"Taxa de administração" nunca é chamada de juro</div>
+        </div>
+
+        <div style="display:flex; align-items:flex-start; gap:36px;">
+          <svg width="44" height="44" viewBox="0 0 44 44" style="flex-shrink:0;"><circle cx="22" cy="22" r="22" fill="var(--accent)"/><path d="M13 23l6 6 12-14" stroke="#003894" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div style="font-size:38px; color:var(--ink); padding-top:2px;">Urgência do e-mail 6 é factual — confirmar vigência antes de enviar</div>
+        </div>
+
+        <div style="display:flex; align-items:flex-start; gap:36px;">
+          <svg width="44" height="44" viewBox="0 0 44 44" style="flex-shrink:0;"><circle cx="22" cy="22" r="22" fill="var(--accent)"/><path d="M13 23l6 6 12-14" stroke="#003894" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div style="font-size:38px; color:var(--ink); padding-top:2px;">"Nome sujo" não tem resposta afirmativa — direciona para análise individual</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 13. PRÓXIMOS PASSOS -->
+    <section class="slide" data-slide-id="13">
+      <div class="eyebrow">Próximos passos</div>
+      <div style="flex:1; display:flex; align-items:center; gap:80px;">
+
+        <div style="flex:1; display:flex; flex-direction:column; gap:28px;">
+          <div class="display" style="font-size:88px; color:var(--accent);">01</div>
+          <div style="font-size:38px; color:var(--ink); font-weight:600; line-height:1.3;">Segmentar por bem desejado</div>
+          <div style="font-size:28px; color:var(--ink-muted); line-height:1.45;">Imóvel, carro, energia solar ou serviços — se o formulário capturar isso, dá pra duplicar a régua com exemplos específicos.</div>
+        </div>
+
+        <div class="vdivider" style="align-self:stretch;"></div>
+
+        <div style="flex:1; display:flex; flex-direction:column; gap:28px;">
+          <div class="display" style="font-size:88px; color:var(--accent);">02</div>
+          <div style="font-size:38px; color:var(--ink); font-weight:600; line-height:1.3;">Conectar ao WhatsApp</div>
+          <div style="font-size:28px; color:var(--ink-muted); line-height:1.45;">Comercial usa o script de primeiro contato em paralelo ao e-mail 1 — consórcio converte bem em multicanal.</div>
+        </div>
+
+        <div class="vdivider" style="align-self:stretch;"></div>
+
+        <div style="flex:1; display:flex; flex-direction:column; gap:28px;">
+          <div class="display" style="font-size:88px; color:var(--accent);">03</div>
+          <div style="font-size:38px; color:var(--ink); font-weight:600; line-height:1.3;">Preencher números reais</div>
+          <div style="font-size:28px; color:var(--ink-muted); line-height:1.45;">O e-mail 4 precisa de dados reais de simulação por segmento — é o argumento mais forte da régua.</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 14. ENCERRAMENTO -->
+    <section class="slide" data-slide-id="14">
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:48px;">
+        <div class="display" style="font-size:120px; color:var(--ink); line-height:1.08; max-width:1600px;">
+          Da simulação <span style="color:var(--accent);">à proposta</span> — sem perder o lead pelo caminho.
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:28px; color:var(--ink-muted);">Próxima reunião: validar dados reais e confirmar a vigência da promoção.</div>
+        <div class="mono" style="font-size:20px; color:var(--ink-faint);">RÉGUA DE CONSÓRCIO · ALPER SEGUROS</div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div id="badge-left">Régua de Consórcio · Alper</div>
+<div id="badge-right" class="mono"><span id="counter">01/14</span></div>
+
+<script>
+  const TOTAL = 14;
+  let current = 1;
+
+  function resize(){
+    const sx = window.innerWidth / 1920;
+    const sy = window.innerHeight / 1080;
+    const s = Math.min(sx, sy) * 0.96;
+    document.documentElement.style.setProperty('--scale', s);
+  }
+
+  function showSlide(n){
+    if(n < 1 || n > TOTAL) return;
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    const el = document.querySelector('.slide[data-slide-id="' + n + '"]');
+    if(el) el.classList.add('active');
+    current = n;
+    document.getElementById('counter').textContent = String(n).padStart(2,'0') + '/' + String(TOTAL).padStart(2,'0');
+    history.replaceState(null, '', '#' + n);
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){ showSlide(current + 1); }
+    else if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ showSlide(current - 1); }
+  });
+
+  document.getElementById('viewport').addEventListener('click', (e) => {
+    const half = window.innerWidth / 2;
+    if(e.clientX > half) showSlide(current + 1);
+    else showSlide(current - 1);
+  });
+
+  window.addEventListener('hashchange', () => {
+    const n = parseInt(location.hash.replace('#','')) || 1;
+    showSlide(n);
+  });
+
+  window.addEventListener('resize', resize);
+  resize();
+  const initial = parseInt(location.hash.replace('#','')) || 1;
+  showSlide(initial);
+</script>
+
+</body>
+</html>

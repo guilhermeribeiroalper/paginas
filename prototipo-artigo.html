@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O que é saúde suplementar? | Alper Seguros</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #004f94;
+      --blue-dark: #0044CC;
+      --accent-blue: #0082DE;
+      --blue-light: #E8EEFF;
+      --green: #7DED8A;
+      --white: #ffffff;
+      --bg: #F8F9FB;
+      --border: #E6E8EC;
+      --text: #1A1B1E;
+      --text-muted: #6B6F76;
+      --text-light: #9CA0A8;
+    }
+
+    @font-face {
+      font-family: 'Pluto';
+      src: url('/wp-content/themes/alperseguros-2024/fonts/PlutoRegular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Pluto';
+      src: url('/wp-content/themes/alperseguros-2024/fonts/PlutoBold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+
+    h1, h2, h3 { font-family: 'Pluto', sans-serif; line-height: 1.1; color: var(--text); letter-spacing: -0.3px; }
+    h1 { font-weight: 500; }
+    h2, h3 { font-weight: 400; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px;
+      border-radius: 8px; font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: 14px; border: none; cursor: pointer; text-decoration: none;
+      transition: all 0.3s; min-height: 48px; letter-spacing: 0.1px;
+    }
+    .btn-primary { background: var(--accent-blue); color: var(--white); }
+    .btn-primary:hover { background: var(--green); color: var(--blue); }
+    .btn-sm { padding: 10px 24px; min-height: 40px; font-size: 13px; }
+
+    /* ── HEADER ── */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 0; transition: all 0.3s;
+      border-bottom: 1px solid var(--border);
+    }
+    .header.scrolled { background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); padding: 12px 0; }
+    .header.scrolled .nav a { color: var(--text); }
+    .header.scrolled .nav a:hover { color: var(--blue); }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1100px; margin: 0 auto; padding: 0 32px;
+    }
+    .logo { font-family: 'Pluto', sans-serif; font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+    .logo span { color: var(--blue); }
+    .nav { display: flex; align-items: center; gap: 28px; }
+    .nav-item { position: relative; }
+    .nav-link {
+      font-family: 'Pluto', sans-serif;
+      font-size: 15px; font-weight: 500;
+      transition: color 0.2s; color: var(--text);
+      display: flex; align-items: center; gap: 5px;
+      cursor: pointer; text-decoration: none;
+    }
+    .nav-link:hover { color: var(--blue); }
+    .nav-link .chevron { transition: transform 0.25s ease; flex-shrink: 0; }
+    .has-dropdown.is-open > .nav-link .chevron,
+    .has-dropdown:hover > .nav-link .chevron { transform: rotate(180deg); }
+
+    /* ── MEGA DROPDOWN ── */
+    .mega-dropdown {
+      position: absolute; top: calc(100% + 16px); left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      width: 900px; background: var(--white);
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--blue);
+      opacity: 0; visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      z-index: 200;
+    }
+    .mega-dropdown::before {
+      content: ''; position: absolute; top: -12px; left: 0; right: 0; height: 12px;
+    }
+    .has-dropdown:hover > .mega-dropdown,
+    .has-dropdown.is-open > .mega-dropdown {
+      opacity: 1; visibility: visible;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+    .mega-dropdown-inner {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 40px; padding: 32px;
+    }
+    .mega-col-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      color: var(--text-muted); margin-bottom: 12px;
+    }
+    .mega-col a {
+      display: block; font-family: 'Montserrat', sans-serif;
+      font-size: 14px; font-weight: 400; color: var(--text);
+      padding: 6px 0; transition: color 0.15s, padding-left 0.15s;
+      text-decoration: none;
+    }
+    .mega-col a:hover { color: var(--blue); padding-left: 4px; }
+    .mega-dropdown-footer {
+      border-top: 1px solid var(--border);
+      padding: 16px 32px;
+    }
+    .mega-dropdown-footer a {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px; font-weight: 600; color: var(--blue);
+      text-decoration: none; transition: opacity 0.15s;
+    }
+    .mega-dropdown-footer a:hover { opacity: 0.7; }
+
+    .header.scrolled .nav-link { color: var(--text); }
+    .header.scrolled .nav-link:hover { color: var(--blue); }
+
+    /* ── HAMBURGER ── */
+    .menu-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      width: 36px; height: 36px; position: relative; z-index: 300;
+    }
+    .menu-toggle span {
+      display: block; width: 22px; height: 2px; background: var(--text);
+      border-radius: 2px; transition: all 0.3s; position: absolute; left: 7px;
+    }
+    .menu-toggle span:nth-child(1) { top: 10px; }
+    .menu-toggle span:nth-child(2) { top: 17px; }
+    .menu-toggle span:nth-child(3) { top: 24px; }
+    .menu-toggle.active span:nth-child(1) { top: 17px; transform: rotate(45deg); }
+    .menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .menu-toggle.active span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+    }
+
+    /* ── ARTICLE HEADER ── */
+    .article-header {
+      padding: 140px 0 48px;
+      background: var(--white);
+    }
+    .article-header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+    .breadcrumb a {
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .breadcrumb a:hover { color: var(--blue); }
+    .breadcrumb-sep {
+      color: var(--text-light);
+    }
+    .breadcrumb-current {
+      color: var(--blue);
+      font-weight: 600;
+    }
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+    .article-title {
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.15;
+      margin-bottom: 16px;
+      /* max-width: 800px; */
+    }
+    .article-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      /* max-width: 700px; */
+      margin-bottom: 32px;
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+    .article-meta-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .article-meta-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--blue);
+      font-size: 14px;
+    }
+    .article-meta-name {
+      font-weight: 600;
+      color: var(--text);
+    }
+    .article-meta-sep {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--text-light);
+    }
+
+    /* ── ARTICLE HERO IMAGE ── */
+    .article-hero {
+      max-width: 1100px;
+      margin: 0 auto 56px;
+      padding: 0 48px;
+    }
+    .article-hero-img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      border-radius: 16px;
+      display: block;
+    }
+
+    /* ── ARTICLE GRID ── */
+    .article-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px 120px;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* ── ARTICLE CONTENT ── */
+    .article-content {
+      width: 100%;
+    }
+    .article-content h2 {
+      font-size: clamp(24px, 2.5vw, 32px);
+      margin: 56px 0 24px;
+      color: var(--text);
+    }
+    .article-content h2:first-child { margin-top: 0; }
+    .article-content h3 {
+      font-size: 20px;
+      margin: 8px 0 16px;
+      color: var(--text);
+    }
+    .article-content p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .article-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content ul, .article-content ol {
+      margin: 0 0 24px 24px;
+    }
+    .article-content li {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .article-content img {
+      width: 100%;
+      border-radius: 12px;
+      margin: 40px 0;
+      display: block;
+    }
+    .article-content blockquote {
+      border-left: 3px solid var(--blue);
+      padding: 24px 32px;
+      margin: 40px 0;
+      background: var(--bg);
+      border-radius: 0 12px 12px 0;
+    }
+    .article-content blockquote p {
+      font-size: 18px;
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 0;
+    }
+
+    /* ── CTA INLINE ── */
+    .cta-inline {
+      background: var(--blue);
+      border-radius: 16px;
+      padding: 40px 36px;
+      margin: 48px 0;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .cta-inline-icon {
+      width: 56px;
+      height: 56px;
+      min-width: 56px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cta-inline-icon svg {
+      width: 28px;
+      height: 28px;
+      color: var(--white);
+    }
+    .cta-inline-text h3 {
+      font-size: 18px;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .cta-inline-text p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 0 !important;
+    }
+    .cta-inline-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 24px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 100px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      transition: all 0.3s;
+      white-space: nowrap;
+      margin-left: auto;
+    }
+    .cta-inline-btn:hover {
+      background: var(--white);
+      color: var(--blue);
+      border-color: var(--white);
+    }
+
+    /* ── SIDEBAR ── */
+    .article-sidebar {
+      position: sticky;
+      top: 100px;
+    }
+    .toc {
+      margin-bottom: 48px;
+    }
+    .toc-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-left: 2px solid var(--border);
+    }
+    .toc-list li { margin: 0; }
+    .toc-list a {
+      display: block;
+      padding: 10px 0 10px 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      transition: all 0.2s;
+      margin-left: -2px;
+      border-left: 2px solid transparent;
+    }
+    .toc-list a:hover {
+      color: var(--blue);
+    }
+    .toc-list a.active {
+      color: var(--blue);
+      font-weight: 600;
+      border-left-color: var(--blue);
+    }
+
+    /* ── SHARE ── */
+    .share-box {
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .share-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+    .share-links {
+      display: flex;
+      gap: 12px;
+    }
+    .share-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .share-link:hover {
+      border-color: var(--blue);
+      background: var(--blue-light);
+    }
+    .share-link svg {
+      width: 18px;
+      height: 18px;
+      color: var(--text-muted);
+    }
+    .share-link:hover svg { color: var(--blue); }
+
+    /* ── CTA BOX (FINAL) ── */
+    .cta-box-section {
+      padding: 0 0 120px;
+      background: var(--white);
+    }
+    .cta-box {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--blue);
+      border-radius: 24px;
+      overflow: hidden;
+      min-height: 380px;
+    }
+    .cta-box-content {
+      padding: 64px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .cta-box-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cta-box-icon svg {
+      width: 28px;
+      height: 28px;
+      color: var(--white);
+    }
+    .cta-box-content h2 {
+      font-size: clamp(24px, 2.5vw, 32px);
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .cta-box-content p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.75);
+      /* max-width: 440px; */
+    }
+    .cta-box-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 16px 32px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 100px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      transition: all 0.3s;
+      margin-top: 8px;
+    }
+    .cta-box-btn:hover {
+      background: var(--white);
+      color: var(--blue);
+      border-color: var(--white);
+    }
+    .cta-box-pattern {
+      background:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 8px,
+          rgba(255, 255, 255, 0.06) 8px,
+          rgba(255, 255, 255, 0.06) 10px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 8px,
+          rgba(255, 255, 255, 0.03) 8px,
+          rgba(255, 255, 255, 0.03) 10px
+        );
+    }
+
+    /* ── RELATED ── */
+    .related {
+      padding: 0 0 120px;
+      background: var(--white);
+    }
+    .related h2 {
+      font-size: clamp(28px, 3.5vw, 42px);
+      margin-bottom: 48px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .related-card {
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s;
+    }
+    .related-card:hover { transform: translateY(-4px); }
+    .related-card-img-wrap {
+      overflow: hidden;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    .related-card-img {
+      width: 100%;
+      aspect-ratio: 5/7;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .related-card:hover .related-card-img { transform: scale(1.05); }
+    .related-card-meta {
+      font-size: 11px; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--text-light); margin-bottom: 8px;
+    }
+    .related-card-meta span { color: var(--blue); }
+    .related-card h3 {
+      font-size: 17px; line-height: 1.35; margin-bottom: 12px;
+    }
+    .related-card-link {
+      font-size: 14px; font-weight: 600; color: var(--blue);
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: auto;
+    }
+    .related-card-link:hover { gap: 10px; }
+    .related-card-link svg { width: 14px; height: 14px; }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: url('https://alper-wp.s3.amazonaws.com/2025/10/vKd2DOcI-CsKuyzds-IMAGEM-DE-FUNDO-1920px-x-221px.avif') no-repeat;
+      padding: 80px 0;
+      /* background-size: cover;
+      background-position: center; */
+    }
+    .newsletter-box {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 48px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+    }
+    .newsletter-text h2 {
+      font-size: clamp(22px, 2.5vw, 28px);
+      margin-bottom: 8px;
+    }
+    .newsletter-text p {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .newsletter-form input {
+      padding: 14px 20px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      width: 280px;
+      transition: border-color 0.2s;
+    }
+    .newsletter-form input:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+    .newsletter-form input::placeholder { color: var(--text-light); }
+    .newsletter-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 12px;
+    }
+    .newsletter-checkbox input {
+      margin-top: 2px;
+      accent-color: var(--blue);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 80px 0 40px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 64px;
+      margin-bottom: 64px;
+    }
+    .footer-col h4 {
+      font-family: 'Pluto', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+    .footer-col a {
+      display: block;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--blue); }
+    .footer-solutions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 48px;
+    }
+    .footer-social {
+      display: flex !important;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-social svg { width: 18px; height: 18px; }
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--blue); }
+    .footer-bot {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-light);
+    }
+
+    /* ── MOBILE TOC DROPDOWN ── */
+    .toc-mobile {
+      display: none;
+      max-width: 1100px;
+      margin: 0 auto 32px;
+      padding: 0 48px;
+    }
+    .toc-mobile-toggle {
+      width: 100%;
+      padding: 16px 20px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+    .toc-mobile-toggle:hover { border-color: var(--blue); }
+    .toc-mobile-toggle svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s;
+    }
+    .toc-mobile-toggle.open svg { transform: rotate(180deg); }
+    .toc-mobile-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: none;
+    }
+    .toc-mobile-list.open { display: block; }
+    .toc-mobile-list a {
+      display: block;
+      padding: 14px 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .toc-mobile-list a:last-child { border-bottom: none; }
+    .toc-mobile-list a:hover {
+      background: var(--bg);
+      color: var(--blue);
+    }
+
+    /* ── AUTHOR BOX ── */
+    .author-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      padding: 32px;
+      background: var(--bg);
+      border-radius: 16px;
+      margin-top: 56px;
+    }
+    .author-box-avatar {
+      width: 64px;
+      height: 64px;
+      min-width: 64px;
+      border-radius: 50%;
+      background: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--white);
+      font-size: 20px;
+      font-family: 'Pluto', sans-serif;
+    }
+    .author-box-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .author-box-name {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    .author-box-bio {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (min-width: 1400px) {
+      .container { max-width: 1640px; }
+      .article-header-inner, .article-hero, .article-grid, .toc-mobile { max-width: 1640px; }
+    }
+    @media (max-width: 1024px) {
+      .article-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .article-sidebar {
+        display: none;
+      }
+      .toc-mobile {
+        display: block;
+      }
+      .article-content {
+        max-width: 100%;
+      }
+      .cta-box {
+        grid-template-columns: 1fr;
+      }
+      .cta-box-pattern {
+        display: none;
+      }
+      .cta-inline {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+      }
+      .cta-inline-btn {
+        margin-left: 0;
+      }
+      .related-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .nav { display: none; flex-direction: column; align-items: stretch; gap: 0; width: 100%; }
+      .nav.nav-open { display: flex; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); padding: 0 24px 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); z-index: 150; }
+      .nav-item { border-bottom: 1px solid var(--border); }
+      .nav-link { justify-content: space-between; padding: 14px 0; color: var(--text) !important; }
+      .mega-dropdown {
+        position: static; transform: none; width: 100%;
+        box-shadow: none; border: none; border-radius: 0;
+        border-top: none; max-height: 0; overflow: hidden;
+        transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.25s;
+        opacity: 0; padding: 0 32px;
+      }
+      .has-dropdown.is-open > .mega-dropdown {
+        max-height: 600px; opacity: 1; padding: 0 32px 16px;
+      }
+      .mega-dropdown-inner { grid-template-columns: 1fr; gap: 20px; padding: 16px 0; }
+      .mega-dropdown-footer { padding: 12px 0 0; }
+      .article-header-inner, .article-hero, .article-grid, .toc-mobile {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .article-meta {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .article-hero-img {
+        height: 280px;
+      }
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+      .newsletter-box {
+        flex-direction: column;
+        text-align: center;
+        padding: 32px;
+      }
+      .newsletter-form {
+        flex-direction: column;
+        width: 100%;
+      }
+      .newsletter-form input {
+        width: 100%;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .footer-bot {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="prototipo-home.html" class="logo"><img src="https://alper-wp.s3.amazonaws.com/2025/09/wBnqAmp6-ImageToStl.com_Logo-Alper-Alta-Performance-em-Seguros-PNG-1-1536x684-1.avif" height="60"></a>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav">
+        <div class="nav-item has-dropdown">
+          <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">
+            Para Empresas
+            <svg class="chevron" width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <div class="mega-dropdown" role="menu">
+            <div class="mega-dropdown-inner">
+              <div class="mega-col">
+                <h4 class="mega-col-title">Garantias e Contratos</h4>
+                <a href="prototipo-solucao.html" role="menuitem">Seguro Garantia Contratual</a>
+                <a href="#" role="menuitem">Garantia Judicial</a>
+              </div>
+              <div class="mega-col">
+                <h4 class="mega-col-title">Responsabilidade Civil</h4>
+                <a href="#" role="menuitem">RC Geral</a>
+                <a href="#" role="menuitem">RC Profissional (E&amp;O)</a>
+                <a href="#" role="menuitem">D&amp;O (Diretores e Administradores)</a>
+              </div>
+              <div class="mega-col">
+                <h4 class="mega-col-title">Riscos Operacionais</h4>
+                <a href="#" role="menuitem">Seguro Cibernético</a>
+                <a href="#" role="menuitem">Seguro de Transportes</a>
+                <a href="#" role="menuitem">Seguro de Engenharia</a>
+                <a href="#" role="menuitem">Seguro Empresarial (Incêndio/Patrimonial)</a>
+              </div>
+              <div class="mega-col">
+                <h4 class="mega-col-title">Benefícios Corporativos</h4>
+                <a href="#" role="menuitem">Plano de Saúde Empresarial</a>
+                <a href="#" role="menuitem">Seguro de Vida em Grupo</a>
+              </div>
+            </div>
+            <div class="mega-dropdown-footer">
+              <a href="#">Ver todas as soluções para empresas →</a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item has-dropdown">
+          <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">
+            Para Pessoas
+            <svg class="chevron" width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <div class="mega-dropdown" role="menu">
+            <div class="mega-dropdown-inner">
+              <div class="mega-col">
+                <h4 class="mega-col-title">Proteção Pessoal</h4>
+                <a href="#" role="menuitem">Seguro de Vida</a>
+                <a href="#" role="menuitem">Previdência Privada</a>
+              </div>
+              <div class="mega-col">
+                <h4 class="mega-col-title">Proteção Patrimonial</h4>
+                <a href="#" role="menuitem">Seguro Auto</a>
+                <a href="#" role="menuitem">Seguro Residencial</a>
+              </div>
+              <div class="mega-col">
+                <h4 class="mega-col-title">Saúde e Bem-estar</h4>
+                <a href="#" role="menuitem">Plano de Saúde</a>
+                <a href="#" role="menuitem">Plano Odontológico</a>
+                <a href="#" role="menuitem">Consórcio</a>
+              </div>
+            </div>
+            <div class="mega-dropdown-footer">
+              <a href="#">Ver todas as soluções para pessoas →</a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item"><a href="prototipo-sobre.html" class="nav-link">Sobre a Alper</a></div>
+        <div class="nav-item"><a href="prototipo-artigo.html" class="nav-link">Blog</a></div>
+        <a href="#" class="btn btn-primary btn-sm" style="color: white">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ARTICLE HEADER -->
+  <section class="article-header">
+    <div class="article-header-inner">
+      <nav class="breadcrumb">
+        <a href="prototipo-home.html">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="#">Blog</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Benefícios</span>
+      </nav>
+      <h1 class="article-title">O que é saúde suplementar? Entenda como funciona e qual seu papel</h1>
+      <p class="article-subtitle">Saiba como o plano de saúde complementar se encaixa na vida de pessoas e empresas, e por que ele é uma das decisões financeiras mais estratégicas nos dias de hoje.</p>
+      <div class="article-meta">
+        <div class="article-meta-author">
+          <div class="article-meta-avatar">RC</div>
+          <div>
+            <div class="article-meta-name">Renato Cavalcante</div>
+          </div>
+        </div>
+        <div class="article-meta-sep"></div>
+        <span>25 de jun. de 2026</span>
+        <div class="article-meta-sep"></div>
+        <span>8 min de leitura</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLE HERO IMAGE -->
+  <div class="article-hero">
+    <img src="https://alper-wp.s3.amazonaws.com/2026/05/o-que-e-saude-suplementar-1-scaled.jpg" alt="Saúde suplementar" class="article-hero-img">
+  </div>
+
+  <!-- MOBILE TOC -->
+  <div class="toc-mobile">
+    <button class="toc-mobile-toggle" id="tocToggle">
+      Sumário
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <ul class="toc-mobile-list" id="tocMobileList">
+      <li><a href="#o-que-e">O que é saúde suplementar?</a></li>
+      <li><a href="#como-funciona">Como funciona na prática?</a></li>
+      <li><a href="#tipos">Tipos de planos</a></li>
+      <li><a href="#empresas">Saúde suplementar nas empresas</a></li>
+      <li><a href="#vantagens">Vantagens reais</a></li>
+      <li><a href="#conclusao">Conclusão</a></li>
+    </ul>
+  </div>
+
+  <!-- ARTICLE GRID -->
+  <div class="article-grid">
+
+    <!-- CONTENT -->
+    <article class="article-content">
+      <h2 id="o-que-e">O que é saúde suplementar?</h2>
+      <p>A saúde suplementar, também conhecida como plano de saúde privado, é um serviço oferecido por operadoras que complementa o Sistema Único de Saúde (SUS). Seu objetivo é garantir acesso mais rápido e eficiente a consultas, exames, internações e procedimentos médicos.</p>
+      <p>Diferente do SUS, que é universal e gratuito, a saúde suplementar funciona mediante o pagamento de uma mensalidade. Essa contribuição dá direito ao beneficiário a uma rede de prestadores de serviços de saúde previamente contratados.</p>
+      <p>Vale destacar que <strong>a saúde suplementar não substitui o SUS</strong>. Ela funciona como um complemento, oferecendo alternativas para quem busca mais agilidade e conforto no atendimento médico.</p>
+
+      <h2 id="como-funciona">Como funciona na prática?</h2>
+      <p>O funcionamento é baseado em três pilares: a <strong>operadora</strong> (empresa que gerencia o plano), o <strong>beneficiário</strong> (pessoa ou empresa contratante) e a <strong>rede credenciada</strong> (hospitais, clínicas e profissionais de saúde).</p>
+      <p>Ao contratar um plano, o beneficiário paga uma mensalidade definida pelo tipo de cobertura, idade e região. Em troca, tem acesso a uma rede de atendimento sem custo adicional na hora da consulta — embora alguns procedimentos possam exigir coparticipação.</p>
+
+      <blockquote>
+        <p>"A saúde suplementar não substitui o SUS — ele complementa. E essa complementação é o que faz a diferença na hora de um diagnóstico precoce ou de uma emergência."</p>
+      </blockquote>
+
+      <h2 id="tipos">Tipos de planos de saúde</h2>
+      <p>Existem diferentes formatos de planos, cada um atendendo a uma necessidade específica:</p>
+      <ul>
+        <li><strong>Individual ou familiar:</strong> Contratado diretamente pela pessoa ou pela família.</li>
+        <li><strong>Empresarial:</strong> Oferecido pela empresa aos colaboradores como benefício.</li>
+        <li><strong>Coletivo por adesão:</strong> Para grupos como sindicatos ou entidades de classe.</li>
+        <li><strong>Odontológico:</strong> Focado exclusivamente em procedimentos dentários.</li>
+      </ul>
+      <p>A escolha ideal depende do perfil do beneficiário — seja ele uma pessoa física ou uma empresa que quer proteger seu time.</p>
+
+      <!-- CTA INLINE -->
+      <div class="cta-inline">
+        <div class="cta-inline-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="cta-inline-text">
+          <h3>Precisa de um plano para sua empresa?</h3>
+          <p>Um especialista Alper pode estruturar a melhor cobertura para o seu time.</p>
+        </div>
+        <a href="#" class="cta-inline-btn">Falar com especialista</a>
+      </div>
+
+      <h2 id="empresas">Saúde suplementar nas empresas</h2>
+      <p>Oferecer plano de saúde é uma das estratégias mais eficazes para <strong>atrair e reter talentos</strong>. Nas empresas, o plano de saúde se tornou um diferencial competitivo — e em muitos setores, uma exigência do mercado.</p>
+      <p>Além disso, empresas que investem em benefícios de saúde reportam queda no absenteeism, maior engajamento e redução de custos com afastamentos médicos.</p>
+
+      <h3>Como a Alper ajuda</h3>
+      <p>A Alper atua como corretora especializada, negociando as melhores condições junto às operadoras e acompanha a gestão do plano ao longo do contrato — desde a adesão até a renovação.</p>
+
+      <h2 id="vantagens">Vantagens reais da saúde suplementar</h2>
+      <p>Os benefícios vão além do acesso a consultas:</p>
+      <ul>
+        <li>Redução do tempo de espera por consultas e exames</li>
+        <li>Acesso a procedimentos eletivos sem fila do SUS</li>
+        <li>Cobertura para internações e cirurgias</li>
+        <li>Atendimento personalizado e segunda opinião médica</li>
+        <li>Para empresas: benefício tributário e retenção de colaboradores</li>
+      </ul>
+
+      <h2 id="conclusao">Conclusão</h2>
+      <p>A saúde suplementar é uma ferramenta estratégica tanto para pessoas quanto para empresas. Entender como funciona, quais são os tipos de plano e como ele se encaixa na sua realidade é o primeiro passo para tomar uma decisão informada.</p>
+      <p>Se você está avaliando opções para sua empresa ou para sua família, fale com um especialista Alper. Nós ajudamos a encontrar a cobertura ideal — sem complexidade e com foco no que realmente importa: proteger quem importa.</p>
+
+      <!-- AUTHOR BOX -->
+      <div class="author-box">
+        <div class="author-box-avatar">RC</div>
+        <div class="author-box-info">
+          <span class="author-box-label">Escrito por</span>
+          <h4 class="author-box-name">Renato Cavalcante</h4>
+          <p class="author-box-bio">Diretor comercial da Alper Seguros. Especialista em benefícios corporativos e saúde suplementar há mais de 15 anos.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- SIDEBAR -->
+    <aside class="article-sidebar">
+      <div class="toc">
+        <div class="toc-title">Sumário</div>
+        <ul class="toc-list" id="tocList">
+          <li><a href="#o-que-e" class="active">O que é saúde suplementar?</a></li>
+          <li><a href="#como-funciona">Como funciona na prática?</a></li>
+          <li><a href="#tipos">Tipos de planos</a></li>
+          <li><a href="#empresas">Saúde suplementar nas empresas</a></li>
+          <li><a href="#vantagens">Vantagens reais</a></li>
+          <li><a href="#conclusao">Conclusão</a></li>
+        </ul>
+      </div>
+      <div class="share-box">
+        <div class="share-title">Compartilhar</div>
+        <div class="share-links">
+          <a href="#" class="share-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" class="share-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
+          </a>
+          <a href="#" class="share-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          </a>
+          <a href="#" class="share-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- CTA FINAL -->
+  <section class="cta-box-section">
+    <div class="container cta-box">
+      <div class="cta-box-content">
+        <div class="cta-box-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h2>Pronto para conversar sobre o seu risco?</h2>
+        <p>Seja para estruturar a cobertura de uma empresa em crescimento ou para entender o que realmente protege a sua família, um especialista Alper está disponível para ouvir o seu caso.</p>
+        <a href="#" class="cta-box-btn">Falar com um especialista</a>
+      </div>
+      <div class="cta-box-pattern"></div>
+    </div>
+  </section>
+
+  <!-- RELATED -->
+  <section class="related">
+    <div class="container">
+      <h2>Artigos relacionados</h2>
+      <div class="related-grid">
+        <a href="#" class="related-card">
+          <div class="related-card-img-wrap">
+            <img src="https://alper-wp.s3.amazonaws.com/2026/05/mitigacao-de-riscos-financeiros-2-scaled.jpg" alt="Riscos financeiros" class="related-card-img">
+          </div>
+          <div class="related-card-meta"><span>Riscos Corporativos</span> · Mais recentes</div>
+          <h3>Mitigação de riscos financeiros: o que é, como funciona e por que é essencial</h3>
+          <span class="related-card-link">Continue Lendo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
+        <a href="#" class="related-card">
+          <div class="related-card-img-wrap">
+            <img src="https://alper-wp.s3.amazonaws.com/2026/05/revisar-beneficios-corporativos-scaled.jpg" alt="Benefícios corporativos" class="related-card-img">
+          </div>
+          <div class="related-card-meta"><span>Benefícios</span> · Mais recentes</div>
+          <h3>Quando revisar benefícios corporativos? Sinais, impactos e estratégias</h3>
+          <span class="related-card-link">Continue Lendo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
+        <a href="#" class="related-card">
+          <div class="related-card-img-wrap">
+            <img src="https://alper-wp.s3.amazonaws.com/2026/05/o-que-e-licitacao-scaled.jpg" alt="Licitações" class="related-card-img">
+          </div>
+          <div class="related-card-meta"><span>Garantia</span> · Mais recentes</div>
+          <h3>O que é licitação e como funciona: guia prático para empresas</h3>
+          <span class="related-card-link">Continue Lendo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
+        <a href="#" class="related-card">
+          <div class="related-card-img-wrap">
+            <img src="https://alper-wp.s3.amazonaws.com/2026/05/o-que-e-saude-suplementar-3-scaled.jpg" alt="Saúde suplementar" class="related-card-img">
+          </div>
+          <div class="related-card-meta"><span>Benefícios</span> · Mais recentes</div>
+          <h3>O que é saúde suplementar? Entenda como funciona e qual seu papel</h3>
+          <span class="related-card-link">Continue Lendo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <div class="container">
+      <div class="newsletter-box">
+        <div class="newsletter-text">
+          <h2>Assine nossa Newsletter!</h2>
+          <p>Notícias do setor e as últimas novidades da Alper em primeira mão para você:</p>
+        </div>
+        <div>
+          <div class="newsletter-form">
+            <input type="text" placeholder="Nome">
+            <input type="email" placeholder="E-mail">
+            <a href="#" class="btn btn-primary">Assinar</a>
+          </div>
+          <label class="newsletter-checkbox">
+            <input type="checkbox">
+            Li e aceito a Política de Privacidade e os Termos de Uso.
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-col-solutions">
+          <h4>Nossas soluções</h4>
+          <div class="footer-solutions-grid">
+            <div class="footer-solutions-col">
+              <a href="#">Alper Agro</a>
+              <a href="#">Alper Cargo</a>
+              <a href="#">Auto</a>
+              <a href="#">Benefícios Corporativos – Saúde</a>
+              <a href="#">Cyber Risks</a>
+              <a href="#">Consórcios</a>
+              <a href="#">Dr. Alper</a>
+            </div>
+            <div class="footer-solutions-col">
+              <a href="#">Linhas Financeiras</a>
+              <a href="#">Massificados</a>
+              <a href="#">PME Saúde</a>
+              <a href="#">Resseguros</a>
+              <a href="#">Riscos Corporativos</a>
+              <a href="#">Seguros Pessoais</a>
+              <a href="#">Specialty</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>AlperTech</h4>
+          <a href="#">Sobre a AlperTech</a>
+          <a href="#">VC+Seguro</a>
+          <a href="#">AlperTech Startups</a>
+          <a href="#">AlperAgro Tech</a>
+        </div>
+        <div class="footer-col">
+          <h4>Siga-nos</h4>
+          <a href="#" class="footer-social">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Instagram
+          </a>
+          <a href="#" class="footer-social">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            Linkedin
+          </a>
+          <a href="#" class="footer-social">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Facebook
+          </a>
+          <a href="#" class="footer-social">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+            Youtube
+          </a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="prototipo-home.html">Home</a>
+        <a href="prototipo-solucao.html">Página de Solução</a>
+        <a href="prototipo-sobre.html">Sobre a Alper</a>
+        <a href="#">Canal de Denúncia</a>
+        <a href="#">Documentos Institucionais</a>
+        <a href="#">Debêntures</a>
+        <a href="#">Carreiras</a>
+      </div>
+      <div class="footer-bot">
+        <span>Alper Seguros S.A. — Todos os direitos reservados</span>
+        <span>CNPJ: 04.189.220/0001-00</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Mega menu dropdown
+    (function() {
+      const dropdowns = document.querySelectorAll('.has-dropdown');
+      let closeTimeout = null;
+
+      function closeAll(except) {
+        dropdowns.forEach(d => { if (d !== except) d.classList.remove('is-open'); });
+      }
+
+      dropdowns.forEach(dd => {
+        const link = dd.querySelector('.nav-link');
+
+        dd.addEventListener('mouseenter', () => {
+          if (window.innerWidth < 768) return;
+          clearTimeout(closeTimeout);
+          closeAll(dd);
+          dd.classList.add('is-open');
+          link.setAttribute('aria-expanded', 'true');
+        });
+        dd.addEventListener('mouseleave', () => {
+          if (window.innerWidth < 768) return;
+          closeTimeout = setTimeout(() => {
+            dd.classList.remove('is-open');
+            link.setAttribute('aria-expanded', 'false');
+          }, 200);
+        });
+
+        link.addEventListener('click', (e) => {
+          if (window.innerWidth >= 768) return;
+          e.preventDefault();
+          const isOpen = dd.classList.contains('is-open');
+          closeAll();
+          dd.classList.toggle('is-open', !isOpen);
+          link.setAttribute('aria-expanded', String(!isOpen));
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeAll();
+          dropdowns.forEach(d => d.querySelector('.nav-link')?.setAttribute('aria-expanded', 'false'));
+        }
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.has-dropdown')) {
+          closeAll();
+          dropdowns.forEach(d => d.querySelector('.nav-link')?.setAttribute('aria-expanded', 'false'));
+        }
+      });
+
+      // Mobile hamburger toggle
+      const toggle = document.querySelector('.menu-toggle');
+      const nav = document.querySelector('.nav');
+      if (toggle && nav) {
+        toggle.addEventListener('click', () => {
+          const open = toggle.classList.toggle('active');
+          nav.classList.toggle('nav-open', open);
+          toggle.setAttribute('aria-expanded', String(open));
+          if (!open) {
+            closeAll();
+            dropdowns.forEach(d => d.querySelector('.nav-link')?.setAttribute('aria-expanded', 'false'));
+          }
+        });
+        nav.querySelectorAll(':scope > .nav-item > .nav-link, :scope > a').forEach(a => {
+          a.addEventListener('click', () => {
+            toggle.classList.remove('active');
+            nav.classList.remove('nav-open');
+            toggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+    })();
+
+    // TOC scroll spy
+    const tocLinks = document.querySelectorAll('.toc-list a');
+    const sections = document.querySelectorAll('.article-content h2[id]');
+
+    function updateToc() {
+      let current = '';
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 150) current = section.id;
+      });
+      tocLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      });
+    }
+    window.addEventListener('scroll', updateToc);
+
+    // Mobile TOC toggle
+    const tocToggle = document.getElementById('tocToggle');
+    const tocMobileList = document.getElementById('tocMobileList');
+    tocToggle.addEventListener('click', () => {
+      tocToggle.classList.toggle('open');
+      tocMobileList.classList.toggle('open');
+    });
+
+    // Close mobile TOC on link click
+    document.querySelectorAll('.toc-mobile-list a').forEach(link => {
+      link.addEventListener('click', () => {
+        tocToggle.classList.remove('open');
+        tocMobileList.classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>

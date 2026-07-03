@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Boas Práticas — LP & Email · Alper Seguros</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#003894;
+    --panel-blue:#004f94;
+    --panel-sky:#0082DE;
+    --panel-mint:#00d4ab;
+    --panel-green:#05a35c;
+    --panel-teal:#007378;
+    --accent:#7ded8a;
+    --ink:#f5f8ff;
+    --ink-muted:#ffffff;
+    --ink-faint:rgba(245,248,255,0.36);
+    --scale:0.7;
+    --pad:128px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{ width:100%;height:100%; background:var(--bg); overflow:hidden; font-family:'Inter',sans-serif; }
+  #viewport{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:var(--bg); }
+  #stage{ position:relative; width:1920px; height:1080px; transform:scale(var(--scale)); transform-origin:center center; flex-shrink:0; }
+  .slide{ position:absolute; inset:0; width:1920px; height:1080px; background:var(--bg); color:var(--ink); padding:var(--pad); display:none; flex-direction:column; }
+  .slide.active{ display:flex; }
+
+  .eyebrow{ font-family:'JetBrains Mono',monospace; font-size:22px; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); font-weight:500; }
+  .display{ font-family:'Inter Tight',sans-serif; font-weight:700; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+
+  .chip{ display:inline-flex; align-items:center; justify-content:center; border-radius:8px; padding:10px 20px; font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:500; letter-spacing:0.04em; }
+  .chip-white{ color:#fff; }
+  .chip-navy{ color:var(--bg); }
+
+  .divider{ width:100%; height:1px; background:rgba(245,248,255,0.14); }
+  .vdivider{ width:1px; background:rgba(245,248,255,0.14); }
+
+  .meta-label{ font-family:'JetBrains Mono',monospace; font-size:20px; letter-spacing:0.07em; text-transform:uppercase; color:var(--ink-faint); }
+  .meta-value{ font-size:28px; color:var(--ink); margin-top:8px; line-height:1.35; }
+  .meta-value-muted{ font-size:24px; color:var(--ink-muted); margin-top:8px; line-height:1.4; }
+
+  .card{ background:rgba(255,255,255,0.045); border:1px solid rgba(245,248,255,0.12); border-radius:22px; padding:40px 48px; flex:1; display:flex; flex-direction:column; }
+  .card .dots{ display:flex; gap:10px; margin-bottom:24px; }
+  .card .dots span{ width:13px; height:13px; border-radius:50%; display:block; }
+  .card .body-text{ font-size:26px; color:var(--ink); line-height:1.55; }
+  .card .body-text p{ margin-bottom:16px; }
+
+  .tag{ display:inline-flex; align-items:center; gap:6px; border-radius:6px; padding:6px 14px; font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:500; }
+  .tag-green{ background:rgba(5,163,92,0.2); color:var(--panel-green); }
+  .tag-amber{ background:rgba(0,212,171,0.2); color:var(--panel-mint); }
+  .tag-blue{ background:rgba(0,130,222,0.2); color:var(--panel-sky); }
+
+  .bar-track{ width:100%; height:10px; background:rgba(245,248,255,0.1); border-radius:100px; overflow:hidden; }
+  .bar-fill{ height:100%; border-radius:100px; }
+  .bar-fill-green{ background:var(--panel-green); }
+  .bar-fill-sky{ background:var(--panel-sky); }
+  .bar-fill-mint{ background:var(--panel-mint); }
+
+  .cols-2{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  .cols-3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:32px; }
+  .cols-4{ display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:28px; }
+
+  .check-list{ display:flex; flex-direction:column; gap:16px; }
+  .check-item{ display:flex; align-items:flex-start; gap:14px; font-size:24px; color:var(--ink-muted); line-height:1.4; }
+
+  .stat-val{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:64px; color:var(--ink); line-height:1; }
+  .stat-label{ font-size:18px; color:var(--ink-faint); font-family:'JetBrains Mono',monospace; letter-spacing:0.06em; text-transform:uppercase; }
+
+  #badge-left, #badge-right{ position:fixed; bottom:28px; font-family:'JetBrains Mono',monospace; font-size:14px; color:rgba(245,248,255,0.5); letter-spacing:0.08em; text-transform:uppercase; z-index:50; }
+  #badge-left{ left:32px; }
+  #badge-right{ right:32px; }
+
+  ::selection{ background:var(--accent); color:var(--bg); }
+</style>
+</head>
+<body>
+
+<div id="viewport">
+  <div id="stage">
+
+    <!-- 1. COVER -->
+    <section class="slide active" data-slide-id="1">
+      <div style="display:flex; flex-direction:column; height:100%; justify-content:space-between;">
+        <div class="eyebrow">Alper Seguros · Guia de produção digital</div>
+        <div style="display:flex; flex-direction:column; gap:32px;">
+          <svg width="520" height="64" viewBox="0 0 520 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 52 C 70 52, 70 12, 140 12 C 210 12, 210 40, 280 40 C 350 40, 350 8, 420 8 C 460 8, 480 8, 510 8" stroke="#00d4ab" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="0" cy="52" r="6" fill="#7ded8a"/>
+            <circle cx="140" cy="12" r="6" fill="#0082DE"/>
+            <circle cx="280" cy="40" r="6" fill="#05a35c"/>
+            <circle cx="510" cy="8" r="9" fill="#00d4ab"/>
+          </svg>
+          <h1 class="display" style="font-size:160px; line-height:0.98; color:var(--ink); max-width:1500px;">Boas práticas<br>de produção digital.</h1>
+          <div class="display" style="font-size:48px; color:var(--accent); font-weight:600;">Landing Pages · Emails · Performance</div>
+        </div>
+        <div style="display:flex; gap:64px; align-items:center;">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div class="mono" style="font-size:18px; color:var(--ink-faint); letter-spacing:0.1em;">SEÇÕES</div>
+            <div class="display" style="font-size:64px; color:var(--ink);">06</div>
+          </div>
+          <div class="vdivider" style="height:64px;"></div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div class="mono" style="font-size:18px; color:var(--ink-faint); letter-spacing:0.1em;">SLIDES</div>
+            <div class="display" style="font-size:64px; color:var(--ink);">14</div>
+          </div>
+          <div class="vdivider" style="height:64px;"></div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div class="mono" style="font-size:18px; color:var(--ink-faint); letter-spacing:0.1em;">PÚBLICO</div>
+            <div style="font-size:28px; color:var(--ink-muted); padding-top:6px;">CRM · Digital · Criação</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. AGENDA -->
+    <section class="slide" data-slide-id="2">
+      <div class="eyebrow">O que vamos cobrir hoje</div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:48px;">
+        <div class="display" style="font-size:88px; color:var(--ink);">Agenda</div>
+        <div class="cols-2" style="gap:56px; max-width:1600px;">
+          <div class="check-list">
+            <div class="check-item">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="28" height="28" rx="6" fill="var(--accent)"/><path d="M8 14l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><strong style="color:var(--ink);">Dimensões e formatos</strong><br><span>imagens para LP e email</span></span>
+            </div>
+            <div class="check-item">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="28" height="28" rx="6" fill="var(--accent)"/><path d="M8 14l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><strong style="color:var(--ink);">PageSpeed e performance</strong><br><span>o que mede, o que penaliza</span></span>
+            </div>
+            <div class="check-item">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="28" height="28" rx="6" fill="var(--accent)"/><path d="M8 14l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><strong style="color:var(--ink);">Estrutura de LP</strong><br><span>grid, breakpoints, hero, CTA</span></span>
+            </div>
+          </div>
+          <div class="check-list">
+            <div class="check-item">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="28" height="28" rx="6" fill="var(--accent)"/><path d="M8 14l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><strong style="color:var(--ink);">Estrutura de Email</strong><br><span>largura, peso, dark mode</span></span>
+            </div>
+            <div class="check-item">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="28" height="28" rx="6" fill="var(--accent)"/><path d="M8 14l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><strong style="color:var(--ink);">Checklist de entrega</strong><br><span>Criação · Digital · CRM</span></span>
+            </div>
+            <div class="check-item">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="28" height="28" rx="6" fill="var(--accent)"/><path d="M8 14l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><strong style="color:var(--ink);">Erros comuns</strong><br><span>o que já quebrou e como evitar</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SECTION DIVIDER — IMAGENS -->
+    <section class="slide" data-slide-id="3">
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:32px;">
+        <div class="eyebrow">01 — Imagens</div>
+        <div class="display" style="font-size:160px; color:var(--ink); line-height:0.95;">Imagens</div>
+        <div style="font-size:36px; color:var(--ink-muted);">Dimensões · Formatos · Peso de arquivo</div>
+      </div>
+    </section>
+
+    <!-- 4. FORMATOS DE IMAGEM -->
+    <section class="slide" data-slide-id="4">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">01 — Imagens</div>
+        <span class="chip chip-white" style="background:var(--panel-sky);">Formatos</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div class="cols-4">
+          <div class="card" style="border-top:3px solid var(--panel-green);">
+            <span class="tag tag-green">Preferido</span>
+            <div class="display" style="font-size:36px; color:var(--ink); margin-top:12px;">WebP</div>
+            <div style="font-size:22px; color:var(--ink-muted); line-height:1.5; margin-top:8px;">Melhor compressão. Suporte universal em browsers modernos e HubSpot. Use sempre que possível.</div>
+          </div>
+          <div class="card" style="border-top:3px solid var(--panel-mint);">
+            <span class="tag tag-amber">Fotos</span>
+            <div class="display" style="font-size:36px; color:var(--ink); margin-top:12px;">JPG</div>
+            <div style="font-size:22px; color:var(--ink-muted); line-height:1.5; margin-top:8px;">Para fotos complexas. Salvar com qualidade 75–85% já é suficiente.</div>
+          </div>
+          <div class="card" style="border-top:3px solid var(--panel-mint);">
+            <span class="tag tag-amber">Logos / ícones</span>
+            <div class="display" style="font-size:36px; color:var(--ink); margin-top:12px;">PNG</div>
+            <div style="font-size:22px; color:var(--ink-muted); line-height:1.5; margin-top:8px;">Somente com transparência. Nunca use para fotos — o arquivo fica grande demais.</div>
+          </div>
+          <div class="card" style="border-top:3px solid var(--panel-green);">
+            <span class="tag tag-green">Ícones / ilust.</span>
+            <div class="display" style="font-size:36px; color:var(--ink); margin-top:12px;">SVG</div>
+            <div style="font-size:22px; color:var(--ink-muted); line-height:1.5; margin-top:8px;">Vetorial, leve, infinitamente escalável. Ideal para ícones. Não suportado em email.</div>
+          </div>
+        </div>
+        <div style="margin-top:28px; background:rgba(0,130,222,0.1); border:1px solid rgba(0,130,222,0.25); border-radius:12px; padding:20px 28px; display:flex; align-items:center; gap:16px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="var(--accent)"/><path d="M12 8v4m0 4h.01" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
+          <div style="font-size:22px; color:var(--ink-muted);"><strong style="color:var(--ink);">GIF animado em email:</strong> suportado em Gmail e Apple Mail. Outlook renderiza apenas o primeiro frame.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. DIMENSÕES E PESO -->
+    <section class="slide" data-slide-id="5">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">01 — Imagens</div>
+        <span class="chip chip-white" style="background:var(--panel-green);">Dimensões</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div class="display" style="font-size:48px; color:var(--ink); margin-bottom:36px;">Dimensões e peso máximo</div>
+        <div class="cols-2" style="gap:32px;">
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="card" style="flex-direction:row; align-items:center; justify-content:space-between; padding:28px 32px;">
+              <div><div class="display" style="font-size:24px; color:var(--ink);">Hero LP (full-width)</div><div style="font-size:18px; color:var(--ink-faint);">Banner principal</div></div>
+              <div style="text-align:right;"><div class="mono" style="font-size:26px; color:var(--accent); font-weight:600;">1440 × 700 px</div><div style="font-size:16px; color:var(--ink-faint);">máx. 200 KB</div></div>
+            </div>
+            <div class="card" style="flex-direction:row; align-items:center; justify-content:space-between; padding:28px 32px;">
+              <div><div class="display" style="font-size:24px; color:var(--ink);">Imagem de seção LP</div><div style="font-size:18px; color:var(--ink-faint);">Blocos internos</div></div>
+              <div style="text-align:right;"><div class="mono" style="font-size:26px; color:var(--accent); font-weight:600;">800 × 600 px</div><div style="font-size:16px; color:var(--ink-faint);">máx. 100 KB</div></div>
+            </div>
+            <div class="card" style="flex-direction:row; align-items:center; justify-content:space-between; padding:28px 32px;">
+              <div><div class="display" style="font-size:24px; color:var(--ink);">Ícone / thumbnail</div><div style="font-size:18px; color:var(--ink-faint);">Cards, depoimentos</div></div>
+              <div style="text-align:right;"><div class="mono" style="font-size:26px; color:var(--accent); font-weight:600;">200 × 200 px</div><div style="font-size:16px; color:var(--ink-faint);">máx. 20 KB</div></div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="card" style="flex-direction:row; align-items:center; justify-content:space-between; padding:28px 32px;">
+              <div><div class="display" style="font-size:24px; color:var(--ink);">Header de Email</div><div style="font-size:18px; color:var(--ink-faint);">Banner do topo</div></div>
+              <div style="text-align:right;"><div class="mono" style="font-size:26px; color:var(--accent); font-weight:600;">600 × 200 px</div><div style="font-size:16px; color:var(--ink-faint);">máx. 100 KB</div></div>
+            </div>
+            <div class="card" style="flex-direction:row; align-items:center; justify-content:space-between; padding:28px 32px;">
+              <div><div class="display" style="font-size:24px; color:var(--ink);">Imagem interna Email</div><div style="font-size:18px; color:var(--ink-faint);">Corpo do conteúdo</div></div>
+              <div style="text-align:right;"><div class="mono" style="font-size:26px; color:var(--accent); font-weight:600;">600 × 400 px</div><div style="font-size:16px; color:var(--ink-faint);">máx. 80 KB</div></div>
+            </div>
+            <div class="card" style="flex-direction:row; align-items:center; justify-content:space-between; padding:28px 32px; border-color:rgba(0,212,171,0.4);">
+              <div><div class="display" style="font-size:24px; color:var(--panel-mint);">Peso total do email</div><div style="font-size:18px; color:var(--ink-faint);">Soma de todas as imagens</div></div>
+              <div style="text-align:right;"><div class="mono" style="font-size:26px; color:var(--panel-mint); font-weight:600;">máx. 600 KB</div><div style="font-size:16px; color:var(--ink-faint);">acima disso → spam/corte</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. CASO REAL — IMAGEM PESADA -->
+    <section class="slide" data-slide-id="6">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">01 — Imagens</div>
+        <span class="chip chip-white" style="background:var(--panel-mint);">Caso real</span>
+      </div>
+      <div style="flex:1; display:flex; gap:56px; margin-top:48px; min-height:0;">
+        <div style="width:520px; display:flex; flex-direction:column; justify-content:space-between; flex-shrink:0;">
+          <div>
+            <div class="meta-label" style="font-size:18px;">O PROBLEMA</div>
+            <div style="font-size:56px; color:var(--ink); font-weight:700; line-height:1.1; margin-top:12px;">18,7 MB<br>numa só imagem</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:24px;">
+            <div>
+              <div class="meta-label">Origem</div>
+              <div class="meta-value-muted" style="font-size:22px;">Captura de tela (PNG) enviada direto para o servidor sem tratamento</div>
+            </div>
+            <div>
+              <div class="meta-label">Impacto no LCP</div>
+              <div class="meta-value-muted" style="font-size:22px;">Mais de 10 segundos de carregamento — PageSpeed próximo de zero</div>
+            </div>
+            <div>
+              <div class="meta-label">Solução aplicada</div>
+              <div class="meta-value-muted" style="font-size:22px;">Conversão para WebP com compressão 85% → tamanho final de 120 KB</div>
+            </div>
+            <div style="display:flex; gap:16px; align-items:center; margin-top:8px;">
+              <span class="chip chip-navy" style="background:var(--accent); font-size:20px;">18,7 MB → 120 KB</span>
+              <span class="chip chip-white" style="background:var(--panel-teal); font-size:16px;">99,4% menor</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="overflow:hidden; padding:0; border-radius:16px;">
+          <div style="background:rgba(0,212,171,0.1); padding:16px 24px; display:flex; align-items:center; gap:12px; border-bottom:1px solid rgba(245,248,255,0.1);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="var(--panel-mint)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg>
+            <span style="font-size:20px; color:var(--ink-muted);">Imagem original — <strong style="color:var(--panel-mint);">nunca faça isso</strong></span>
+          </div>
+          <img src="https://alper-wp.s3.amazonaws.com/2026/07/VB2QqIJR-Captura-de-tela-2026-07-03-094251.png" alt="Exemplo de imagem de 18,7 MB usada em landing page" style="width:100%; display:block;">
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. SECTION DIVIDER — PAGESPEED -->
+    <section class="slide" data-slide-id="7">
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:32px;">
+        <div class="eyebrow">02 — PageSpeed</div>
+        <div class="display" style="font-size:160px; color:var(--ink); line-height:0.95;">Page<br>Speed</div>
+        <div style="font-size:36px; color:var(--ink-muted);">O que é · O que penaliza · Como resolver</div>
+      </div>
+    </section>
+
+    <!-- 8. PAGESPEED CONTEÚDO -->
+    <section class="slide" data-slide-id="8">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">02 — PageSpeed</div>
+        <span class="chip chip-white" style="background:var(--panel-teal);">Core Web Vitals</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div class="display" style="font-size:48px; color:var(--ink); margin-bottom:36px;">O que o Google mede — e o que mais penaliza</div>
+        <div class="cols-2" style="gap:48px;">
+          <div style="display:flex; flex-direction:column; gap:24px;">
+            <div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                <div style="font-size:22px; color:var(--ink);"><strong>LCP</strong> — Largest Contentful Paint</div>
+                <div class="mono" style="font-size:18px; color:var(--panel-green);">meta: &lt; 2,5s</div>
+              </div>
+              <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:80%;"></div></div>
+              <div style="font-size:18px; color:var(--ink-faint); margin-top:6px;">Tempo até o maior elemento visível carregar. Vilão: imagem hero sem compressão.</div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                <div style="font-size:22px; color:var(--ink);"><strong>INP</strong> — Interaction to Next Paint</div>
+                <div class="mono" style="font-size:18px; color:var(--panel-mint);">meta: &lt; 200ms</div>
+              </div>
+              <div class="bar-track"><div class="bar-fill bar-fill-mint" style="width:65%;"></div></div>
+              <div style="font-size:18px; color:var(--ink-faint); margin-top:6px;">Tempo de resposta ao clique. Impactado por scripts pesados no HubSpot.</div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                <div style="font-size:22px; color:var(--ink);"><strong>CLS</strong> — Cumulative Layout Shift</div>
+                <div class="mono" style="font-size:18px; color:var(--panel-green);">meta: &lt; 0,1</div>
+              </div>
+              <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:70%;"></div></div>
+              <div style="font-size:18px; color:var(--ink-faint); margin-top:6px;">"Pulos" na página. Causado por imagens sem dimensão definida.</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="display" style="font-size:28px; color:var(--ink); margin-bottom:8px;">Principais causas de nota baixa</div>
+            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-mint);">
+              <span class="chip chip-navy" style="background:var(--panel-mint); font-size:14px; padding:4px 10px;">#1</span>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Imagem hero pesada sem WebP ou sem <span class="mono" style="color:var(--ink);">loading="lazy"</span></div>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-mint);">
+              <span class="chip chip-navy" style="background:var(--panel-mint); font-size:14px; padding:4px 10px;">#2</span>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Scripts de terceiros carregando de forma síncrona</div>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-sky);">
+              <span class="chip chip-white" style="background:var(--panel-sky); font-size:14px; padding:4px 10px;">#3</span>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Fontes sem <span class="mono" style="color:var(--ink);">font-display: swap</span> — texto invisível no carregamento</div>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-sky);">
+              <span class="chip chip-white" style="background:var(--panel-sky); font-size:14px; padding:4px 10px;">#4</span>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Vídeos sem poster image — browser tenta carregar o vídeo inteiro na abertura</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. SECTION DIVIDER — LANDING PAGE -->
+    <section class="slide" data-slide-id="9">
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:32px;">
+        <div class="eyebrow">03 — Landing Pages</div>
+        <div class="display" style="font-size:160px; color:var(--ink); line-height:0.95;">Landing<br>Pages</div>
+        <div style="font-size:36px; color:var(--ink-muted);">Estrutura · Largura · Breakpoints · HubSpot</div>
+      </div>
+    </section>
+
+    <!-- 10. ESTRUTURA DE LP -->
+    <section class="slide" data-slide-id="10">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">03 — Landing Pages</div>
+        <span class="chip chip-white" style="background:var(--panel-sky);">Estrutura</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div class="display" style="font-size:48px; color:var(--ink); margin-bottom:36px;">Dimensões e estrutura no HubSpot</div>
+        <div class="cols-2" style="gap:48px;">
+          <div style="display:flex; flex-direction:column; gap:24px;">
+            <div class="card" style="gap:8px;">
+              <div style="font-size:24px; color:var(--ink); font-weight:600;">Largura máxima do conteúdo</div>
+              <div class="display" style="font-size:80px; color:var(--accent);">1200 px</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Centralizado na viewport. Seções full-width podem ocupar 100% com conteúdo interno limitado a 1200 px.</div>
+            </div>
+            <div class="card" style="gap:16px;">
+              <div style="font-size:24px; color:var(--ink); font-weight:600;">Breakpoints responsivos</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+                <div style="background:rgba(245,248,255,0.06); border-radius:8px; padding:16px; text-align:center;">
+                  <div class="mono" style="font-size:20px; color:var(--ink); font-weight:600;">≥ 1024 px</div>
+                  <div style="font-size:16px; color:var(--ink-faint); margin-top:4px;">Desktop</div>
+                </div>
+                <div style="background:rgba(245,248,255,0.06); border-radius:8px; padding:16px; text-align:center;">
+                  <div class="mono" style="font-size:20px; color:var(--ink); font-weight:600;">768–1023</div>
+                  <div style="font-size:16px; color:var(--ink-faint); margin-top:4px;">Tablet</div>
+                </div>
+                <div style="background:var(--accent); border-radius:8px; padding:16px; text-align:center;">
+                  <div class="mono" style="font-size:20px; color:var(--bg); font-weight:600;">≤ 767 px</div>
+                  <div style="font-size:16px; color:var(--bg); margin-top:4px;">Mobile ← foco</div>
+                </div>
+              </div>
+              <div style="font-size:18px; color:var(--ink-faint);">Em nossos conteúdos, 61,7% do tráfego chega via mobile. Design mobile-first.</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div style="font-size:24px; color:var(--ink); font-weight:600; margin-bottom:4px;">Estrutura mínima de uma LP eficaz</div>
+            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-green);">
+              <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">01</span>
+              <div style="font-size:22px; color:var(--ink);"><strong>Hero</strong> — headline, subheadline, CTA primário/formulário</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-green);">
+              <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">02</span>
+              <div style="font-size:22px; color:var(--ink);"><strong>Dor / problema</strong> — o visitante se reconhece</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-green);">
+              <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">03</span>
+              <div style="font-size:22px; color:var(--ink);"><strong>Diferenciais</strong> — o que a Alper faz diferente</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-green);">
+              <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">04</span>
+              <div style="font-size:22px; color:var(--ink);"><strong>Prova social</strong> — números verificáveis</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-green);">
+              <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">05</span>
+              <div style="font-size:22px; color:var(--ink);"><strong>FAQ</strong> — 4 a 6 objeções reais do público</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(255,255,255,0.07); border-radius:10px; border-left:4px solid var(--accent);">
+              <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">06</span>
+              <div style="font-size:22px; color:var(--ink);"><strong style="color:var(--accent);">CTA final</strong> — formulário*/CTA com microcopy de segurança</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. SECTION DIVIDER — EMAIL -->
+    <section class="slide" data-slide-id="11">
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:32px;">
+        <div class="eyebrow">04 — Email</div>
+        <div class="display" style="font-size:160px; color:var(--ink); line-height:0.95;">Email</div>
+        <div style="font-size:36px; color:var(--ink-muted);">Largura · Peso · Texto vs. Imagem · Dark Mode · HubSpot</div>
+      </div>
+    </section>
+
+    <!-- 12. BOAS PRÁTICAS DE EMAIL -->
+    <section class="slide" data-slide-id="12">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">04 — Email</div>
+        <span class="chip chip-white" style="background:var(--panel-blue);">Regras técnicas</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div class="display" style="font-size:48px; color:var(--ink); margin-bottom:36px;">Dimensões, peso e regras técnicas</div>
+        <div class="cols-3" style="gap:28px;">
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <div class="card" style="gap:6px;">
+              <div style="font-size:20px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.06em;">Largura do template</div>
+              <div class="display" style="font-size:72px; color:var(--accent); margin:8px 0;">600 px</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Padrão universal. Abaixo disso fica difícil de ler em desktop. Acima, corta no Outlook.</div>
+            </div>
+            <div class="card" style="gap:6px;">
+              <div style="font-size:20px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.06em;">Peso máximo do HTML</div>
+              <div class="display" style="font-size:72px; color:var(--panel-mint); margin:8px 0;">102 KB</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Limite de código/texto — <strong style="color:var(--ink);">imagens não contam.</strong> Gmail clipa o email acima de 102 KB de HTML, escondendo o conteúdo e o pixel de rastreamento.</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <div class="card" style="border-left:4px solid var(--panel-green); gap:8px;">
+              <div class="display" style="font-size:28px; color:var(--ink);">Texto vs. Imagem</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Proporção recomendada: <strong style="color:var(--ink);">60% texto · 40% imagem.</strong> Emails 100% imagem caem em spam. Todo texto crítico (CTA, oferta) deve existir em HTML, nunca só dentro de imagem.</div>
+            </div>
+            <div class="card" style="gap:8px;">
+              <div style="font-size:20px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.06em;">Alt text</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Todas as imagens precisam de <strong style="color:var(--ink);">alt text descritivo.</strong> Outlook bloqueia imagens por padrão — o alt text é o que o leitor vê primeiro.</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <div class="card" style="border-left:4px solid var(--panel-sky); gap:8px;">
+              <div class="display" style="font-size:28px; color:var(--ink);">Dark Mode</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Apple Mail e Gmail invertem cores automaticamente. Logos com fundo transparente (PNG) podem ficar invisíveis. Use fundo sólido ou versão dark do asset.</div>
+            </div>
+            <div class="card" style="gap:8px;">
+              <div style="font-size:20px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.06em;">Pré-cabeçalho</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Primeiros <strong style="color:var(--ink);">85–100 caracteres</strong> após o assunto. Sempre preencher no HubSpot — nunca deixar vazio.</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:24px; background:rgba(5,163,92,0.08); border:1px solid rgba(5,163,92,0.2); border-radius:12px; padding:24px 32px; display:flex; align-items:flex-start; gap:18px;">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="28" height="28" rx="6" fill="var(--panel-green)"/><path d="M6 14l4 4 12-12" stroke="var(--bg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
+            <div class="mono" style="font-size:18px; color:var(--panel-green); letter-spacing:0.06em;">REGRAS PARA IMAGENS EM EMAIL</div>
+            <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Embora não causem o corte do Gmail, imagens muito pesadas demoram a carregar em redes móveis (3G/4G). Cada imagem isolada deve ter <strong style="color:var(--ink);">no máximo 200 KB</strong>, e o total de imagens combinadas no corpo do e-mail <strong style="color:var(--ink);">não deve passar de 1 MB</strong>.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. ERROS MAIS COMUNS -->
+    <section class="slide" data-slide-id="13">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">05 — Erros comuns</div>
+        <span class="chip chip-white" style="background:var(--panel-teal);">O que quebra</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div class="display" style="font-size:48px; color:var(--ink); margin-bottom:36px;">O que mais quebra na prática</div>
+        <div class="cols-2" style="gap:48px;">
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div class="mono" style="font-size:18px; color:var(--accent); letter-spacing:0.08em; margin-bottom:4px;">LANDING PAGE</div>
+            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Hero com imagem maior que 500 KB sem compressão — derruba LCP</div>
+            </div>
+            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">CTA que abre popup sem aviso — visitante não sabe o que acontece</div>
+            </div>
+            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Textos críticos dentro de imagem — invisíveis em mobile</div>
+            </div>
+            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Imagens sem dimensão definida causando layout shift (CLS alto)</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div class="mono" style="font-size:18px; color:var(--accent); letter-spacing:0.08em; margin-bottom:4px;">EMAIL</div>
+            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Email acima de 102 KB — Gmail clipa e pixel de abertura não dispara</div>
+            </div>
+            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Preheader vazio — HubSpot puxa "Ver no navegador" automaticamente</div>
+            </div>
+            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Logo PNG transparente — fica invisível em dark mode</div>
+            </div>
+            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
+              <div style="font-size:20px; color:var(--accent); line-height:1.45;"><strong>Botão de CTA feito com imagem — não clicável sem carregamento</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. CHECKLIST DE ENTREGA -->
+    <section class="slide" data-slide-id="14">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">06 — Checklist de entrega</div>
+        <span class="chip chip-white" style="background:var(--panel-green);">Verificação</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div class="display" style="font-size:48px; color:var(--ink); margin-bottom:28px;">Quem verifica o quê antes de publicar</div>
+        <div class="cols-3" style="gap:24px;">
+          <div style="display:flex; flex-direction:column; border-radius:16px; overflow:hidden; background:rgba(255,255,255,0.045); border:1px solid rgba(245,248,255,0.12);">
+            <div style="background:var(--panel-blue); padding:20px 24px;">
+              <div class="display" style="font-size:24px; color:var(--ink);">Criação</div>
+              <div style="font-size:16px; color:var(--ink-faint); margin-top:4px;">Entrega estes assets</div>
+            </div>
+            <div style="padding:20px 24px; display:flex; flex-direction:column; gap:12px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Imagens WebP dentro dos limites de peso</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Logo em versão clara e escura (dark mode)</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Alt text definido para cada imagem</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Dimensões dentro dos padrões estabelecidos</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Versão mobile do layout revisada</span></div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; border-radius:16px; overflow:hidden; background:rgba(255,255,255,0.045); border:1px solid rgba(245,248,255,0.12);">
+            <div style="background:var(--panel-teal); padding:20px 24px;">
+              <div class="display" style="font-size:24px; color:var(--ink);">Digital / CRM</div>
+              <div style="font-size:16px; color:var(--ink-faint); margin-top:4px;">Verifica antes de publicar</div>
+            </div>
+            <div style="padding:20px 24px; display:flex; flex-direction:column; gap:12px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">PageSpeed mobile ≥ 70 (Google PSI)</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Preheader do email preenchido</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Peso do email abaixo de 102 KB</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Preview mobile, desktop e dark mode</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Todos os links e UTMs testados</span></div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; border-radius:16px; overflow:hidden; background:rgba(255,255,255,0.045); border:1px solid rgba(245,248,255,0.12);">
+            <div style="background:var(--panel-green); padding:20px 24px;">
+              <div class="display" style="font-size:24px; color:var(--ink);">Ambos</div>
+              <div style="font-size:16px; color:var(--ink-faint); margin-top:4px;">Responsabilidade compartilhada</div>
+            </div>
+            <div style="padding:20px 24px; display:flex; flex-direction:column; gap:12px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Nenhum texto crítico dentro de imagem</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Copy revisada — sem erros de digitação</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Dados verificados antes de publicar</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">LGPD: política de privacidade junto ao formulário</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Aprovação de compliance antes de veicular</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15. ENCERRAMENTO -->
+    <section class="slide" data-slide-id="15">
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:48px;">
+        <div class="display" style="font-size:120px; color:var(--ink); line-height:1.08; max-width:1600px;">A melhor LP é a que<br>carrega rápido, <span style="color:var(--accent);">converte com clareza</span><br>e não quebra no celular.</div>
+        <!-- <div style="font-size:32px; color:var(--ink-muted); line-height:1.5; max-width:800px;">Dúvidas, ajustes ou próximos passos:<br>CRM · Digital · Criação — Alper Seguros</div> -->
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <!-- <div style="font-size:28px; color:var(--ink-muted);">Boas práticas de produção digital · 2026</div>
+        <div class="mono" style="font-size:20px; color:var(--ink-faint);">ALPER SEGUROS</div> -->
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div id="badge-left">Boas Práticas · Alper</div>
+<div id="badge-right" class="mono"><span id="counter">01/15</span></div>
+
+<script>
+  const TOTAL = 15;
+  let current = 1;
+
+  function resize(){
+    const sx = window.innerWidth / 1920;
+    const sy = window.innerHeight / 1080;
+    const s = Math.min(sx, sy) * 0.96;
+    document.documentElement.style.setProperty('--scale', s);
+  }
+
+  function showSlide(n){
+    if(n < 1 || n > TOTAL) return;
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    const el = document.querySelector('.slide[data-slide-id="' + n + '"]');
+    if(el) el.classList.add('active');
+    current = n;
+    document.getElementById('counter').textContent = String(n).padStart(2,'0') + '/' + String(TOTAL).padStart(2,'0');
+    history.replaceState(null, '', '#' + n);
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){ showSlide(current + 1); }
+    else if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ showSlide(current - 1); }
+  });
+
+  window.addEventListener('hashchange', () => {
+    const n = parseInt(location.hash.replace('#','')) || 1;
+    showSlide(n);
+  });
+
+  window.addEventListener('resize', resize);
+  resize();
+  const initial = parseInt(location.hash.replace('#','')) || 1;
+  showSlide(initial);
+</script>
+
+</body>
+</html>

@@ -6,27 +6,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#003894;
+    --bg-start:#002a6e;
+    --bg-mid:#004f94;
+    --bg-end:#003e6b;
     --panel-blue:#004f94;
     --panel-sky:#0082DE;
     --panel-mint:#00d4ab;
     --panel-green:#05a35c;
     --panel-teal:#007378;
     --accent:#7ded8a;
+    --orange:#ff8200;
+    --gray:#787878;
     --ink:#f5f8ff;
     --ink-muted:#ffffff;
     --ink-faint:rgba(245,248,255,0.36);
+    --glass:rgba(255,255,255,0.06);
+    --glass-border:rgba(245,248,255,0.10);
     --scale:0.7;
     --pad:128px;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html,body{ width:100%;height:100%; background:var(--bg); overflow:hidden; font-family:'Inter',sans-serif; }
-  #viewport{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:var(--bg); }
-  #stage{ position:relative; width:1920px; height:1080px; transform:scale(var(--scale)); transform-origin:center center; flex-shrink:0; }
-  .slide{ position:absolute; inset:0; width:1920px; height:1080px; background:var(--bg); color:var(--ink); padding:var(--pad); display:none; flex-direction:column; }
+  html,body{ width:100%;height:100%; background:var(--bg-start); overflow:hidden; font-family:'Inter',sans-serif; }
+  #viewport{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, var(--bg-start) 0%, var(--bg) 30%, var(--bg-mid) 75%, var(--bg-mid) 80%, var(--bg-end) 100%);
+  }
+  #viewport::before{ content:''; position:fixed; inset:0; opacity:0.12;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat:repeat; background-size:256px 256px; pointer-events:none; z-index:1;
+  }
+  #stage{ position:relative; width:1920px; height:1080px; transform:scale(var(--scale)); transform-origin:center center; flex-shrink:0; z-index:2; }
+  .slide{ position:absolute; inset:0; width:1920px; height:1080px;
+    /* background:rgba(0,42,110,0.3); */
+    /* backdrop-filter:blur(2px); */
+    /* -webkit-backdrop-filter:blur(2px); */
+    color:var(--ink); padding:var(--pad); display:none; flex-direction:column;
+  }
   .slide.active{ display:flex; }
 
   .eyebrow{ font-family:'JetBrains Mono',monospace; font-size:22px; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); font-weight:500; }
@@ -44,7 +62,7 @@
   .meta-value{ font-size:28px; color:var(--ink); margin-top:8px; line-height:1.35; }
   .meta-value-muted{ font-size:24px; color:var(--ink-muted); margin-top:8px; line-height:1.4; }
 
-  .card{ background:rgba(255,255,255,0.045); border:1px solid rgba(245,248,255,0.12); border-radius:22px; padding:40px 48px; flex:1; display:flex; flex-direction:column; }
+  .card{ background:var(--glass); border:1px solid var(--glass-border); border-radius:22px; padding:40px 48px; flex:1; display:flex; flex-direction:column; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
   .card .dots{ display:flex; gap:10px; margin-bottom:24px; }
   .card .dots span{ width:13px; height:13px; border-radius:50%; display:block; }
   .card .body-text{ font-size:26px; color:var(--ink); line-height:1.55; }
@@ -54,6 +72,7 @@
   .tag-green{ background:rgba(5,163,92,0.2); color:var(--panel-green); }
   .tag-amber{ background:rgba(0,212,171,0.2); color:var(--panel-mint); }
   .tag-blue{ background:rgba(0,130,222,0.2); color:var(--panel-sky); }
+  .tag-orange{ background:rgba(255,130,0,0.15); color:var(--orange); }
 
   .bar-track{ width:100%; height:10px; background:rgba(245,248,255,0.1); border-radius:100px; overflow:hidden; }
   .bar-fill{ height:100%; border-radius:100px; }
@@ -71,9 +90,10 @@
   .stat-val{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:64px; color:var(--ink); line-height:1; }
   .stat-label{ font-size:18px; color:var(--ink-faint); font-family:'JetBrains Mono',monospace; letter-spacing:0.06em; text-transform:uppercase; }
 
+  #brand-logo{ position:fixed; top:28px; left:288px; z-index:50; height:48px; }
   #badge-left, #badge-right{ position:fixed; bottom:28px; font-family:'JetBrains Mono',monospace; font-size:14px; color:rgba(245,248,255,0.5); letter-spacing:0.08em; text-transform:uppercase; z-index:50; }
-  #badge-left{ left:32px; }
-  #badge-right{ right:32px; }
+  #badge-left{ left:288px; }
+  #badge-right{ right:288px; }
 
   ::selection{ background:var(--accent); color:var(--bg); }
 </style>
@@ -86,7 +106,7 @@
     <!-- 1. COVER -->
     <section class="slide active" data-slide-id="1">
       <div style="display:flex; flex-direction:column; height:100%; justify-content:space-between;">
-        <div class="eyebrow">Alper Seguros · Guia de produção digital</div>
+        <div class="eyebrow">&nbsp;</div>
         <div style="display:flex; flex-direction:column; gap:32px;">
           <svg width="520" height="64" viewBox="0 0 520 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 52 C 70 52, 70 12, 140 12 C 210 12, 210 40, 280 40 C 350 40, 350 8, 420 8 C 460 8, 480 8, 510 8" stroke="#00d4ab" stroke-width="3" stroke-linecap="round"/>
@@ -99,19 +119,11 @@
           <div class="display" style="font-size:48px; color:var(--accent); font-weight:600;">Landing Pages · Emails · Performance</div>
         </div>
         <div style="display:flex; gap:64px; align-items:center;">
-          <div style="display:flex; flex-direction:column; gap:6px;">
-            <div class="mono" style="font-size:18px; color:var(--ink-faint); letter-spacing:0.1em;">SEÇÕES</div>
-            <div class="display" style="font-size:64px; color:var(--ink);">06</div>
-          </div>
+        
           <div class="vdivider" style="height:64px;"></div>
           <div style="display:flex; flex-direction:column; gap:6px;">
-            <div class="mono" style="font-size:18px; color:var(--ink-faint); letter-spacing:0.1em;">SLIDES</div>
-            <div class="display" style="font-size:64px; color:var(--ink);">14</div>
-          </div>
-          <div class="vdivider" style="height:64px;"></div>
-          <div style="display:flex; flex-direction:column; gap:6px;">
-            <div class="mono" style="font-size:18px; color:var(--ink-faint); letter-spacing:0.1em;">PÚBLICO</div>
-            <div style="font-size:28px; color:var(--ink-muted); padding-top:6px;">CRM · Digital · Criação</div>
+            <!-- <div class="mono" style="font-size:18px; color:var(--ink-faint); letter-spacing:0.1em;">PÚBLICO</div> -->
+            <!--  -->
           </div>
         </div>
       </div>
@@ -193,7 +205,7 @@
             <div style="font-size:22px; color:var(--ink-muted); line-height:1.5; margin-top:8px;">Vetorial, leve, infinitamente escalável. Ideal para ícones. Não suportado em email.</div>
           </div>
         </div>
-        <div style="margin-top:28px; background:rgba(0,130,222,0.1); border:1px solid rgba(0,130,222,0.25); border-radius:12px; padding:20px 28px; display:flex; align-items:center; gap:16px;">
+        <div style="margin-top:28px; background:var(--glass); border:1px solid rgba(0,130,222,0.25); border-radius:12px; padding:20px 28px; display:flex; align-items:center; gap:16px; backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="var(--accent)"/><path d="M12 8v4m0 4h.01" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
           <div style="font-size:22px; color:var(--ink-muted);"><strong style="color:var(--ink);">GIF animado em email:</strong> suportado em Gmail e Apple Mail. Outlook renderiza apenas o primeiro frame.</div>
         </div>
@@ -273,7 +285,7 @@
           </div>
         </div>
         <div class="card" style="overflow:hidden; padding:0; border-radius:16px;">
-          <div style="background:rgba(0,212,171,0.1); padding:16px 24px; display:flex; align-items:center; gap:12px; border-bottom:1px solid rgba(245,248,255,0.1);">
+          <div style="background:var(--glass); padding:16px 24px; display:flex; align-items:center; gap:12px; border-bottom:1px solid rgba(245,248,255,0.1); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="var(--panel-mint)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg>
             <span style="font-size:20px; color:var(--ink-muted);">Imagem original — <strong style="color:var(--panel-mint);">nunca faça isso</strong></span>
           </div>
@@ -328,19 +340,19 @@
           </div>
           <div style="display:flex; flex-direction:column; gap:16px;">
             <div class="display" style="font-size:28px; color:var(--ink); margin-bottom:8px;">Principais causas de nota baixa</div>
-            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-mint);">
+            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:var(--glass); border-radius:10px; border-left:4px solid var(--panel-mint); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <span class="chip chip-navy" style="background:var(--panel-mint); font-size:14px; padding:4px 10px;">#1</span>
               <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Imagem hero pesada sem WebP ou sem <span class="mono" style="color:var(--ink);">loading="lazy"</span></div>
             </div>
-            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-mint);">
+            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:var(--glass); border-radius:10px; border-left:4px solid var(--panel-mint); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <span class="chip chip-navy" style="background:var(--panel-mint); font-size:14px; padding:4px 10px;">#2</span>
               <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Scripts de terceiros carregando de forma síncrona</div>
             </div>
-            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-sky);">
+            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:var(--glass); border-radius:10px; border-left:4px solid var(--panel-sky); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <span class="chip chip-white" style="background:var(--panel-sky); font-size:14px; padding:4px 10px;">#3</span>
               <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Fontes sem <span class="mono" style="color:var(--ink);">font-display: swap</span> — texto invisível no carregamento</div>
             </div>
-            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-sky);">
+            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:var(--glass); border-radius:10px; border-left:4px solid var(--panel-sky); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <span class="chip chip-white" style="background:var(--panel-sky); font-size:14px; padding:4px 10px;">#4</span>
               <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Vídeos sem poster image — browser tenta carregar o vídeo inteiro na abertura</div>
             </div>
@@ -394,27 +406,27 @@
           </div>
           <div style="display:flex; flex-direction:column; gap:12px;">
             <div style="font-size:24px; color:var(--ink); font-weight:600; margin-bottom:4px;">Estrutura mínima de uma LP eficaz</div>
-            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-green);">
+            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:var(--glass); border-radius:10px; border-left:4px solid var(--panel-green); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">01</span>
               <div style="font-size:22px; color:var(--ink);"><strong>Hero</strong> — headline, subheadline, CTA primário/formulário</div>
             </div>
-            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-green);">
+            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:var(--glass); border-radius:10px; border-left:4px solid var(--panel-green); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">02</span>
               <div style="font-size:22px; color:var(--ink);"><strong>Dor / problema</strong> — o visitante se reconhece</div>
             </div>
-            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-green);">
+            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:var(--glass); border-radius:10px; border-left:4px solid var(--panel-green); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">03</span>
               <div style="font-size:22px; color:var(--ink);"><strong>Diferenciais</strong> — o que a Alper faz diferente</div>
             </div>
-            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-green);">
+            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:var(--glass); border-radius:10px; border-left:4px solid var(--panel-green); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">04</span>
               <div style="font-size:22px; color:var(--ink);"><strong>Prova social</strong> — números verificáveis</div>
             </div>
-            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(255,255,255,0.045); border-radius:10px; border-left:4px solid var(--panel-green);">
+            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:var(--glass); border-radius:10px; border-left:4px solid var(--panel-green); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">05</span>
               <div style="font-size:22px; color:var(--ink);"><strong>FAQ</strong> — 4 a 6 objeções reais do público</div>
             </div>
-            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(255,255,255,0.07); border-radius:10px; border-left:4px solid var(--accent);">
+            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(125,237,138,0.08); border-radius:10px; border-left:4px solid var(--accent); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">06</span>
               <div style="font-size:22px; color:var(--ink);"><strong style="color:var(--accent);">CTA final</strong> — formulário*/CTA com microcopy de segurança</div>
             </div>
@@ -474,7 +486,7 @@
             </div>
           </div>
         </div>
-        <div style="margin-top:24px; background:rgba(5,163,92,0.08); border:1px solid rgba(5,163,92,0.2); border-radius:12px; padding:24px 32px; display:flex; align-items:flex-start; gap:18px;">
+        <div style="margin-top:24px; background:var(--glass); border:1px solid rgba(5,163,92,0.2); border-radius:12px; padding:24px 32px; display:flex; align-items:flex-start; gap:18px; backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="28" height="28" rx="6" fill="var(--panel-green)"/><path d="M6 14l4 4 12-12" stroke="var(--bg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
             <div class="mono" style="font-size:18px; color:var(--panel-green); letter-spacing:0.06em;">REGRAS PARA IMAGENS EM EMAIL</div>
@@ -495,38 +507,38 @@
         <div class="cols-2" style="gap:48px;">
           <div style="display:flex; flex-direction:column; gap:14px;">
             <div class="mono" style="font-size:18px; color:var(--accent); letter-spacing:0.08em; margin-bottom:4px;">LANDING PAGE</div>
-            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+            <div style="display:flex; gap:14px; padding:18px 22px; background:var(--glass); border:1px solid rgba(0,212,171,0.15); border-radius:10px; backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
               <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Hero com imagem maior que 500 KB sem compressão — derruba LCP</div>
             </div>
-            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+            <div style="display:flex; gap:14px; padding:18px 22px; background:var(--glass); border:1px solid rgba(0,212,171,0.15); border-radius:10px; backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
               <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">CTA que abre popup sem aviso — visitante não sabe o que acontece</div>
             </div>
-            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+            <div style="display:flex; gap:14px; padding:18px 22px; background:var(--glass); border:1px solid rgba(0,212,171,0.15); border-radius:10px; backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
               <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Textos críticos dentro de imagem — invisíveis em mobile</div>
             </div>
-            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+            <div style="display:flex; gap:14px; padding:18px 22px; background:var(--glass); border:1px solid rgba(0,212,171,0.15); border-radius:10px; backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
               <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Imagens sem dimensão definida causando layout shift (CLS alto)</div>
             </div>
           </div>
           <div style="display:flex; flex-direction:column; gap:14px;">
             <div class="mono" style="font-size:18px; color:var(--accent); letter-spacing:0.08em; margin-bottom:4px;">EMAIL</div>
-            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+            <div style="display:flex; gap:14px; padding:18px 22px; background:var(--glass); border:1px solid rgba(0,212,171,0.15); border-radius:10px; backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
               <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Email acima de 102 KB — Gmail clipa e pixel de abertura não dispara</div>
             </div>
-            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+            <div style="display:flex; gap:14px; padding:18px 22px; background:var(--glass); border:1px solid rgba(0,212,171,0.15); border-radius:10px; backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
               <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Preheader vazio — HubSpot puxa "Ver no navegador" automaticamente</div>
             </div>
-            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+            <div style="display:flex; gap:14px; padding:18px 22px; background:var(--glass); border:1px solid rgba(0,212,171,0.15); border-radius:10px; backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
               <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Logo PNG transparente — fica invisível em dark mode</div>
             </div>
-            <div style="display:flex; gap:14px; padding:18px 22px; background:rgba(0,212,171,0.06); border:1px solid rgba(0,212,171,0.15); border-radius:10px;">
+            <div style="display:flex; gap:14px; padding:18px 22px; background:var(--glass); border:1px solid rgba(0,212,171,0.15); border-radius:10px; backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(0,212,171,0.6)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
               <div style="font-size:20px; color:var(--accent); line-height:1.45;"><strong>Botão de CTA feito com imagem — não clicável sem carregamento</strong></div>
             </div>
@@ -544,7 +556,7 @@
       <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
         <div class="display" style="font-size:48px; color:var(--ink); margin-bottom:28px;">Quem verifica o quê antes de publicar</div>
         <div class="cols-3" style="gap:24px;">
-          <div style="display:flex; flex-direction:column; border-radius:16px; overflow:hidden; background:rgba(255,255,255,0.045); border:1px solid rgba(245,248,255,0.12);">
+          <div style="display:flex; flex-direction:column; border-radius:16px; overflow:hidden; background:var(--glass); border:1px solid var(--glass-border); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
             <div style="background:var(--panel-blue); padding:20px 24px;">
               <div class="display" style="font-size:24px; color:var(--ink);">Criação</div>
               <div style="font-size:16px; color:var(--ink-faint); margin-top:4px;">Entrega estes assets</div>
@@ -557,7 +569,7 @@
               <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Versão mobile do layout revisada</span></div>
             </div>
           </div>
-          <div style="display:flex; flex-direction:column; border-radius:16px; overflow:hidden; background:rgba(255,255,255,0.045); border:1px solid rgba(245,248,255,0.12);">
+          <div style="display:flex; flex-direction:column; border-radius:16px; overflow:hidden; background:var(--glass); border:1px solid var(--glass-border); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
             <div style="background:var(--panel-teal); padding:20px 24px;">
               <div class="display" style="font-size:24px; color:var(--ink);">Digital / CRM</div>
               <div style="font-size:16px; color:var(--ink-faint); margin-top:4px;">Verifica antes de publicar</div>
@@ -570,7 +582,7 @@
               <div style="display:flex; gap:10px; align-items:flex-start;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--accent)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg><span style="font-size:18px; color:var(--ink-muted); line-height:1.4;">Todos os links e UTMs testados</span></div>
             </div>
           </div>
-          <div style="display:flex; flex-direction:column; border-radius:16px; overflow:hidden; background:rgba(255,255,255,0.045); border:1px solid rgba(245,248,255,0.12);">
+          <div style="display:flex; flex-direction:column; border-radius:16px; overflow:hidden; background:var(--glass); border:1px solid var(--glass-border); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
             <div style="background:var(--panel-green); padding:20px 24px;">
               <div class="display" style="font-size:24px; color:var(--ink);">Ambos</div>
               <div style="font-size:16px; color:var(--ink-faint); margin-top:4px;">Responsabilidade compartilhada</div>
@@ -594,15 +606,16 @@
         <!-- <div style="font-size:32px; color:var(--ink-muted); line-height:1.5; max-width:800px;">Dúvidas, ajustes ou próximos passos:<br>CRM · Digital · Criação — Alper Seguros</div> -->
       </div>
       <div style="display:flex; justify-content:space-between; align-items:center;">
-        <!-- <div style="font-size:28px; color:var(--ink-muted);">Boas práticas de produção digital · 2026</div>
-        <div class="mono" style="font-size:20px; color:var(--ink-faint);">ALPER SEGUROS</div> -->
+        <div style="font-size:28px; color:var(--ink-muted);">&nbsp;</div>
+        <div class="mono" style="font-size:20px; color:var(--ink-faint);">&nbsp;</div>
       </div>
     </section>
 
   </div>
 </div>
 
-<div id="badge-left">Boas Práticas · Alper</div>
+<img id="brand-logo" src="https://alper-wp.s3.amazonaws.com/2025/10/MDwMDTXL-b61JnEdu-ImageToStl.com_sxMbK2Gs-Logo-Alper.avif" alt="Alper Seguros">
+<div id="badge-left">Alper Seguros · Boas Práticas de Produção Digital · CRM · Digital · Criação</div>
 <div id="badge-right" class="mono"><span id="counter">01/15</span></div>
 
 <script>

@@ -1497,7 +1497,8 @@
           currentList.classList.add('fade-in');
           
           // Animate items staggered
-          currentList.querySelectorAll('.solutions-giant-item').forEach((item, i) => {
+          const items = currentList.querySelectorAll('.solutions-giant-item');
+          items.forEach((item, i) => {
             item.style.opacity = '0';
             item.style.transform = 'translateY(20px)';
             setTimeout(() => {
@@ -1507,9 +1508,16 @@
             }, i * 80);
           });
 
+          // Clear inline styles after stagger so CSS hover works again
+          const totalDelay = (items.length - 1) * 80 + 450;
           setTimeout(() => {
+            items.forEach(item => {
+              item.style.removeProperty('opacity');
+              item.style.removeProperty('transform');
+              item.style.removeProperty('transition');
+            });
             currentList.classList.remove('fade-in');
-          }, 500);
+          }, totalDelay);
         }, 300);
       });
     });

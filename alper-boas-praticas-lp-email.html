@@ -184,22 +184,22 @@
       </div>
       <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
         <div class="cols-4">
-          <div class="card" style="border-top:3px solid var(--panel-green);">
+          <div class="card" style="">
             <span class="tag tag-green">Preferido</span>
             <div class="display" style="font-size:36px; color:var(--ink); margin-top:12px;">WebP</div>
             <div style="font-size:22px; color:var(--ink-muted); line-height:1.5; margin-top:8px;">Melhor compressão. Suporte universal em browsers modernos e HubSpot. Use sempre que possível.</div>
           </div>
-          <div class="card" style="border-top:3px solid var(--panel-mint);">
+          <div class="card" style="">
             <span class="tag tag-amber">Fotos</span>
             <div class="display" style="font-size:36px; color:var(--ink); margin-top:12px;">JPG</div>
             <div style="font-size:22px; color:var(--ink-muted); line-height:1.5; margin-top:8px;">Para fotos complexas. Salvar com qualidade 75–85% já é suficiente.</div>
           </div>
-          <div class="card" style="border-top:3px solid var(--panel-mint);">
+          <div class="card" style="">
             <span class="tag tag-amber">Logos / ícones</span>
             <div class="display" style="font-size:36px; color:var(--ink); margin-top:12px;">PNG</div>
             <div style="font-size:22px; color:var(--ink-muted); line-height:1.5; margin-top:8px;">Somente com transparência. Nunca use para fotos — o arquivo fica grande demais.</div>
           </div>
-          <div class="card" style="border-top:3px solid var(--panel-green);">
+          <div class="card" style="">
             <span class="tag tag-green">Ícones / ilust.</span>
             <div class="display" style="font-size:36px; color:var(--ink); margin-top:12px;">SVG</div>
             <div style="font-size:22px; color:var(--ink-muted); line-height:1.5; margin-top:8px;">Vetorial, leve, infinitamente escalável. Ideal para ícones. Não suportado em email.</div>
@@ -294,67 +294,68 @@
       </div>
     </section>
 
-    <!-- 7. SECTION DIVIDER — PAGESPEED -->
+    <!-- 7. SECTION DIVIDER — PERFORMANCE -->
     <section class="slide" data-slide-id="7">
       <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:32px;">
-        <div class="eyebrow">02 — PageSpeed</div>
-        <div class="display" style="font-size:160px; color:var(--ink); line-height:0.95;">Page<br>Speed</div>
-        <div style="font-size:36px; color:var(--ink-muted);">O que é · O que penaliza · Como resolver</div>
+        <div class="eyebrow">02 — Performance</div>
+        <div class="display" style="font-size:160px; color:var(--ink); line-height:0.95;">Perfor<br>mance</div>
+        <div style="font-size:36px; color:var(--ink-muted);">O que todo criador precisa saber sobre performance</div>
       </div>
     </section>
 
-    <!-- 8. PAGESPEED CONTEÚDO -->
+    <!-- 8. PERFORMANCE PARA CRIADORES -->
     <section class="slide" data-slide-id="8">
       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-        <div class="eyebrow">02 — PageSpeed</div>
-        <span class="chip chip-white" style="background:var(--panel-teal);">Core Web Vitals</span>
+        <div class="eyebrow">02 — Performance</div>
+        <span class="chip chip-white" style="background:var(--panel-teal);">Para criadores</span>
       </div>
       <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
-        <div class="display" style="font-size:48px; color:var(--ink); margin-bottom:36px;">O que o Google mede — e o que mais penaliza</div>
+        <div class="display" style="font-size:48px; color:var(--ink); margin-bottom:36px;">Performance não é só dev — começa na criação</div>
         <div class="cols-2" style="gap:48px;">
-          <div style="display:flex; flex-direction:column; gap:24px;">
-            <div>
-              <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                <div style="font-size:22px; color:var(--ink);"><strong>LCP</strong> — Largest Contentful Paint</div>
-                <div class="mono" style="font-size:18px; color:var(--panel-green);">meta: &lt; 2,5s</div>
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <div class="card" style="gap:6px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="display" style="font-size:26px; color:var(--ink);">Imagens leves = página rápida</div>
+                <span class="chip chip-white" style="background:var(--panel-green); font-size:14px; padding:4px 10px;">Imagens</span>
               </div>
-              <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:80%;"></div></div>
-              <div style="font-size:18px; color:var(--ink-faint); margin-top:6px;">Tempo até o maior elemento visível carregar. Vilão: imagem hero sem compressão.</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">O maior vilão da lentidão é <strong style="color:var(--ink);">imagem pesada</strong>. Uma foto de 5 MB baixada direto do banco de imagens derruba qualquer página. Converter para WebP e comprimir (qualidade 80%) resolve 90% dos casos — e o olho não nota diferença.</div>
             </div>
-            <div>
-              <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                <div style="font-size:22px; color:var(--ink);"><strong>INP</strong> — Interaction to Next Paint</div>
-                <div class="mono" style="font-size:18px; color:var(--panel-mint);">meta: &lt; 200ms</div>
+            <div class="card" style="gap:6px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="display" style="font-size:26px; color:var(--ink);">Menos scripts = menos peso</div>
+                <span class="chip chip-white" style="background:var(--panel-sky); font-size:14px; padding:4px 10px;">Código</span>
               </div>
-              <div class="bar-track"><div class="bar-fill bar-fill-mint" style="width:65%;"></div></div>
-              <div style="font-size:18px; color:var(--ink-faint); margin-top:6px;">Tempo de resposta ao clique. Impactado por scripts pesados no HubSpot.</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Cada ferramenta que a gente coloca na página (RD Station, Google Ads, Hotjar, chatbots) adiciona scripts que competem pelo processamento do celular do visitante. <strong style="color:var(--ink);">Só adicione o necessário.</strong> Se não está usando, tire.</div>
             </div>
-            <div>
-              <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                <div style="font-size:22px; color:var(--ink);"><strong>CLS</strong> — Cumulative Layout Shift</div>
-                <div class="mono" style="font-size:18px; color:var(--panel-green);">meta: &lt; 0,1</div>
+            <div class="card" style="gap:6px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="display" style="font-size:26px; color:var(--ink);">Fontes: menos é mais</div>
+                <span class="chip chip-white" style="background:var(--panel-teal); font-size:14px; padding:4px 10px;">Tipografia</span>
               </div>
-              <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:70%;"></div></div>
-              <div style="font-size:18px; color:var(--ink-faint); margin-top:6px;">"Pulos" na página. Causado por imagens sem dimensão definida.</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Cada peso de fonte (regular, bold, italic) é um arquivo separado que o navegador precisa baixar. Se o design usa apenas <strong style="color:var(--ink);">Regular (400) e Bold (700)</strong>, não carregue Light, ExtraBold, Black. Parece pouco, mas faz diferença em rede 3G.</div>
             </div>
           </div>
-          <div style="display:flex; flex-direction:column; gap:16px;">
-            <div class="display" style="font-size:28px; color:var(--ink); margin-bottom:8px;">Principais causas de nota baixa</div>
-            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:var(--glass); border-radius:10px; border-left:4px solid var(--panel-mint); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
-              <span class="chip chip-navy" style="background:var(--panel-mint); font-size:14px; padding:4px 10px;">#1</span>
-              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Imagem hero pesada sem WebP ou sem <span class="mono" style="color:var(--ink);">loading="lazy"</span></div>
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <div class="card" style="gap:6px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="display" style="font-size:26px; color:var(--ink);">"Pulos" na página (CLS)</div>
+                <span class="chip chip-white" style="background:var(--panel-mint); font-size:14px; padding:4px 10px;">Layout</span>
+              </div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Sabe quando a página carrega e de repente <strong style="color:var(--ink);">o texto pula</strong> porque uma imagem terminou de baixar? Isso acontece quando a imagem não tem largura e altura definidas. <strong style="color:var(--ink);">Sempre defina o tamanho</strong> no HTML ou CSS para o navegador reservar o espaço antes da imagem carregar.</div>
             </div>
-            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:var(--glass); border-radius:10px; border-left:4px solid var(--panel-mint); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
-              <span class="chip chip-navy" style="background:var(--panel-mint); font-size:14px; padding:4px 10px;">#2</span>
-              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Scripts de terceiros carregando de forma síncrona</div>
+            <div class="card" style="gap:6px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="display" style="font-size:26px; color:var(--ink);">Vídeos: poster image salva</div>
+                <span class="chip chip-white" style="background:var(--panel-green); font-size:14px; padding:4px 10px;">Vídeo</span>
+              </div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Se um vídeo está na página sem <strong style="color:var(--ink);">poster</strong> (a imagem de capa), o navegador tenta baixar o vídeo inteiro antes de exibir qualquer coisa. Uma capa de 50 KB resolve — o vídeo só carrega quando o visitante der play.</div>
             </div>
-            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:var(--glass); border-radius:10px; border-left:4px solid var(--panel-sky); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
-              <span class="chip chip-white" style="background:var(--panel-sky); font-size:14px; padding:4px 10px;">#3</span>
-              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Fontes sem <span class="mono" style="color:var(--ink);">font-display: swap</span> — texto invisível no carregamento</div>
-            </div>
-            <div style="display:flex; align-items:flex-start; gap:12px; padding:20px; background:var(--glass); border-radius:10px; border-left:4px solid var(--panel-sky); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
-              <span class="chip chip-white" style="background:var(--panel-sky); font-size:14px; padding:4px 10px;">#4</span>
-              <div style="font-size:20px; color:var(--ink-muted); line-height:1.45;">Vídeos sem poster image — browser tenta carregar o vídeo inteiro na abertura</div>
+            <div class="card" style="gap:6px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="display" style="font-size:26px; color:var(--ink);">Mobile é prioridade</div>
+                <span class="chip chip-white" style="background:var(--accent); font-size:14px; padding:4px 10px; color:var(--bg);">Realidade</span>
+              </div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Mais de <strong style="color:var(--ink);">60% do nosso tráfego</strong> vem de celular. Redes móveis são mais lentas que Wi-Fi. O que carrega em 1s no desktop pode levar 5s no 4G. Sempre olhe o resultado no celular antes de aprovar.</div>
             </div>
           </div>
         </div>
@@ -426,7 +427,7 @@
               <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">05</span>
               <div style="font-size:22px; color:var(--ink);"><strong>FAQ</strong> — 4 a 6 objeções reais do público</div>
             </div>
-            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(125,237,138,0.08); border-radius:10px; border-left:4px solid var(--accent); backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+            <div style="display:flex; align-items:center; gap:14px; padding:18px 24px; background:rgba(125,237,138,0.08); border-radius:10px; backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
               <span class="mono" style="font-size:18px; color:var(--ink-faint); width:28px;">06</span>
               <div style="font-size:22px; color:var(--ink);"><strong style="color:var(--accent);">CTA final</strong> — formulário*/CTA com microcopy de segurança</div>
             </div>
@@ -435,19 +436,211 @@
       </div>
     </section>
 
-    <!-- 11. SECTION DIVIDER — EMAIL -->
+    <!-- 11. SECTION DIVIDER — COPY DE LP -->
     <section class="slide" data-slide-id="11">
       <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:32px;">
-        <div class="eyebrow">04 — Email</div>
+        <div class="eyebrow">04 — Copy de LP</div>
+        <div class="display" style="font-size:160px; color:var(--ink); line-height:0.95;">Copy<br>de LP</div>
+        <div style="font-size:36px; color:var(--ink-muted);">Headline · Estrutura · Tom Alper · Microcopy</div>
+      </div>
+    </section>
+
+    <!-- 12. PRINCÍPIOS DE COPY PARA LP -->
+    <section class="slide" data-slide-id="12">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">04 — Copy de LP</div>
+        <span class="chip chip-white" style="background:var(--panel-mint);">Princípios</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div class="display" style="font-size:48px; color:var(--ink); margin-bottom:36px;">Os 6 pilares da copy que converte</div>
+        <div class="cols-3" style="gap:28px;">
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="card" style="gap:8px;">
+              <div class="display" style="font-size:28px; color:var(--accent);">1. Headline</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">A frase mais importante da página. Deve ser <strong style="color:var(--ink);">clara, específica e focada no benefício</strong> do visitante. Se a headline não prender, o resto não importa.</div>
+              <div style="margin-top:8px; background:rgba(125,237,138,0.1); border-radius:8px; padding:12px 16px; font-size:18px; color:var(--accent); font-style:italic;">"Seguro garantia para sua construtora vencer licitações sem amarrar capital em garantia bancária."</div>
+            </div>
+            <div class="card" style="gap:8px;">
+              <div class="display" style="font-size:28px; color:var(--panel-sky);">2. Subheadline</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Expande a promessa da headline em <strong style="color:var(--ink);">1–2 linhas.</strong> Explica o que o visitante ganha se continuar lendo. Deve gerar curiosidade suficiente para levar ao scroll.</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="card" style="gap:8px;">
+              <div class="display" style="font-size:28px; color:var(--panel-green);">3. Estrutura AIDA</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;"><strong style="color:var(--ink);">A</strong>tenção (headline) → <strong style="color:var(--ink);">I</strong>nteresse (dor + contexto) → <strong style="color:var(--ink);">D</strong>esejo (diferenciais + prova social) → <strong style="color:var(--ink);">A</strong>ção (CTA). Cada seção da LP deve cumprir um desses papéis.</div>
+            </div>
+            <div class="card" style="gap:8px;">
+              <div class="display" style="font-size:28px; color:var(--panel-green);">4. Tom Alper</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;"><strong style="color:var(--ink);">Confiança · Clareza · Solidez.</strong> Evite jargão técnico desnecessário. Use linguagem que o tomador de decisão (diretor financeiro, engenheiro responsável) entenda de primeira. A Alper resolve problemas complexos com comunicação simples.</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="card" style="gap:8px;">
+              <div class="display" style="font-size:28px; color:var(--panel-sky);">5. Microcopy</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Botões, labels de formulário, mensagens de erro e confirmação. <strong style="color:var(--ink);">Nunca use</strong> "Enviar" ou "Clique aqui". Prefira <span class="tag tag-green" style="font-size:16px; padding:4px 10px;">"Solicitar cotação gratuita"</span> ou <span class="tag tag-green" style="font-size:16px; padding:4px 10px;">"Quero proteger minha obra"</span>.</div>
+            </div>
+            <div class="card" style="gap:8px;">
+              <div class="display" style="font-size:28px; color:var(--accent);">6. Especificidade</div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Números convencem mais que adjetivos. Troque "atendimento rápido" por <strong style="color:var(--ink);">"emissão em até 24h úteis"</strong>. Troque "mais de mil clientes" por <strong style="color:var(--ink);">"1.247 construtoras atendidas"</strong>. Especificidade gera credibilidade.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. EXEMPLOS DE COPY BOA VS RUIM -->
+    <section class="slide" data-slide-id="13">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">04 — Copy de LP</div>
+        <span class="chip chip-white" style="background:var(--panel-green);">Exemplos práticos</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div class="display" style="font-size:48px; color:var(--ink); margin-bottom:36px;">Antes e depois — o que funciona</div>
+        <div class="cols-2" style="gap:48px;">
+          <div style="display:flex; flex-direction:column; gap:24px;">
+            <div class="mono" style="font-size:18px; color:var(--panel-mint); letter-spacing:0.08em;">HEADLINE</div>
+            <div style="background:rgba(255,130,0,0.08); border:1px solid rgba(255,130,0,0.25); border-radius:12px; padding:20px 24px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="var(--orange)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg>
+                <div><div style="font-size:14px; color:var(--orange); text-transform:uppercase; letter-spacing:0.06em; font-family:'JetBrains Mono',monospace;">Evite</div>
+                <div style="font-size:22px; color:var(--ink-muted); line-height:1.4; margin-top:4px;">"Conheça nossas soluções em seguro garantia"</div></div>
+              </div>
+            </div>
+            <div style="background:rgba(5,163,92,0.08); border:1px solid rgba(5,163,92,0.25); border-radius:12px; padding:20px 24px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--panel-green)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="3" stroke-linecap="round"/></svg>
+                <div><div style="font-size:14px; color:var(--panel-green); text-transform:uppercase; letter-spacing:0.06em; font-family:'JetBrains Mono',monospace;">Ideal</div>
+                <div style="font-size:22px; color:var(--ink-muted); line-height:1.4; margin-top:4px;">"Emita seu seguro garantia em até 24h e libere seu limite bancário para novos contratos"</div></div>
+              </div>
+            </div>
+            <div class="mono" style="font-size:18px; color:var(--panel-mint); letter-spacing:0.08em;">CTA (BOTÃO)</div>
+            <div style="background:rgba(255,130,0,0.08); border:1px solid rgba(255,130,0,0.25); border-radius:12px; padding:20px 24px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="var(--orange)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg>
+                <div><div style="font-size:14px; color:var(--orange); text-transform:uppercase; letter-spacing:0.06em; font-family:'JetBrains Mono',monospace;">Evite</div>
+                <div style="font-size:22px; color:var(--ink-muted); line-height:1.4; margin-top:4px;">"Enviar" / "Clique aqui" / "Saiba mais"</div></div>
+              </div>
+            </div>
+            <div style="background:rgba(5,163,92,0.08); border:1px solid rgba(5,163,92,0.25); border-radius:12px; padding:20px 24px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--panel-green)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="3" stroke-linecap="round"/></svg>
+                <div><div style="font-size:14px; color:var(--panel-green); text-transform:uppercase; letter-spacing:0.06em; font-family:'JetBrains Mono',monospace;">Ideal</div>
+                <div style="font-size:22px; color:var(--ink-muted); line-height:1.4; margin-top:4px;">"Solicitar cotação gratuita" / "Quero emitir agora" / "Ver condições para minha obra"</div></div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:24px;">
+            <div class="mono" style="font-size:18px; color:var(--panel-mint); letter-spacing:0.08em;">PROVA SOCIAL</div>
+            <div style="background:rgba(255,130,0,0.08); border:1px solid rgba(255,130,0,0.25); border-radius:12px; padding:20px 24px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10" fill="var(--orange)"/><path d="M15 9l-6 6M9 9l6 6" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg>
+                <div><div style="font-size:14px; color:var(--orange); text-transform:uppercase; letter-spacing:0.06em; font-family:'JetBrains Mono',monospace;">Evite</div>
+                <div style="font-size:22px; color:var(--ink-muted); line-height:1.4; margin-top:4px;">"Temos muitos clientes satisfeitos" (genérico, não verificável)</div></div>
+              </div>
+            </div>
+            <div style="background:rgba(5,163,92,0.08); border:1px solid rgba(5,163,92,0.25); border-radius:12px; padding:20px 24px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--panel-green)"/><path d="M6 12l4 4 8-8" stroke="var(--bg)" stroke-width="3" stroke-linecap="round"/></svg>
+                <div><div style="font-size:14px; color:var(--panel-green); text-transform:uppercase; letter-spacing:0.06em; font-family:'JetBrains Mono',monospace;">Ideal</div>
+                <div style="font-size:22px; color:var(--ink-muted); line-height:1.4; margin-top:4px;">"Mais de 1.247 construtoras confiam na Alper · Presença em 18 estados · Nota 4.9 no Reclame Aqui"</div></div>
+              </div>
+            </div>
+            <div class="card" style="border:1px solid rgba(0,212,171,0.3); gap:12px; margin-top:8px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px;"><rect width="24" height="24" rx="6" fill="var(--panel-mint)"/><path d="M12 6v12M6 12h12" stroke="var(--bg)" stroke-width="2.5" stroke-linecap="round"/></svg>
+                <div>
+                  <div class="display" style="font-size:22px; color:var(--panel-mint);">Regra de ouro da copy</div>
+                  <div style="font-size:20px; color:var(--ink-muted); line-height:1.5; margin-top:4px;">Escreva para <strong style="color:var(--ink);">uma única pessoa</strong> que tem um problema específico. Se sua copy tenta falar com todo mundo, ela não fala com ninguém.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. SECTION DIVIDER — SEO -->
+    <section class="slide" data-slide-id="14">
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:32px;">
+        <div class="eyebrow">05 — SEO</div>
+        <div class="display" style="font-size:160px; color:var(--ink); line-height:0.95;">SEO</div>
+        <div style="font-size:36px; color:var(--ink-muted);">O que precisamos saber para o Google amar nossa LP</div>
+      </div>
+    </section>
+
+    <!-- 15. SEO PARA CRIADORES -->
+    <section class="slide" data-slide-id="15">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="eyebrow">05 — SEO</div>
+        <span class="chip chip-white" style="background:var(--panel-sky);">Na prática</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div class="display" style="font-size:48px; color:var(--ink); margin-bottom:36px;">O que fazer em toda página que a gente publica</div>
+        <div class="cols-2" style="gap:48px;">
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <div class="card" style="gap:4px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="display" style="font-size:26px; color:var(--ink);">Alt text nas imagens</div>
+                <span class="chip chip-white" style="background:var(--panel-green); font-size:14px; padding:4px 10px;">Obrigatório</span>
+              </div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">O Google não "enxerga" imagens — ele lê o <strong style="color:var(--ink);">alt text</strong>. Descreva <strong style="color:var(--ink);">o que a imagem mostra</strong> de forma natural: <em style="color:var(--accent);">"Foto da fachada da Construtora XYZ após reforma"</em> em vez de <em style="color:var(--ink-faint);">"imagem1.jpg"</em>. Também ajuda leitores de tela (acessibilidade).</div>
+            </div>
+            <div class="card" style="gap:4px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="display" style="font-size:26px; color:var(--ink);">Títulos e headings (H1, H2, H3)</div>
+                <span class="chip chip-white" style="background:var(--panel-green); font-size:14px; padding:4px 10px;">Estrutura</span>
+              </div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">O título da página (H1) deve ser <strong style="color:var(--ink);">único</strong> e conter a palavra-chave principal. Os subtítulos (H2, H3) organizam o conteúdo em blocos lógicos. Pense como uma revista: título da matéria, depois seções, depois subseções. <strong style="color:var(--ink);">Só um H1 por página.</strong></div>
+            </div>
+            <div class="card" style="gap:4px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="display" style="font-size:26px; color:var(--ink);">URL amigável</div>
+                <span class="chip chip-white" style="background:var(--panel-mint); font-size:14px; padding:4px 10px;">Link</span>
+              </div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">A URL da página deve ser <strong style="color:var(--ink);">curta e descritiva</strong>. Use hífens entre palavras, sem caracteres estranhos.<br><span style="color:var(--panel-green);">✓</span> <span class="mono" style="color:var(--ink);">/seguro-garantia-licitacao</span><br><span style="color:var(--orange);">✗</span> <span class="mono" style="color:var(--ink-faint);">/pagina-8472?utm=abc</span></div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <div class="card" style="gap:4px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="display" style="font-size:26px; color:var(--ink);">Título e descrição da página</div>
+                <span class="chip chip-white" style="background:var(--panel-mint); font-size:14px; padding:4px 10px;">Meta</span>
+              </div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">São o <strong style="color:var(--ink);">"cartão de visitas"</strong> que aparece no Google. O <strong style="color:var(--ink);">título</strong> (title tag) deve ter até 60 caracteres com a palavra principal no início. A <strong style="color:var(--ink);">descrição</strong> (meta description) até 160 caracteres, convidando o clique. Sempre preencher no HubSpot.</div>
+            </div>
+            <div class="card" style="gap:4px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="display" style="font-size:26px; color:var(--ink);">Conteúdo original e relevante</div>
+                <span class="chip chip-white" style="background:var(--panel-sky); font-size:14px; padding:4px 10px;">Copy</span>
+              </div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Google penaliza <strong style="color:var(--ink);">conteúdo copiado</strong> de outros sites. Cada página da Alper deve ter texto original, que realmente ajude o visitante. Nada de "encher linguiça" — texto relevante e bem escrito ganha posição. Páginas com menos de 300 palavras têm dificuldade de rankear.</div>
+            </div>
+            <div class="card" style="gap:4px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="display" style="font-size:26px; color:var(--ink);">Links internos</div>
+                <span class="chip chip-white" style="background:var(--accent); font-size:14px; padding:4px 10px; color:var(--bg);">Navegação</span>
+              </div>
+              <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Sempre que mencionar um produto, benefício ou serviço, <strong style="color:var(--ink);">link para a página correspondente</strong> dentro do site da Alper. Isso ajuda o Google a entender a estrutura do site e mantém o visitante navegando. O texto do link deve ser descritivo: em vez de "clique aqui", use <em style="color:var(--accent);">"saiba mais sobre seguro garantia"</em>.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16. SECTION DIVIDER — EMAIL -->
+    <section class="slide" data-slide-id="16">
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:32px;">
+        <div class="eyebrow">06 — Email</div>
         <div class="display" style="font-size:160px; color:var(--ink); line-height:0.95;">Email</div>
         <div style="font-size:36px; color:var(--ink-muted);">Largura · Peso · Texto vs. Imagem · Dark Mode · HubSpot</div>
       </div>
     </section>
 
-    <!-- 12. BOAS PRÁTICAS DE EMAIL -->
-    <section class="slide" data-slide-id="12">
+    <!-- 17. BOAS PRÁTICAS DE EMAIL -->
+    <section class="slide" data-slide-id="17">
       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-        <div class="eyebrow">04 — Email</div>
+        <div class="eyebrow">06 — Email</div>
         <span class="chip chip-white" style="background:var(--panel-blue);">Regras técnicas</span>
       </div>
       <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
@@ -466,7 +659,7 @@
             </div>
           </div>
           <div style="display:flex; flex-direction:column; gap:20px;">
-            <div class="card" style="border-left:4px solid var(--panel-green); gap:8px;">
+            <div class="card" style="gap:8px;">
               <div class="display" style="font-size:28px; color:var(--ink);">Texto vs. Imagem</div>
               <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Proporção recomendada: <strong style="color:var(--ink);">60% texto · 40% imagem.</strong> Emails 100% imagem caem em spam. Todo texto crítico (CTA, oferta) deve existir em HTML, nunca só dentro de imagem.</div>
             </div>
@@ -476,7 +669,7 @@
             </div>
           </div>
           <div style="display:flex; flex-direction:column; gap:20px;">
-            <div class="card" style="border-left:4px solid var(--panel-sky); gap:8px;">
+            <div class="card" style="gap:8px;">
               <div class="display" style="font-size:28px; color:var(--ink);">Dark Mode</div>
               <div style="font-size:20px; color:var(--ink-muted); line-height:1.5;">Apple Mail e Gmail invertem cores automaticamente. Logos com fundo transparente (PNG) podem ficar invisíveis. Use fundo sólido ou versão dark do asset.</div>
             </div>
@@ -496,10 +689,10 @@
       </div>
     </section>
 
-    <!-- 13. ERROS MAIS COMUNS -->
-    <section class="slide" data-slide-id="13">
+    <!-- 18. ERROS MAIS COMUNS -->
+    <section class="slide" data-slide-id="18">
       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-        <div class="eyebrow">05 — Erros comuns</div>
+        <div class="eyebrow">07 — Erros comuns</div>
         <span class="chip chip-white" style="background:var(--panel-teal);">O que quebra</span>
       </div>
       <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
@@ -547,10 +740,10 @@
       </div>
     </section>
 
-    <!-- 14. CHECKLIST DE ENTREGA -->
-    <section class="slide" data-slide-id="14">
+    <!-- 19. CHECKLIST DE ENTREGA -->
+    <section class="slide" data-slide-id="19">
       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-        <div class="eyebrow">06 — Checklist de entrega</div>
+        <div class="eyebrow">08 — Checklist de entrega</div>
         <span class="chip chip-white" style="background:var(--panel-green);">Verificação</span>
       </div>
       <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
@@ -599,8 +792,8 @@
       </div>
     </section>
 
-    <!-- 15. ENCERRAMENTO -->
-    <section class="slide" data-slide-id="15">
+    <!-- 20. ENCERRAMENTO -->
+    <section class="slide" data-slide-id="20">
       <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:48px;">
         <div class="display" style="font-size:120px; color:var(--ink); line-height:1.08; max-width:1600px;">A melhor LP é a que<br>carrega rápido, <span style="color:var(--accent);">converte com clareza</span><br>e não quebra no celular.</div>
         <!-- <div style="font-size:32px; color:var(--ink-muted); line-height:1.5; max-width:800px;">Dúvidas, ajustes ou próximos passos:<br>CRM · Digital · Criação — Alper Seguros</div> -->
@@ -619,7 +812,7 @@
 <div id="badge-right" class="mono"><span id="counter">01/15</span></div>
 
 <script>
-  const TOTAL = 15;
+  const TOTAL = 20;
   let current = 1;
 
   function resize(){

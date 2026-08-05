@@ -1,0 +1,1902 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alper Resseguros — Segurança não é impedir o crescimento.</title>
+<meta name="description" content="Alper Resseguros — Especialistas em resseguro. Transformamos riscos extraordinários em decisões viáveis. Atuamos onde outros não ousam olhar.">
+<meta name="theme-color" content="#00141E">
+<meta property="og:title" content="Alper Resseguros — Segurança não é impedir o crescimento.">
+<meta property="og:description" content="Especialistas em resseguro. Transformamos riscos extraordinários em decisões viáveis. Atuamos onde outros não ousam olhar.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://51120278.fs1.hubspotusercontent-na1.net/hubfs/51120278/LOGO-ALPERRE-VF-NEGATIVO.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" type="image/png" href="https://51120278.fs1.hubspotusercontent-na1.net/hubfs/51120278/LOGO-ALPERRE-VF-NEGATIVO.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* Brand (branding book Alper RE) */
+    --midnight: #00141E;
+    --blue: #0082DE;
+    --offwhite: #F8FAFC;
+    --charcoal: #0F172A;
+    --muted: #475569;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--offwhite);
+    color: var(--charcoal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+    overflow-x: hidden;
+    font-feature-settings: "tnum" 1, "ss01" 1;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    position: relative;
+  }
+
+  /* ───────── NAV ───────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.1rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--midnight);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
+  }
+  nav.scrolled {
+    background: rgba(0,20,30,0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 1px 20px rgba(0,0,0,0.3);
+  }
+  .nav-logo {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .nav-logo span { color: var(--blue); }
+  .nav-logo-img { height: 40px; display: block; }
+  .nav-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .nav-cta {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    text-decoration: none;
+    padding: 0.65rem 1.1rem;
+    background: #fff;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+  }
+  .nav-cta:hover {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  /* ───────── TYPOGRAPHY ───────── */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+  }
+  .eyebrow::before {
+    content: '';
+    width: 28px;
+    height: 2px;
+    background: var(--charcoal);
+  }
+  .eyebrow .num {
+    font-weight: 400;
+    color: var(--muted);
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .on-dark .eyebrow { color: var(--offwhite); }
+  .on-dark .eyebrow::before { background: var(--offwhite); }
+  .on-dark .eyebrow .num { color: rgba(255,255,255,0.55); }
+
+  /* ───────── HERO ───────── */
+  #hero {
+    padding: 7.5rem 0 0;
+    background: var(--midnight);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+  }
+  #hero .container { position: relative; z-index: 3; }
+
+  .hero-grid {
+    grid-template-columns: 1.4fr 1fr;
+    gap: 4rem;
+    padding-bottom: 5rem;
+  }
+  .hero-headline {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: #fff;
+    font-size: clamp(2.6rem, 6.2vw, 4rem);
+    margin-bottom: 2.5rem;
+  }
+  .hero-headline em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.55;
+    max-width: 480px;
+    font-weight: 400;
+  }
+
+  .hero-side {
+    align-self: end;
+    border-left: 1px solid rgba(255,255,255,0.15);
+    padding-left: 2.5rem;
+  }
+  .hero-side-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1.5rem;
+  }
+  .hero-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .hero-item {
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: padding-left 0.25s ease;
+  }
+  .hero-item:hover { padding-left: 0.5rem; }
+  .hero-item:first-child { border-top: 1px solid rgba(255,255,255,0.1); }
+  .hero-item .icon {
+    width: 22px;
+    height: 22px;
+    stroke: var(--offwhite);
+    fill: none;
+    stroke-width: 1.25;
+  }
+  .hero-item-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 0.01em;
+  }
+  .hero-item-tag {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .hero-cta {
+    background: #fff;
+    color: var(--charcoal);
+    margin: 0 0 4rem;
+  }
+  .hero-cta:hover { background: var(--blue); color: #fff; }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.1rem 1.6rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+  .btn-primary svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.25s ease;
+  }
+  .btn-primary:hover svg { transform: translateX(4px); }
+
+  /* ───────── DOBRA 2: PROBLEMA (concrete) ───────── */
+  #problema {
+    padding: 7rem 0;
+    background: var(--offwhite);
+    position: relative;
+  }
+  .problema-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    margin-bottom: 5rem;
+  }
+  .problema-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    margin-top: 1.5rem;
+  }
+  .problema-titulo em {
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+  }
+  .problema-lead {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.65;
+    padding-top: 0.5rem;
+  }
+  .problema-lead p + p { margin-top: 1rem; }
+
+  .problema-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: var(--charcoal);
+    margin-bottom: 4rem;
+  }
+  .problema-card {
+    background: #fff;
+    padding: 2.5rem;
+    position: relative;
+    border-radius: 6px;
+  }
+  .problema-card .num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+  .problema-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--charcoal);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    letter-spacing: -0.015em;
+  }
+  .problema-card p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .problema-card-icon {
+    position: absolute;
+    top: 2.5rem;
+    right: 2.5rem;
+    width: 28px;
+    height: 28px;
+    stroke: var(--charcoal);
+    fill: none;
+    stroke-width: 1.25;
+    opacity: 0.6;
+  }
+
+  .problema-quote {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+    font-weight: 700;
+    font-style: italic;
+    color: var(--charcoal);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    max-width: 800px;
+    padding-left: 2rem;
+    border-left: 4px solid var(--charcoal);
+  }
+
+  /* ───────── CASOS ───────── */
+  .caso {
+    padding: 6rem 0;
+    background: var(--offwhite);
+  }
+  .caso-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: stretch;
+  }
+  .caso-inner.reverse > .caso-visual { order: -1; }
+
+  .caso-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem 0;
+  }
+  .caso-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+  }
+  .caso-tag::before {
+    content: '';
+    width: 28px;
+    height: 2px;
+    background: var(--charcoal);
+  }
+  .caso-tag .num {
+    font-weight: 400;
+    color: var(--muted);
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .caso-h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.9rem, 3.4vw, 3rem);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+  }
+  .caso-h2 em {
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+  }
+  .caso-body {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .caso-body p + p { margin-top: 0.85rem; }
+
+  .caso-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(15, 23, 42, 0.12);
+  }
+  .caso-stat-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    color: var(--charcoal);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .caso-stat-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+  }
+
+  /* Illustration panel */
+  .caso-visual {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    min-height: 460px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
+  .caso-visual:hover {
+    background: var(--offwhite);
+  }
+  .caso-visual::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 60px;
+    height: 60px;
+    background:
+      linear-gradient(var(--charcoal) 2px, transparent 2px) 0 0/100% 1px no-repeat,
+      linear-gradient(90deg, var(--charcoal) 2px, transparent 2px) 0 0/1px 100% no-repeat;
+  }
+  .caso-visual::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 60px;
+    height: 60px;
+    background:
+      linear-gradient(var(--charcoal) 2px, transparent 2px) 100% 100%/100% 1px no-repeat,
+      linear-gradient(90deg, var(--charcoal) 2px, transparent 2px) 100% 100%/1px 100% no-repeat;
+  }
+  .illustration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+  }
+  .illustration .icon-lg {
+    width: 140px;
+    height: 140px;
+    stroke: var(--charcoal);
+    fill: none;
+    stroke-width: 1;
+  }
+  .icon-lg-animated {
+    animation: icon-drift 20s ease-in-out infinite;
+  }
+  @keyframes icon-drift {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(2deg) scale(1.01); }
+    50% { transform: rotate(0deg) scale(1); }
+    75% { transform: rotate(-2deg) scale(1.01); }
+  }
+  .illustration-tag {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.35rem 0;
+  }
+  .illustration-cap {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .illustration-cap strong {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    letter-spacing: -0.025em;
+    margin-bottom: 0.4rem;
+  }
+
+  /* ───────── DOBRA 5: SATÉLITES (DARK) ───────── */
+  #satelites {
+    background: var(--midnight);
+    color: #fff;
+    padding: 6rem 0;
+    position: relative;
+  }
+  #satelites::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+  }
+  #satelites .caso-tag { color: var(--offwhite); }
+  #satelites .caso-tag::before { background: var(--offwhite); }
+  #satelites .caso-tag .num { color: rgba(255,255,255,0.55); }
+  #satelites .caso-h2 { color: #fff; }
+  #satelites .caso-h2 em { color: var(--blue); }
+  #satelites .caso-body { color: rgba(255,255,255,0.65); }
+  #satelites .caso-stat { border-top-color: rgba(255,255,255,0.15); }
+  #satelites .caso-stat-value { color: #fff; }
+  #satelites .caso-stat-label { color: rgba(255,255,255,0.5); }
+  #satelites .caso-visual { background: #051018; }
+  #satelites .caso-visual::before,
+  #satelites .caso-visual::after { background:
+      linear-gradient(rgba(255,255,255,0.3) 2px, transparent 2px) 0 0/100% 1px no-repeat,
+      linear-gradient(90deg, rgba(255,255,255,0.3) 2px, transparent 2px) 0 0/1px 100% no-repeat; }
+  #satelites .icon-lg { stroke: #fff; }
+  #satelites .illustration-tag { color: var(--offwhite); border: none; }
+  #satelites .illustration-cap { color: rgba(255,255,255,0.5); }
+  #satelites .illustration-cap strong { color: #fff; }
+
+  /* ───────── DOBRA 7: VALOR ───────── */
+  #valor {
+    padding: 8rem 0;
+    background: var(--midnight);
+    color: #fff;
+    position: relative;
+  }
+  #valor::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  #valor .container { position: relative; }
+  .valor-inner {
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .valor-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 1.5rem;
+  }
+  .valor-titulo em {
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+  }
+  .valor-body {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+  }
+  .valor-body p + p { margin-top: 1.1rem; }
+
+  /* ───────── DOBRA 8: ESTRUTURAS ───────── */
+  #estruturas {
+    padding: 7rem 0;
+    background: var(--offwhite);
+  }
+  .estruturas-header {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+  }
+  .estruturas-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    margin-top: 1.25rem;
+  }
+  .estruturas-titulo em {
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+  }
+  .estruturas-sub {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .estruturas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .estrutura-card {
+    background: #fff;
+    padding: 2.5rem 2.25rem;
+    border-right: 1px solid rgba(15, 23, 42, 0.08);
+    position: relative;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+  }
+  .estrutura-card:last-child { border-right: none; }
+  .estrutura-card:first-child { border-left: none; }
+  .estrutura-card:hover { background: var(--offwhite); }
+  .estrutura-card .num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+  .estrutura-card .card-sub {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    margin-bottom: 1rem;
+    display: block;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+  }
+  .estrutura-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    margin-bottom: 0.85rem;
+    letter-spacing: -0.025em;
+  }
+  .estrutura-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .estruturas-foot {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  /* ───────── DOBRA 9: GLOBAL ───────── */
+  #global {
+    padding: 7rem 0;
+    background: var(--midnight);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  #global::before {
+    content: 'GLOBAL · REACH';
+    position: absolute;
+    top: 50%;
+    right: -3rem;
+    transform: translateY(-50%);
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(8rem, 18vw, 18rem);
+    font-weight: 800;
+    color: rgba(255,255,255,0.025);
+    letter-spacing: -0.05em;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .global-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: start;
+    position: relative;
+  }
+  .global-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 1.5rem;
+  }
+  .global-titulo em {
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+  }
+  .global-body {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+  }
+  .global-body p + p { margin-top: 1rem; }
+
+  .global-tags {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+  .global-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--offwhite);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-right: none;
+    padding: 0.75rem 0.93rem;
+    border-radius: 4px 0 0 4px;
+    transition: all 0.2s ease;
+  }
+  .global-tag:last-child { border-right: 1px solid rgba(255,255,255,0.25); border-radius: 4px; }
+  .global-tag:hover {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+  }
+
+  /* ───────── DOBRA 10: MÉTRICAS ───────── */
+  #metricas {
+    padding: 7rem 0;
+    background: var(--offwhite);
+  }
+  .metricas-head {
+    text-align: center;
+    margin-bottom: 4.5rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+  }
+  .metricas-head .eyebrow { justify-content: center; }
+  .metricas-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    margin: 1.5rem auto 1.5rem;
+    max-width: 800px;
+  }
+  .metricas-titulo em {
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+  }
+  .metricas-sub {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .metricas-hero {
+    text-align: center;
+    margin: 0 auto 3rem;
+    padding: 3.5rem 2rem;
+    background: #fff;
+    border-radius: 6px;
+  }
+  .metrica-hero-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    font-weight: 800;
+    color: var(--charcoal);
+    letter-spacing: -0.05em;
+    line-height: 1;
+    display: block;
+  }
+  .metrica-hero-value em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--blue);
+  }
+  .metrica-hero-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-top: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .metricas-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .metrica-item {
+    background: #fff;
+    padding: 2.25rem 2rem;
+    border-right: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 6px;
+  }
+  .metrica-item:last-child { border-right: none; }
+  .metrica-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    color: var(--charcoal);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+  .metrica-value em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--blue);
+  }
+  .metrica-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  /* ───────── DOBRA 11: EPÍLOGO (DARK) ───────── */
+  #epilogo {
+    background: var(--midnight);
+    color: #fff;
+    padding: 8rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  #epilogo::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue) 0%, var(--blue) 30%, transparent 30%, transparent 100%);
+  }
+  .epilogo-inner {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .epilogo-kicker {
+    margin-bottom: 2.5rem;
+  }
+  .epilogo-headline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+  .epilogo-headline em {
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+  }
+  .epilogo-corpo {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .epilogo-corpo p + p { margin-top: 0.85rem; }
+  .epilogo-manifesto {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    margin: 3rem 0 3.5rem;
+  }
+  .epilogo-manifesto em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--blue);
+  }
+  .epilogo-ctas {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .epilogo-ctas .btn-primary {
+    background: #fff;
+    color: var(--charcoal);
+  }
+  .epilogo-ctas .btn-primary:hover {
+    background: var(--blue);
+    color: #fff;
+  }
+  .epilogo-mail {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .epilogo-mail:hover { color: #fff; }
+
+  /* ───────── FOOTER ───────── */
+  footer {
+    background: var(--charcoal);
+    color: rgba(255,255,255,0.5);
+    padding: 2.5rem 0;
+  }
+  footer .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .footer-brand {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .footer-brand span { color: var(--blue); }
+  .footer-contact {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .footer-contact a {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .footer-contact a:hover { color: #fff; }
+
+  /* ───────── SATELLITE ORBIT ───────── */
+  .satellite-orbit {
+    position: absolute;
+    top: 50%;
+    right: 6%;
+    transform: translateY(-50%);
+    width: 420px;
+    height: 420px;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  .orbit-path {
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 50%;
+  }
+  .orbit-path--inner {
+    inset: 18%;
+    border-color: rgba(255,255,255,0.06);
+  }
+  .orbit-path--tilted {
+    transform: rotateX(64deg) rotateZ(-18deg);
+  }
+  .orbit-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: var(--blue);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 18px rgba(0,130,222,0.8), 0 0 40px rgba(0,130,222,0.3);
+  }
+  .orbit-center::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22px;
+    height: 22px;
+    border: 1px solid rgba(0,130,222,0.25);
+    border-radius: 50%;
+    animation: center-pulse 3s ease-in-out infinite;
+  }
+  .orbit-satellite {
+    position: absolute;
+    top: 10%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    transform: rotateX(64deg) rotateZ(-18deg);
+    animation: orbit-spin 16s linear infinite;
+  }
+  .satellite-dot {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 7px;
+    height: 7px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 28px rgba(0,130,222,0.5), 0 0 60px rgba(0,130,222,0.15);
+  }
+  .satellite-dot::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+  }
+  .satellite-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 2px;
+    background: linear-gradient(270deg, rgba(255,255,255,0.2), transparent);
+    border-radius: 1px;
+    filter: blur(1px);
+  }
+  .orbit-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    animation: star-pulse 4s ease-in-out infinite;
+  }
+  .orbit-star:nth-child(1) { top: 10%; left: 18%; animation-delay: 0s; }
+  .orbit-star:nth-child(2) { top: 80%; left: 12%; animation-delay: 1.2s; }
+  .orbit-star:nth-child(3) { top: 25%; left: 88%; animation-delay: 2.4s; }
+  .orbit-star:nth-child(4) { top: 90%; left: 75%; animation-delay: 0.8s; }
+  .orbit-star:nth-child(5) { top: 50%; left: 3%; animation-delay: 3.1s; }
+  .orbit-star:nth-child(6) { top: 15%; left: 60%; animation-delay: 1.8s; width: 1.5px; height: 1.5px; }
+  .orbit-star:nth-child(7) { top: 70%; left: 92%; animation-delay: 0.4s; width: 1.5px; height: 1.5px; }
+
+  @keyframes orbit-spin {
+    from { transform: rotateX(64deg) rotateZ(-18deg) rotate(0deg); }
+    to   { transform: rotateX(64deg) rotateZ(-18deg) rotate(360deg); }
+  }
+  @keyframes star-pulse {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.8; }
+  }
+  @keyframes center-pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+  }
+
+  @media (max-width: 1024px) {
+    .satellite-orbit { display: none; }
+  }
+
+  /* ───────── ANIMATIONS ───────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.from-left { transform: translateX(-24px); }
+  .reveal.from-right { transform: translateX(24px); }
+  .reveal.visible {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  /* Stagger delays */
+  .hero-grid > div:nth-child(1) .reveal:nth-child(1) { transition-delay: 0s; }
+  .hero-grid > div:nth-child(1) .reveal:nth-child(2) { transition-delay: 0.12s; }
+  .hero-grid > div:nth-child(2) .reveal:nth-child(1) { transition-delay: 0.2s; }
+  .hero-grid > div:nth-child(2) .hero-items .reveal:nth-child(1) { transition-delay: 0.3s; }
+  .hero-grid > div:nth-child(2) .hero-items .reveal:nth-child(2) { transition-delay: 0.4s; }
+  .hero-grid > div:nth-child(2) .hero-items .reveal:nth-child(3) { transition-delay: 0.5s; }
+  .hero-grid > div:nth-child(2) .hero-items .reveal:nth-child(4) { transition-delay: 0.6s; }
+  .hero-cta.reveal { transition-delay: 0.7s; }
+
+  .problema-head > div:nth-child(1) .reveal:nth-child(1) { transition-delay: 0s; }
+  .problema-head > div:nth-child(1) .reveal:nth-child(2) { transition-delay: 0.12s; }
+  .problema-head > div:nth-child(2).reveal { transition-delay: 0.2s; }
+  .problema-grid .problema-card:nth-child(1).reveal { transition-delay: 0s; }
+  .problema-grid .problema-card:nth-child(2).reveal { transition-delay: 0.15s; }
+
+  .caso-inner > .caso-content .reveal:nth-child(1) { transition-delay: 0s; }
+  .caso-inner > .caso-content .reveal:nth-child(2) { transition-delay: 0.1s; }
+  .caso-inner > .caso-content .reveal:nth-child(3) { transition-delay: 0.2s; }
+  .caso-inner > .caso-content .caso-stat.reveal { transition-delay: 0.3s; }
+  .caso-visual .reveal:nth-child(1) { transition-delay: 0.15s; }
+  .caso-visual .reveal:nth-child(2) { transition-delay: 0.25s; }
+  .caso-visual .reveal:nth-child(3) { transition-delay: 0.35s; }
+
+  .estruturas-header > div:nth-child(1) .reveal:nth-child(1) { transition-delay: 0s; }
+  .estruturas-header > div:nth-child(1) .reveal:nth-child(2) { transition-delay: 0.12s; }
+  .estruturas-header .estruturas-sub.reveal { transition-delay: 0.2s; }
+  .estruturas-grid .estrutura-card:nth-child(1).reveal { transition-delay: 0s; }
+  .estruturas-grid .estrutura-card:nth-child(2).reveal { transition-delay: 0.12s; }
+  .estruturas-grid .estrutura-card:nth-child(3).reveal { transition-delay: 0.24s; }
+
+  .metricas-head .reveal:nth-child(1) { transition-delay: 0s; }
+  .metricas-head .reveal:nth-child(2) { transition-delay: 0.1s; }
+  .metricas-head .reveal:nth-child(3) { transition-delay: 0.2s; }
+  .metricas-hero.reveal { transition-delay: 0.1s; }
+  .metricas-grid .metrica-item:nth-child(1).reveal { transition-delay: 0s; }
+  .metricas-grid .metrica-item:nth-child(2).reveal { transition-delay: 0.1s; }
+  .metricas-grid .metrica-item:nth-child(3).reveal { transition-delay: 0.2s; }
+  .metricas-grid .metrica-item:nth-child(4).reveal { transition-delay: 0.3s; }
+
+  /* ───────── NAV LINKS (appear on scroll) ───────── */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+  .nav-links.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .nav-link {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    padding: 0.35rem 0.6rem;
+    border-radius: 3px;
+    transition: color 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+  }
+  .nav-link:hover {
+    color: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.06);
+  }
+  .nav-link.active {
+    color: #fff;
+    background: rgba(0,130,222,0.2);
+  }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+  }
+
+  /* ───────── RESPONSIVE ───────── */
+  @media (max-width: 1024px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-side { border-left: none; border-top: 1px solid rgba(255,255,255,0.15); padding-left: 0; padding-top: 2rem; }
+    .problema-head { grid-template-columns: 1fr; gap: 2rem; }
+    .valor-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .global-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .estruturas-header { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 720px) {
+    .container { padding: 0 1.5rem; }
+    nav { padding: 0.9rem 1.5rem; }
+    .problema-grid { grid-template-columns: 1fr; }
+    .problema-grid > .problema-card + .problema-card { border-top: 1px solid rgba(15, 23, 42, 0.08); }
+    .caso-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .caso-inner.reverse > .caso-visual { order: 0; }
+    .caso-visual { min-height: 360px; }
+    .estruturas-grid { grid-template-columns: 1fr; }
+    .estrutura-card { border-right: none; border-bottom: 1px solid rgba(15, 23, 42, 0.08); border-radius: 6px; }
+    .estrutura-card:last-child { border-bottom: none; }
+    .metricas-grid { grid-template-columns: repeat(2, 1fr); }
+    .metrica-item { border-right: 1px solid rgba(15, 23, 42, 0.08); border-bottom: 1px solid rgba(15, 23, 42, 0.08); border-radius: 6px; }
+    .metrica-item:nth-child(2n) { border-right: none; }
+    .metrica-item:nth-last-child(-n+2) { border-bottom: none; }
+    .global-tag { border-right: 1px solid rgba(255,255,255,0.25); border-bottom: none; border-radius: 4px; }
+    .global-tag:last-child { border-right: 1px solid rgba(255,255,255,0.25); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .orbit-satellite { animation: none; }
+    .orbit-star { animation: none; opacity: 0.3; }
+    .orbit-center::after { animation: none; }
+    .icon-lg-animated { animation: none; }
+    [data-count] { transition: none; }
+    nav { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo"><img class="nav-logo-img" src="https://51120278.fs1.hubspotusercontent-na1.net/hubfs/51120278/LOGO-ALPERRE-VF-NEGATIVO.png" alt="Logo Alper Resseguros"></a>
+  <div class="nav-links" id="nav-links">
+    <a href="#problema" class="nav-link">O problema</a>
+    <a href="#valor" class="nav-link">O valor</a>
+    <a href="#estruturas" class="nav-link">Estruturas</a>
+    <a href="#global" class="nav-link">Global</a>
+    <a href="#metricas" class="nav-link">Métricas</a>
+    <a href="#epilogo" class="nav-link">Contato</a>
+  </div>
+  <div class="nav-meta">
+    <a href="#epilogo" class="nav-cta">Falar com a equipe</a>
+  </div>
+</nav>
+
+<!-- DOBRA 1: HERO -->
+<section id="hero">
+  <div class="satellite-orbit">
+    <div class="orbit-star"></div>
+    <div class="orbit-star"></div>
+    <div class="orbit-star"></div>
+    <div class="orbit-star"></div>
+    <div class="orbit-star"></div>
+    <div class="orbit-star"></div>
+    <div class="orbit-star"></div>
+    <div class="orbit-path"></div>
+    <div class="orbit-path orbit-path--inner"></div>
+    <div class="orbit-path orbit-path--tilted"></div>
+    <div class="orbit-center"></div>
+    <div class="orbit-satellite">
+      <div class="satellite-dot"></div>
+    </div>
+  </div>
+  <div class="container">
+
+    <div class="hero-grid">
+      <div>
+        <h1 class="hero-headline reveal">
+          Algumas das decisões mais <em>ousadas</em> do mundo têm <em>um detalhe</em> em comum.
+        </h1>
+        <p class="hero-sub reveal">E quase ninguém percebe.</p>
+      </div>
+      <div class="hero-side">
+        <div class="hero-side-label">Atuações em destaque</div>
+        <div class="hero-items">
+          <div class="hero-item reveal">
+            <svg class="icon" viewBox="0 0 32 32">
+              <rect x="11" y="13" width="10" height="6" rx="1"/>
+              <line x1="14" y1="13" x2="14" y2="9"/>
+              <line x1="18" y1="13" x2="18" y2="9"/>
+              <line x1="14" y1="9" x2="14" y2="6"/>
+              <line x1="18" y1="9" x2="18" y2="6"/>
+              <rect x="6" y="14" width="5" height="4"/>
+              <rect x="21" y="14" width="5" height="4"/>
+              <line x1="8.5" y1="14" x2="8.5" y2="11"/>
+              <line x1="23.5" y1="14" x2="23.5" y2="11"/>
+              <path d="M16 19 L16 24"/>
+              <path d="M14 24 L18 24"/>
+            </svg>
+            <span class="hero-item-label">Satélites</span>
+            <span class="hero-item-tag">Aeroespacial</span>
+          </div>
+          <div class="hero-item reveal">
+            <svg class="icon" viewBox="0 0 32 32">
+              <line x1="6" y1="22" x2="6" y2="14"/>
+              <line x1="10" y1="22" x2="10" y2="10"/>
+              <line x1="14" y1="22" x2="14" y2="6"/>
+              <line x1="18" y1="22" x2="18" y2="10"/>
+              <line x1="22" y1="22" x2="22" y2="14"/>
+              <line x1="26" y1="22" x2="26" y2="18"/>
+              <circle cx="16" cy="14" r="1.5"/>
+            </svg>
+            <span class="hero-item-label">Shows globais</span>
+            <span class="hero-item-tag">Entretenimento</span>
+          </div>
+          <div class="hero-item reveal">
+            <svg class="icon" viewBox="0 0 32 32">
+              <line x1="16" y1="4" x2="16" y2="28"/>
+              <path d="M16 5 L23 8 L16 12 Z"/>
+              <path d="M9 26 Q12 22 16 24 Q20 22 23 26"/>
+              <circle cx="16" cy="26" r="1.5"/>
+            </svg>
+            <span class="hero-item-label">Hole-in-one</span>
+            <span class="hero-item-tag">Esportes</span>
+          </div>
+          <div class="hero-item reveal">
+            <svg class="icon" viewBox="0 0 32 32">
+              <path d="M10 6 H22 V12 Q22 18 16 19 Q10 18 10 12 Z"/>
+              <path d="M10 8 Q5 8 5 13 Q5 16 8 16"/>
+              <path d="M22 8 Q27 8 27 13 Q27 16 24 16"/>
+              <line x1="13" y1="19" x2="13" y2="24"/>
+              <line x1="19" y1="19" x2="19" y2="24"/>
+              <line x1="9" y1="26" x2="23" y2="26"/>
+            </svg>
+            <span class="hero-item-label">Prêmios milionários</span>
+            <span class="hero-item-tag">Prize Indemnity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a href="#problema" class="btn-primary hero-cta reveal">
+      Descubra o que torna todas elas possíveis
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="8" x2="13" y2="8"/>
+        <polyline points="9 4 13 8 9 12"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- DOBRA 2: O PROBLEMA -->
+<section id="problema">
+  <div class="container">
+    <div class="problema-head">
+      <div>
+        <span class="eyebrow reveal"><span class="num">01 /</span> O desafio real</span>
+        <h2 class="problema-titulo reveal">
+          O problema não é <em>o risco.</em>
+        </h2>
+      </div>
+      <div class="problema-lead reveal">
+        <p>É a falta de repertório. Quando todos consultam as mesmas soluções, todos recebem respostas parecidas. Quando todos olham para os mesmos lugares, os cenários tendem a ser previsíveis.</p>
+        <p>Novos desafios exigem novas lógicas.</p>
+      </div>
+    </div>
+
+    <div class="problema-grid">
+      <div class="problema-card reveal">
+        <svg class="problema-card-icon" viewBox="0 0 32 32">
+          <path d="M4 22 L10 14 L14 18 L20 10 L28 18"/>
+          <line x1="4" y1="26" x2="28" y2="26"/>
+          <circle cx="20" cy="10" r="1.5" fill="currentColor"/>
+        </svg>
+        <span class="num">01.1</span>
+        <h3>Eventos extremos já não são exceção.</h3>
+        <p>O clima mudou o mapa de exposições. Secas, inundações e eventos fora da curva histórica são o novo padrão — e as soluções convencionais não acompanharam esse ritmo.</p>
+      </div>
+      <div class="problema-card reveal">
+        <svg class="problema-card-icon" viewBox="0 0 32 32">
+          <rect x="6" y="6" width="20" height="20"/>
+          <line x1="6" y1="12" x2="26" y2="12"/>
+          <line x1="14" y1="6" x2="14" y2="26"/>
+          <circle cx="20" cy="19" r="2"/>
+        </svg>
+        <span class="num">01.2</span>
+        <h3>Exposições que nunca existiram antes.</h3>
+        <p>Satélites comerciais, IA, biotecnologia, veículos autônomos. Cada inovação cria categorias de risco inéditas — sem histórico atuarial, sem benchmarks consolidados.</p>
+      </div>
+    </div>
+
+    <p class="problema-quote reveal">
+      "O risco mudou. Talvez a forma de enxergá-lo também precise mudar."
+    </p>
+  </div>
+</section>
+
+<!-- DOBRA 3: PRIZE INDEMNITY -->
+<section class="caso">
+  <div class="container">
+    <div class="caso-inner">
+      <div class="caso-content">
+        <div>
+          <span class="caso-tag reveal"><span class="num">04 /</span> Prize Indemnity</span>
+          <h2 class="caso-h2 reveal">Você sortearia um prêmio de <em>R$&nbsp;100&nbsp;milhões?</em></h2>
+          <div class="caso-body reveal">
+            <p>Empresas fazem isso. Todos os anos.</p>
+            <p>Campanhas promocionais e loterias movimentam cifras extraordinárias, protegidas por estruturas conhecidas como Prize Indemnity.</p>
+            <p>O risco parece absurdo. Até alguém encontrar uma maneira inteligente de assumi-lo — e transformar uma grande ideia em algo viável.</p>
+          </div>
+        </div>
+        <div class="caso-stat reveal">
+          <span class="caso-stat-value" data-count="100" data-prefix="R$ " data-suffix="M">R$ 100M</span>
+          <span class="caso-stat-label">em prêmios estruturados</span>
+        </div>
+      </div>
+      <div class="caso-visual">
+        <div class="illustration">
+          <span class="illustration-tag reveal">Caso · 01</span>
+          <svg class="icon-lg icon-lg-animated reveal" viewBox="0 0 140 140">
+            <circle cx="70" cy="70" r="56"/>
+            <circle cx="70" cy="70" r="40"/>
+            <circle cx="70" cy="70" r="24"/>
+            <circle cx="70" cy="70" r="3" fill="currentColor"/>
+            <line x1="70" y1="6" x2="70" y2="18"/>
+            <line x1="70" y1="122" x2="70" y2="134"/>
+            <line x1="6" y1="70" x2="18" y2="70"/>
+            <line x1="122" y1="70" x2="134" y2="70"/>
+            <line x1="22" y1="22" x2="32" y2="32"/>
+            <line x1="108" y1="108" x2="118" y2="118"/>
+            <line x1="118" y1="22" x2="108" y2="32"/>
+            <line x1="22" y1="118" x2="32" y2="108"/>
+          </svg>
+          <div class="illustration-cap reveal">
+            <strong>Uma grande ideia.</strong>
+            Viabilizada pelo resseguro.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOBRA 4: HOLE-IN-ONE -->
+<section class="caso">
+  <div class="container">
+    <div class="caso-inner reverse">
+      <div class="caso-content">
+        <div>
+          <span class="caso-tag reveal"><span class="num">05 /</span> Esportes</span>
+          <h2 class="caso-h2 reveal">Você apostaria <em>milhões</em> em uma única tacada?</h2>
+          <div class="caso-body reveal">
+            <p>Torneios ao redor do mundo oferecem carros, imóveis e prêmios milionários para um único hole-in-one.</p>
+            <p>Uma única jogada. Uma única possibilidade.</p>
+            <p>Pequenos eventos podem carregar exposições extraordinárias. Existe seguro para isso. E também existe resseguro.</p>
+          </div>
+        </div>
+        <div class="caso-stat reveal">
+          <span class="caso-stat-value" data-count="1" data-suffix=" jogada">1 jogada</span>
+          <span class="caso-stat-label">exposição milionária estruturada</span>
+        </div>
+      </div>
+      <div class="caso-visual">
+        <div class="illustration">
+          <span class="illustration-tag reveal">Caso · 02</span>
+          <svg class="icon-lg icon-lg-animated reveal" viewBox="0 0 140 140">
+            <line x1="70" y1="20" x2="70" y2="118"/>
+            <path d="M70 24 L108 36 L70 50 Z"/>
+            <path d="M30 118 Q48 100 70 108 Q92 100 110 118"/>
+            <line x1="40" y1="118" x2="100" y2="118"/>
+            <circle cx="70" cy="115" r="2" fill="currentColor"/>
+            <line x1="55" y1="65" x2="85" y2="65" stroke-dasharray="2 3"/>
+          </svg>
+          <div class="illustration-cap reveal">
+            <strong>Risco único. Estrutura certa.</strong>
+            Capacidade disponível.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOBRA 5: SATÉLITES (DARK) -->
+<section class="caso" id="satelites">
+  <div class="container">
+    <div class="caso-inner">
+      <div class="caso-content">
+        <div>
+          <span class="caso-tag reveal"><span class="num">06 /</span> Aeroespacial</span>
+          <h2 class="caso-h2 reveal">Você enviaria <em>milhões de dólares</em> para o espaço?</h2>
+          <div class="caso-body reveal">
+            <p>Satélites falham. Foguetes explodem. Missões são adiadas. Mesmo assim, o setor espacial continua crescendo.</p>
+            <p>Porque alguém encontrou uma maneira de transformar incerteza em viabilidade econômica.</p>
+          </div>
+        </div>
+        <div class="caso-stat reveal">
+          <span class="caso-stat-value" data-count="500" data-prefix="US$ " data-suffix="bi+">US$ 500bi+</span>
+          <span class="caso-stat-label">em mercado espacial até 2030</span>
+        </div>
+      </div>
+      <div class="caso-visual">
+        <div class="illustration">
+          <span class="illustration-tag reveal">Caso · 03</span>
+          <svg class="icon-lg icon-lg-animated reveal" viewBox="0 0 160 160">
+            <rect x="60" y="68" width="40" height="24" rx="2"/>
+            <line x1="68" y1="68" x2="68" y2="54"/>
+            <line x1="92" y1="68" x2="92" y2="54"/>
+            <line x1="68" y1="54" x2="68" y2="42"/>
+            <line x1="92" y1="54" x2="92" y2="42"/>
+            <line x1="74" y1="42" x2="86" y2="42"/>
+            <rect x="28" y="72" width="22" height="16"/>
+            <line x1="39" y1="72" x2="39" y2="62"/>
+            <line x1="39" y1="62" x2="44" y2="58"/>
+            <line x1="39" y1="62" x2="34" y2="58"/>
+            <rect x="110" y="72" width="22" height="16"/>
+            <line x1="121" y1="72" x2="121" y2="62"/>
+            <line x1="121" y1="62" x2="126" y2="58"/>
+            <line x1="121" y1="62" x2="116" y2="58"/>
+            <path d="M80 92 L80 110"/>
+            <path d="M74 110 L86 110"/>
+            <ellipse cx="80" cy="80" rx="68" ry="68" stroke-dasharray="2 4"/>
+            <circle cx="22" cy="36" r="1" fill="currentColor"/>
+            <circle cx="140" cy="28" r="1" fill="currentColor"/>
+            <circle cx="148" cy="118" r="1" fill="currentColor"/>
+            <circle cx="14" cy="120" r="1" fill="currentColor"/>
+          </svg>
+          <div class="illustration-cap reveal">
+            <strong>Incerteza orbital.</strong>
+            Viabilidade econômica.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOBRA 6: MERCADOS EMERGENTES -->
+<section class="caso">
+  <div class="container">
+    <div class="caso-inner">
+      <div class="caso-content">
+        <div>
+          <span class="caso-tag reveal"><span class="num">07 /</span> Mercados emergentes</span>
+          <h2 class="caso-h2 reveal">Você expandiria seus negócios para onde <em>poucos querem ir</em>?</h2>
+          <div class="caso-body reveal">
+            <p>Riscos políticos. Mudanças regulatórias. Instabilidade social. Mercados emergentes.</p>
+            <p>O crescimento raramente acontece nas zonas mais confortáveis.</p>
+            <p>E as oportunidades mais relevantes nem sempre surgem onde todos estão olhando.</p>
+          </div>
+        </div>
+        <div class="caso-stat reveal">
+          <span class="caso-stat-value" data-count="60" data-suffix="+">60+</span>
+          <span class="caso-stat-label">mercados globais acessados</span>
+        </div>
+      </div>
+      <div class="caso-visual">
+        <div class="illustration">
+          <span class="illustration-tag reveal">Caso · 04</span>
+          <svg class="icon-lg icon-lg-animated reveal" viewBox="0 0 140 140">
+            <circle cx="70" cy="70" r="56"/>
+            <ellipse cx="70" cy="70" rx="22" ry="56"/>
+            <ellipse cx="70" cy="70" rx="42" ry="56"/>
+            <line x1="14" y1="70" x2="126" y2="70"/>
+            <line x1="70" y1="14" x2="70" y2="126"/>
+            <circle cx="44" cy="52" r="2" fill="currentColor"/>
+            <circle cx="92" cy="84" r="2" fill="currentColor"/>
+            <circle cx="56" cy="98" r="2" fill="currentColor"/>
+            <circle cx="96" cy="48" r="2" fill="currentColor"/>
+          </svg>
+          <div class="illustration-cap reveal">
+            <strong>Além do eixo óbvio.</strong>
+            Oriente Médio · Ásia · Mercados complexos.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOBRA 7: VALOR -->
+<section id="valor">
+  <div class="container">
+    <div class="valor-inner">
+      <div>
+        <span class="eyebrow on-dark reveal"><span class="num">08 /</span> A função real</span>
+        <h2 class="valor-titulo reveal">
+          O resseguro está presente em <em>muito mais</em> decisões do que imaginamos.
+        </h2>
+      </div>
+      <div class="valor-body reveal">
+        <p>Nem sempre ele aparece. Mas está presente quando empresas expandem operações. Quando novos mercados são explorados. Quando projetos ganham escala. E quando oportunidades exigem confiança para seguir adiante.</p>
+        <p>Porque o papel do resseguro vai muito além da proteção. Ele ajuda a criar as condições para que decisões ambiciosas possam acontecer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOBRA 8: ESTRUTURAS -->
+<section id="estruturas">
+  <div class="container">
+    <div class="estruturas-header">
+      <div>
+        <span class="eyebrow reveal"><span class="num">09 /</span> Como atuamos</span>
+        <h2 class="estruturas-titulo reveal">
+          Diferentes desafios exigem <em>diferentes estruturas.</em>
+        </h2>
+      </div>
+      <p class="estruturas-sub reveal">
+        Nenhum desafio chega organizado em categorias. E nenhuma resposta relevante nasce de uma fórmula única.
+      </p>
+    </div>
+
+    <div class="estruturas-grid">
+      <div class="estrutura-card reveal">
+        <span class="num">09.1</span>
+        <span class="card-sub">Facultativos</span>
+        <h3>Precisão para o extraordinário.</h3>
+        <p>Estruturas desenhadas para riscos específicos e desafios que demandam análises individualizadas. Quando o risco não cabe em nenhuma caixa existente.</p>
+      </div>
+      <div class="estrutura-card reveal">
+        <span class="num">09.2</span>
+        <span class="card-sub">Contratos automáticos</span>
+        <h3>Crescimento sustentável.</h3>
+        <p>Programas alinhados à estratégia de retenção e desenvolvimento das carteiras das seguradoras. Crescimento e sustentabilidade caminhando juntos.</p>
+      </div>
+      <div class="estrutura-card reveal">
+        <span class="num">09.3</span>
+        <span class="card-sub">Facilities</span>
+        <h3>Agilidade quando importa.</h3>
+        <p>Capacidade previamente estruturada para garantir agilidade, eficiência e competitividade. Porque tempo também é um fator de risco.</p>
+      </div>
+    </div>
+
+    <p class="estruturas-foot reveal">
+      Nenhuma estrutura é universal. E nenhuma decisão importante é igual à anterior.
+    </p>
+  </div>
+</section>
+
+<!-- DOBRA 9: GLOBAL -->
+<section id="global">
+  <div class="container">
+    <div class="global-inner">
+      <div>
+        <span class="eyebrow on-dark reveal"><span class="num">13 /</span> Escopo global</span>
+        <h2 class="global-titulo reveal">
+          O risco é global. <br>As respostas também <em>deveriam ser.</em>
+        </h2>
+      </div>
+      <div class="global-body reveal">
+        <p>Por que a capacidade continua procurando sempre nos mesmos lugares? O mundo do resseguro vai muito além do eixo Estados Unidos–Europa.</p>
+        <p>As respostas podem estar em mercados especializados do Oriente Médio. Na experiência asiática com riscos emergentes. Em estruturas inovadoras desenvolvidas para riscos climáticos. Ou em capacidades construídas para exposições altamente específicas.</p>
+        <p>Nosso papel é ampliar o campo de visão dos nossos clientes, conectando desafios complexos a mercados que talvez não fossem a escolha mais óbvia — mas possam ser a melhor resposta.</p>
+      </div>
+      <div class="global-tags reveal">
+        <span class="global-tag">Oriente Médio</span>
+        <span class="global-tag">Ásia emergente</span>
+        <span class="global-tag">Riscos climáticos</span>
+        <span class="global-tag">Exposições específicas</span>
+        <span class="global-tag">Capacidade alternativa</span>
+        <span class="global-tag">+60 mercados</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOBRA 10: MÉTRICAS -->
+<section id="metricas">
+  <div class="container">
+    <div class="metricas-head">
+      <span class="eyebrow reveal"><span class="num">14 /</span> Resultados concretos · 2025</span>
+      <h2 class="metricas-titulo reveal">
+        Decisões ambiciosas deixam <em>resultados concretos.</em>
+      </h2>
+      <p class="metricas-sub reveal">
+        O resseguro raramente aparece nas manchetes. Mas está presente por trás de projetos que avançam, operações que crescem e oportunidades que se tornam viáveis.
+      </p>
+    </div>
+
+    <div class="metricas-hero reveal">
+      <span class="metrica-hero-value" data-count="300" data-prefix="<em>R$</em> " data-suffix=" mi"><em>R$</em> 300 mi</span>
+      <p class="metrica-hero-label">em prêmios movimentados somente em 2025</p>
+    </div>
+
+    <div class="metricas-grid">
+      <div class="metrica-item reveal">
+        <span class="metrica-value" data-count="300" data-prefix="<em>+</em>"><em>+</em>300</span>
+        <span class="metrica-label">Operações estruturadas</span>
+      </div>
+      <div class="metrica-item reveal">
+        <span class="metrica-value" data-count="60" data-prefix="">60</span>
+        <span class="metrica-label">Mercados globais acessados</span>
+      </div>
+      <div class="metrica-item reveal">
+        <span class="metrica-value" data-count="25" data-prefix="">25</span>
+        <span class="metrica-label">Parceiros estratégicos</span>
+      </div>
+      <div class="metrica-item reveal">
+        <span class="metrica-value" data-count="40" data-prefix="<em>+</em>"><em>+</em>40</span>
+        <span class="metrica-label">Especialidades atendidas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOBRA 11: EPÍLOGO -->
+<section id="epilogo">
+  <div class="container">
+    <div class="epilogo-inner">
+      <span class="eyebrow on-dark epilogo-kicker reveal"><span class="num">15 /</span> O trabalho que ninguém percebe</span>
+      <h2 class="epilogo-headline reveal">
+        Talvez o trabalho mais importante do resseguro seja justamente aquele que <em>ninguém percebe.</em>
+      </h2>
+      <div class="epilogo-corpo reveal">
+        <p>Porque ele acontece antes da inauguração.</p>
+        <p>Antes da expansão. Antes do lançamento. Antes do crescimento.</p>
+        <p>No instante em que alguém decide seguir em frente mesmo diante da incerteza.</p>
+      </div>
+      <p class="epilogo-manifesto reveal">
+        Porque <em>segurança não é impedir o crescimento.</em><br>
+        É o que permite que ele aconteça.
+      </p>
+      <div class="epilogo-ctas reveal">
+        <a href="mailto:contato@alperre.com.br" class="btn-primary">
+          Vamos construir, juntos, o próximo desafio
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="8" x2="13" y2="8"/>
+            <polyline points="9 4 13 8 9 12"/>
+          </svg>
+        </a>
+        <a href="mailto:contato@alperre.com.br" class="epilogo-mail">contato@alperre.com.br</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-brand"><a href="#" class="nav-logo"><img class="nav-logo-img" src="https://51120278.fs1.hubspotusercontent-na1.net/hubfs/51120278/LOGO-ALPERRE-VF-NEGATIVO.png" alt="Logo Alper Resseguros"></a></div>
+    <div class="footer-contact">
+      <a href="mailto:contato@alperre.com.br">contato@alperre.com.br</a>
+      <a href="https://www.linkedin.com/company/alper-seguros/" target="_blank" rel="noopener">@alperseguros</a>
+      <a href="#">Política de Privacidade</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  var mainNav = document.getElementById('main-nav');
+  var navLinks = document.getElementById('nav-links');
+  var heroSection = document.getElementById('hero');
+  var navLinkElems = document.querySelectorAll('.nav-link');
+  var sectionIds = ['problema', 'valor', 'estruturas', 'global', 'metricas', 'epilogo'];
+  var sections = sectionIds.map(function(id) { return document.getElementById(id); });
+
+  window.addEventListener('scroll', function() {
+    var scrollY = window.scrollY;
+
+    // Main nav effect
+    if (scrollY > 50) {
+      mainNav.classList.add('scrolled');
+    } else {
+      mainNav.classList.remove('scrolled');
+    }
+
+    // Nav links show/hide
+    var heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+    if (scrollY > heroBottom - 100) {
+      navLinks.classList.add('visible');
+    } else {
+      navLinks.classList.remove('visible');
+    }
+
+    // Active section highlight
+    var current = '';
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i] && sections[i].offsetTop - 200 <= scrollY) {
+        current = sectionIds[i];
+      }
+    }
+    navLinkElems.forEach(function(link) {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  }, { passive: true });
+
+  // Smooth scroll for nav links
+  navLinkElems.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var targetId = this.getAttribute('href').substring(1);
+      var target = document.getElementById(targetId);
+      if (target) {
+        var offset = mainNav.offsetHeight + 10;
+        var top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Reveal on scroll
+  var reveals = document.querySelectorAll('.reveal');
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(function(el) { revealObserver.observe(el); });
+
+  // Format number with thousand separators
+  function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+
+  // Counter animation with prefix/suffix support
+  function animateCounter(el, target, duration) {
+    duration = duration || 1800;
+    var prefix = el.getAttribute('data-prefix') || '';
+    var suffix = el.getAttribute('data-suffix') || '';
+    var start = null;
+
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      var progress = Math.min((timestamp - start) / duration, 1);
+      var ease = 1 - Math.pow(1 - progress, 4);
+      var current = Math.round(ease * target);
+      el.innerHTML = prefix + formatNumber(current) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Observe all elements with data-count
+  var counterElements = document.querySelectorAll('[data-count]');
+  var counterObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var target = parseInt(el.getAttribute('data-count'), 10);
+        animateCounter(el, target, 2000);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  counterElements.forEach(function(el) {
+    counterObserver.observe(el);
+  });
+</script>
+</body>
+</html>

@@ -835,6 +835,15 @@
       padding-left: 1.4rem;
     }
 
+    .presente-img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
     /* ── ESTRUTURAS ── */
     #estruturas {
       background: var(--bg);
@@ -1076,24 +1085,27 @@
 
     .closing-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: center;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .closing-text .section-label {
+      margin-bottom: 1rem;
     }
 
     .closing-text .section-title {
-      font-size: clamp(1.6rem, 2.8vw, 2.6rem);
+      font-size: clamp(1.4rem, 2.4vw, 2rem);
     }
 
     .closing-beats {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      margin: 2rem 0;
     }
 
     .beat {
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 500;
       color: var(--text-light);
       padding-left: 1rem;
@@ -1103,28 +1115,49 @@
     .beat:hover { border-color: var(--blue); color: var(--dark); }
 
     .closing-statement {
-      font-size: 1rem;
+      font-size: 0.92rem;
       font-weight: 600;
       color: var(--dark);
       border-top: 1px solid var(--border);
-      padding-top: 1.5rem;
-      margin-top: 0.5rem;
+      padding-top: 1.2rem;
+      margin-top: 1.2rem;
       line-height: 1.6;
     }
 
     .closing-highlight {
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 3rem;
+      background: linear-gradient(160deg, rgba(0,130,222,0.04) 0%, rgba(0,130,222,0.01) 100%);
+      border: 1px solid rgba(0,130,222,0.1);
+      border-radius: 14px;
+      padding: 2.5rem 2rem;
       text-align: center;
+      position: relative;
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
+
+    .closing-highlight:hover {
+      border-color: rgba(0,130,222,0.22);
+      box-shadow: 0 6px 30px rgba(0,130,222,0.06);
+    }
+
+    .closing-highlight-icon {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(0,130,222,0.08);
+      color: var(--blue);
+      font-size: 1.2rem;
+    }
+
     .closing-highlight-title {
-      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
       font-weight: 800;
       color: var(--dark);
       line-height: 1.3;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       letter-spacing: -0.02em;
     }
     .closing-highlight-title em {
@@ -1288,6 +1321,7 @@
     @media (max-width: 600px) {
       .hero-title { font-size: 2.1rem; }
       .section-inner { padding: 80px 4vw; }
+      .closing-highlight { padding: 2rem 1.5rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1474,6 +1508,7 @@
           </div>
         </div>
         <div>
+          <img class="presente-img reveal" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop&q=80" alt="Prédio corporativo moderno" />
           <p class="section-body reveal" style="margin-bottom: 2rem;">Porque o papel do resseguro vai muito além da proteção. Ele ajuda a criar as condições para que decisões ambiciosas possam acontecer.</p>
           <p class="presente-closing reveal">Nem sempre ele aparece.<br/>Mas está lá.</p>
         </div>
@@ -1574,6 +1609,13 @@
         <div class="closing-text">
           <p class="section-label reveal">Por que o resseguro importa</p>
           <h2 class="section-title reveal">Talvez o trabalho mais importante do resseguro seja justamente <em>aquele que ninguém percebe.</em></h2>
+        </div>
+        <div class="closing-highlight reveal">
+          <div class="closing-highlight-icon">&#8593;</div>
+          <p class="closing-highlight-title">Segurança não é impedir o <em>crescimento.</em></p>
+          <p class="closing-highlight-sub">É o que permite que ele aconteça.</p>
+        </div>
+        <div class="closing-right">
           <div class="closing-beats reveal">
             <p class="beat">Porque ele acontece antes da inauguração.</p>
             <p class="beat">Antes da expansão.</p>
@@ -1581,12 +1623,6 @@
             <p class="beat">Antes do crescimento.</p>
           </div>
           <p class="closing-statement reveal">No instante em que alguém decide seguir em frente mesmo diante da incerteza. E essa decisão exige mais do que coragem — exige a confiança de saber que existe uma estrutura capaz de sustentá-la.</p>
-        </div>
-        <div class="reveal">
-          <div class="closing-highlight">
-            <p class="closing-highlight-title">Segurança não é impedir o <em>crescimento.</em></p>
-            <p class="closing-highlight-sub">É o que permite que ele aconteça.</p>
-          </div>
         </div>
       </div>
     </div>

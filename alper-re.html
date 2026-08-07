@@ -359,7 +359,9 @@
       position: relative;
       z-index: 2;
       max-width: 720px;
+      margin: 0 auto;
       padding: 100px 6vw 40px;
+      text-align: center;
     }
 
     .hero-eyebrow {
@@ -372,7 +374,7 @@
     }
 
     .hero-title {
-      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
       font-weight: 800;
       line-height: 1.15;
       letter-spacing: -0.025em;
@@ -392,11 +394,13 @@
     }
 
     .hero-sub {
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 400;
       color: rgba(255,255,255,0.5);
       margin-bottom: 1.5rem;
       max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
       line-height: 1.7;
     }
 
@@ -437,7 +441,8 @@
     .hero-scroll {
       position: absolute;
       bottom: 2.5rem;
-      left: 6vw;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       align-items: center;
       gap: 0.75rem;
@@ -502,7 +507,7 @@
       font-weight: 400;
       color: var(--text-light);
       line-height: 1.8;
-      max-width: 640px;
+      max-width: 660px;
     }
 
     /* ── PROBLEMA ── */
@@ -557,6 +562,7 @@
 
     .casos-h-viewport {
       position: relative;
+      padding-left: 20px;
     }
 
     .casos-h-viewport::after {
@@ -1319,7 +1325,7 @@
     }
 
     @media (max-width: 600px) {
-      .hero-title { font-size: 2.1rem; }
+      .hero-title { font-size: 1.8rem; }
       .section-inner { padding: 80px 4vw; }
       .closing-highlight { padding: 2rem 1.5rem; }
     }
@@ -1389,7 +1395,7 @@
         <span class="hero-cta-arrow">&#8594;</span>
       </a>
     </div>
-    <div class="hero-scroll">Scroll</div>
+    <div class="hero-scroll">Role para baixo</div>
   </section>
 
   <!-- PROBLEMA -->

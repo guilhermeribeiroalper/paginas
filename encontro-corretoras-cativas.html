@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1º Encontro de Corretoras Cativas do Brasil — MCI</title>
+  <meta name="description" content="Um encontro exclusivo, por convite, para CEOs e lideranças de grandes empresas com potencial para estruturar sua própria corretora cativa." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ─── THEME TOKENS ─── */
+    :root {
+      --color-primary:   #B0B276;
+      --color-secondary: #061C29;
+      --color-accent:    #B0B276;
+      --bg-light:        #FFFFFF;
+      --bg-alt:          #F5F3EE;
+      --bg-dark:         #061C29;
+      --text-main:       #555555;
+      --text-dark:       #121A21;
+      --border-color:    #D9D5CC;
+      --gold-light:      #CEC99A;
+      --gold-dim:        rgba(176,178,118,0.15);
+      --navy-mid:        #0D2E41;
+      --font-display:    'Bebas Neue', system-ui, sans-serif;
+      --font-body:       'Inter', system-ui, sans-serif;
+      --radius-sm:       4px;
+      --radius-md:       8px;
+      --transition:      0.25s ease;
+    }
+
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text-main);
+      background: var(--bg-light);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: var(--font-body); border: none; background: none; }
+
+    /* ─── TYPOGRAPHY SCALE ─── */
+    .t-tag {
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+    }
+    .t-display {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.12;
+      color: var(--bg-light);
+    }
+    .t-h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--text-dark);
+    }
+    .t-h2-light { color: var(--bg-light); }
+    .t-h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    .t-body { font-size: 1rem; line-height: 1.75; color: var(--text-main); }
+    .t-body-light { color: rgba(255,255,255,0.75); }
+    .t-small { font-size: 0.8125rem; color: var(--text-main); }
+
+    /* ─── LAYOUT UTILITIES ─── */
+    .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-pad { padding: 5rem 0; }
+    .section-pad-lg { padding: 7rem 0; }
+
+    /* ─── DIVIDER ─── */
+    .gold-rule { width: 3rem; height: 2px; background: var(--color-primary); margin-bottom: 1.5rem; }
+    .gold-rule-center { margin-left: auto; margin-right: auto; }
+
+    /* ─── BUTTONS ─── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--color-primary);
+      color: var(--bg-dark);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.9rem 2rem;
+      border-radius: var(--radius-sm);
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1.5px solid var(--color-primary);
+      color: var(--color-primary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.875rem 1.75rem;
+      border-radius: var(--radius-sm);
+      transition: background var(--transition), color var(--transition);
+    }
+    .btn-outline:hover { background: var(--gold-dim); }
+    .btn-dark {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--bg-dark);
+      color: var(--bg-light);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.9rem 2rem;
+      border-radius: var(--radius-sm);
+      transition: background var(--transition);
+    }
+    .btn-dark:hover { background: var(--navy-mid); }
+
+    /* ═══════════════════════════════════════
+       TOP BAR
+    ═══════════════════════════════════════ */
+    #topbar {
+      background: var(--bg-dark);
+      border-bottom: 1px solid rgba(176,178,118,0.2);
+      padding: 0.5rem 0;
+    }
+    .topbar-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+    }
+    .topbar-meta { display: flex; align-items: center; gap: 1.5rem; }
+    .topbar-item {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .topbar-item i { color: var(--color-primary); font-size: 0.7rem; }
+    .topbar-social { display: flex; gap: 0.75rem; }
+    .topbar-social a {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+      transition: color var(--transition);
+    }
+    .topbar-social a:hover { color: var(--color-primary); }
+
+    /* ═══════════════════════════════════════
+       HEADER / NAV
+    ═══════════════════════════════════════ */
+    #navbar {
+      position: sticky;
+      top: 0; z-index: 100;
+      background: rgba(6,28,41,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(176,178,118,0.15);
+      transition: box-shadow 0.3s ease;
+    }
+    #navbar.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.35); }
+    .nav-inner {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--bg-light);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--color-primary); }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--color-primary); }
+    .nav-cta { font-size: 0.8125rem; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      padding: 4px; background: none; border: none;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--bg-light);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu {
+      display: none; flex-direction: column;
+      background: var(--bg-dark);
+      border-top: 1px solid rgba(176,178,118,0.15);
+      padding: 1.5rem;
+      gap: 1.25rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 0.9rem; font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.05em; text-transform: uppercase;
+      transition: color var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--color-primary); }
+
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    #hero {
+      background: var(--bg-dark);
+      position: relative;
+      overflow: hidden;
+      padding: 5rem 0 4rem;
+    }
+    /* Decorative diagonal accent lines */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg,
+          transparent 0%,
+          transparent 49.9%,
+          rgba(176,178,118,0.06) 50%,
+          rgba(176,178,118,0.06) 50.2%,
+          transparent 50.2%,
+          transparent 100%
+        ),
+        linear-gradient(135deg,
+          transparent 0%,
+          transparent 39.9%,
+          rgba(176,178,118,0.04) 40%,
+          rgba(176,178,118,0.04) 40.2%,
+          transparent 40.2%,
+          transparent 100%
+        );
+      pointer-events: none;
+    }
+    /* Subtle radial glow */
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: -20%; left: -10%;
+      width: 60%; height: 80%;
+      background: radial-gradient(ellipse, rgba(176,178,118,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 4rem;
+      align-items: start;
+      position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid rgba(176,178,118,0.35);
+      background: rgba(176,178,118,0.08);
+      color: var(--color-primary);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.375rem 0.875rem;
+      border-radius: 2px;
+      margin-bottom: 1.75rem;
+    }
+    .hero-badge i { font-size: 0.65rem; }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--bg-light);
+      margin-bottom: 0.5rem;
+    }
+    .hero-headline em {
+      font-style: normal;
+      color: var(--color-primary);
+    }
+    .hero-tag-above {
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+    .hero-subheadline {
+      font-size: 1.0625rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+      max-width: 520px;
+      margin-bottom: 2.25rem;
+    }
+    .hero-chips {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.75);
+      font-size: 0.8125rem;
+      font-weight: 400;
+      padding: 0.45rem 0.875rem;
+      border-radius: 2px;
+    }
+    .chip i { color: var(--color-primary); font-size: 0.75rem; }
+
+    /* Countdown in hero */
+    .hero-countdown {
+      display: flex; gap: 1rem; margin-top: 0.5rem;
+    }
+    .cd-unit {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .cd-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--bg-light);
+      background: rgba(176,178,118,0.1);
+      border: 1px solid rgba(176,178,118,0.2);
+      width: 64px; height: 64px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-sm);
+    }
+    .cd-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-top: 0.4rem;
+    }
+    .cd-sep {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      color: var(--color-primary);
+      margin-top: 12px;
+      font-weight: 300;
+    }
+
+    /* ─── FORM CARD ─── */
+    .form-card {
+      background: var(--bg-light);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      border-top: 3px solid var(--color-primary);
+    }
+    .form-card-title {
+      font-family: var(--font-display);
+      font-size: 1.3125rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.375rem;
+    }
+    .form-card-sub {
+      font-size: 0.8125rem;
+      color: var(--text-main);
+      line-height: 1.55;
+      margin-bottom: 1.5rem;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      margin-bottom: 0.35rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-dark);
+      background: var(--bg-alt);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.875rem;
+      outline: none;
+      transition: border-color var(--transition);
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--color-primary);
+      background: #fff;
+    }
+    .form-group textarea { resize: vertical; min-height: 72px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .form-submit-btn {
+      width: 100%;
+      background: var(--color-primary);
+      color: var(--bg-dark);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 0.95rem;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+      margin-top: 0.5rem;
+    }
+    .form-submit-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .form-microcopy {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #888;
+      margin-top: 0.6rem;
+      display: flex; align-items: center; justify-content: center; gap: 0.35rem;
+    }
+    .form-microcopy i { color: var(--color-primary); }
+
+    /* ═══════════════════════════════════════
+       STATS MARQUEE
+    ═══════════════════════════════════════ */
+    #stats-bar {
+      background: var(--color-primary);
+      padding: 0.875rem 0;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      animation: marquee 22s linear infinite;
+      white-space: nowrap;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    .stat-item {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--bg-dark);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .stat-item i { font-size: 0.75rem; opacity: 0.6; }
+    .stat-sep { color: var(--bg-dark); opacity: 0.35; font-size: 1.1rem; flex-shrink: 0; }
+
+    /* ═══════════════════════════════════════
+       SECTION: SOBRE O EVENTO
+    ═══════════════════════════════════════ */
+    #sobre {
+      background: var(--bg-alt);
+      padding: 5.5rem 0;
+    }
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .sobre-text p { margin-bottom: 1.25rem; }
+    .sobre-visual {
+      position: relative;
+    }
+    .sobre-quote-block {
+      background: var(--bg-dark);
+      border-left: 3px solid var(--color-primary);
+      padding: 2rem 2rem 2rem 2.25rem;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+    .sobre-quote-text {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-style: normal;
+      color: var(--bg-light);
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+    .sobre-event-details {
+      display: flex; flex-direction: column; gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .detail-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.65);
+    }
+    .detail-row i {
+      color: var(--color-primary);
+      width: 16px; text-align: center;
+      flex-shrink: 0;
+    }
+    .detail-row strong { color: var(--bg-light); font-weight: 500; }
+
+    /* ═══════════════════════════════════════
+       SECTION: POR QUE UMA CATIVA
+    ═══════════════════════════════════════ */
+    #cativa {
+      background: var(--bg-light);
+      padding: 5.5rem 0;
+    }
+    .cativa-header { max-width: 700px; margin-bottom: 3.5rem; }
+    .cativa-intro { font-size: 1.0625rem; line-height: 1.75; color: var(--text-main); margin-top: 1.25rem; }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .benefit-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .benefit-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--color-primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .benefit-card:hover { border-color: var(--color-primary); transform: translateY(-3px); }
+    .benefit-card:hover::before { transform: scaleX(1); }
+    .benefit-icon {
+      width: 40px; height: 40px;
+      background: var(--gold-dim);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .benefit-icon i { color: var(--color-primary); font-size: 0.9rem; }
+    .benefit-title {
+      font-family: var(--font-display);
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+    .benefit-desc { font-size: 0.875rem; line-height: 1.65; color: var(--text-main); }
+    .cativa-closing {
+      margin-top: 2.5rem;
+      padding: 1.5rem 2rem;
+      background: var(--bg-dark);
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-size: 1.0625rem;
+      font-style: normal;
+      color: rgba(255,255,255,0.85);
+      border-left: 3px solid var(--color-primary);
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION: PROGRAMAÇÃO
+    ═══════════════════════════════════════ */
+    #programacao {
+      background: var(--bg-dark);
+      padding: 5.5rem 0;
+    }
+    .agenda-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2.5rem;
+    }
+    .agenda-table thead tr {
+      border-bottom: 1px solid rgba(176,178,118,0.3);
+    }
+    .agenda-table th {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      padding: 0 0 0.75rem;
+      text-align: left;
+    }
+    .agenda-table th:last-child { text-align: left; padding-left: 2rem; }
+    .agenda-row {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background var(--transition);
+    }
+    .agenda-row:last-child { border-bottom: none; }
+    .agenda-row:hover { background: rgba(176,178,118,0.05); }
+    .agenda-row td { padding: 1.25rem 0; vertical-align: middle; }
+    .agenda-time {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      white-space: nowrap;
+      width: 90px;
+    }
+    .agenda-dot {
+      width: 40px;
+      text-align: center;
+    }
+    .agenda-dot-inner {
+      width: 10px; height: 10px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      margin: 0 auto;
+      position: relative;
+    }
+    .agenda-dot-inner::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px; height: 20px;
+      border: 1px solid rgba(176,178,118,0.25);
+      border-radius: 50%;
+    }
+    .agenda-activity {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
+      font-weight: 400;
+      padding-left: 2rem;
+    }
+    .agenda-activity strong { color: var(--bg-light); font-weight: 500; }
+
+    /* ═══════════════════════════════════════
+       SECTION: PARA QUEM É
+    ═══════════════════════════════════════ */
+    #perfil {
+      background: var(--bg-alt);
+      padding: 5.5rem 0;
+    }
+    .perfil-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    .perfil-card {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .perfil-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1;
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+    .perfil-text strong {
+      display: block;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.3rem;
+    }
+    .perfil-text span { font-size: 0.8125rem; color: var(--text-main); }
+
+    /* ═══════════════════════════════════════
+       SECTION: PATROCINADORES
+    ═══════════════════════════════════════ */
+    #patrocinadores {
+      background: var(--bg-light);
+      padding: 4rem 0;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .patrocinadores-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #aaa;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .patrocinadores-logos {
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: center;
+      gap: 3rem;
+    }
+    .logo-placeholder {
+      background: var(--bg-alt);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 2rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ccc;
+    }
+    .sponsor-cta {
+      text-align: center;
+      margin-top: 2.5rem;
+    }
+    .sponsor-cta p {
+      font-size: 0.875rem;
+      color: var(--text-main);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION: FAQ
+    ═══════════════════════════════════════ */
+    #faq {
+      background: var(--bg-alt);
+      padding: 5.5rem 0;
+    }
+    .faq-list { max-width: 760px; margin: 2.5rem auto 0; }
+    .faq-item {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: var(--bg-light);
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+    .faq-question {
+      width: 100%; display: flex;
+      align-items: center; justify-content: space-between;
+      gap: 1rem;
+      padding: 1.125rem 1.5rem;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      background: none;
+      cursor: pointer;
+      text-align: left;
+      transition: color var(--transition);
+    }
+    .faq-question:hover { color: var(--color-secondary); }
+    .faq-question.active { color: var(--bg-dark); }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--bg-alt);
+      border: 1px solid var(--border-color);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem;
+      color: var(--color-primary);
+      transition: background var(--transition), transform var(--transition);
+    }
+    .faq-question.active .faq-icon { background: var(--color-primary); color: var(--bg-dark); transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+    .faq-answer.open { max-height: 400px; }
+    .faq-answer-inner {
+      padding: 0 1.5rem 1.25rem;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--text-main);
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION: CTA FINAL
+    ═══════════════════════════════════════ */
+    #cta-final {
+      background: var(--bg-dark);
+      padding: 6rem 0;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    #cta-final::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(176,178,118,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta-final-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+    .cta-final-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--bg-light);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .cta-final-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 2.5rem;
+    }
+    .cta-final-countdown {
+      display: flex; justify-content: center; gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .urgency-tag {
+      display: inline-block;
+      background: rgba(176,178,118,0.12);
+      border: 1px solid rgba(176,178,118,0.3);
+      color: var(--color-primary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.875rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    #footer {
+      background: #030F18;
+      padding: 3.5rem 0 2rem;
+      border-top: 1px solid rgba(176,178,118,0.15);
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 1.5rem;
+    }
+    .footer-brand-name {
+      font-family: var(--font-display);
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--bg-light);
+      margin-bottom: 0.75rem;
+    }
+    .footer-brand-name span { color: var(--color-primary); }
+    .footer-desc {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .footer-social { display: flex; gap: 0.75rem; }
+    .footer-social a {
+      width: 32px; height: 32px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.7rem;
+      transition: border-color var(--transition), color var(--transition);
+    }
+    .footer-social a:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .footer-col-title {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 1.25rem;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links a {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.5);
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.85); }
+    .footer-contact-item {
+      display: flex; align-items: flex-start; gap: 0.5rem;
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 0.6rem;
+    }
+    .footer-contact-item i { color: var(--color-primary); margin-top: 2px; flex-shrink: 0; }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.5rem;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-realizacao {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-realizacao span { color: var(--color-primary); font-weight: 600; }
+
+    /* ═══════════════════════════════════════
+       SCROLL TO TOP
+    ═══════════════════════════════════════ */
+    #scroll-top {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      width: 44px; height: 44px;
+      background: var(--color-primary);
+      color: var(--bg-dark);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 200;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    #scroll-top.visible { opacity: 1; pointer-events: auto; }
+    #scroll-top:hover { transform: translateY(-3px); }
+
+    /* ═══════════════════════════════════════
+       ANIMATIONS
+    ═══════════════════════════════════════ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .sobre-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .topbar-meta { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-countdown { gap: 0.5rem; }
+      .cd-num { width: 52px; height: 52px; font-size: 1.5rem; }
+      #stats-bar { display: none; }
+    }
+    @media (max-width: 600px) {
+      .section-pad { padding: 3.5rem 0; }
+      .section-pad-lg { padding: 5rem 0; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-inner > div:last-child { display: none; }
+      .cta-final-countdown { gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div id="topbar" role="banner">
+    <div class="container">
+      <div class="topbar-inner">
+        <div class="topbar-meta">
+          <div class="topbar-item">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>Segunda quinzena de setembro/26</span>
+          </div>
+          <div class="topbar-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Casa Manioca</span>
+          </div>
+          <div class="topbar-item">
+            <i class="fa-solid fa-clock"></i>
+            <span>08h às 12h</span>
+          </div>
+        </div>
+        <div class="topbar-social">
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header id="navbar" role="navigation">
+    <div class="container">
+      <nav class="nav-inner" aria-label="Navegação principal">
+        <div class="nav-logo">
+          MCI <span>Corretoras Cativas</span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#sobre">O Evento</a></li>
+          <li><a href="#cativa">Por que Cativa</a></li>
+          <li><a href="#programacao">Programação</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <a href="#inscricao" class="btn-primary nav-cta">Quero participar</a>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+    <div class="mobile-menu" id="mobile-menu" role="menu">
+      <a href="#sobre" role="menuitem">O Evento</a>
+      <a href="#cativa" role="menuitem">Por que Cativa</a>
+      <a href="#programacao" role="menuitem">Programação</a>
+      <a href="#faq" role="menuitem">FAQ</a>
+      <a href="#inscricao" class="btn-primary" style="text-align:center;" role="menuitem">Quero participar</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO + FORMULÁRIO -->
+    <section id="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-inner">
+
+          <!-- LEFT: COPY -->
+          <div>
+            <div class="hero-badge">
+              <i class="fa-solid fa-star"></i>
+              1º Encontro
+            </div>
+            <p class="hero-tag-above">Corretoras Cativas do Brasil</p>
+            <h1 class="hero-headline" id="hero-title">
+              De Corretoras<br />
+              <em>Cativas</em><br />
+              do Brasil
+            </h1>
+            <p class="hero-subheadline">
+              Um encontro exclusivo, por convite, para CEOs e lideranças de grandes empresas com potencial para estruturar sua própria corretora cativa.
+            </p>
+            <div class="hero-chips">
+              <div class="chip"><i class="fa-solid fa-calendar-days"></i> Segunda quinzena de setembro/26</div>
+              <div class="chip"><i class="fa-solid fa-location-dot"></i> Casa Manioca</div>
+              <div class="chip"><i class="fa-solid fa-clock"></i> 08h às 12h</div>
+              <div class="chip"><i class="fa-solid fa-microphone"></i> Formato Talk Show</div>
+            </div>
+
+            <p class="t-tag" style="margin-bottom:1rem;">Faltam para o evento</p>
+            <div class="hero-countdown" id="hero-countdown" aria-live="polite" aria-label="Contagem regressiva">
+              <div class="cd-unit">
+                <div class="cd-num" id="h-dias">--</div>
+                <div class="cd-label">Dias</div>
+              </div>
+              <div class="cd-sep">:</div>
+              <div class="cd-unit">
+                <div class="cd-num" id="h-horas">--</div>
+                <div class="cd-label">Horas</div>
+              </div>
+              <div class="cd-sep">:</div>
+              <div class="cd-unit">
+                <div class="cd-num" id="h-mins">--</div>
+                <div class="cd-label">Min</div>
+              </div>
+              <div class="cd-sep">:</div>
+              <div class="cd-unit">
+                <div class="cd-num" id="h-segs">--</div>
+                <div class="cd-label">Seg</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: FORM -->
+          <div id="inscricao">
+            <div class="form-card">
+              <h2 class="form-card-title">Garanta seu lugar</h2>
+              <p class="form-card-sub">
+                Por se tratar de um encontro exclusivo e de participação restrita, todas as inscrições passam por uma análise prévia da curadoria. Preencha o formulário — em caso de aprovação, entraremos em contato.
+              </p>
+              <form id="form-inscricao" novalidate>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="nome">Nome completo</label>
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="cargo">Cargo</label>
+                    <input type="text" id="cargo" name="cargo" placeholder="CEO, Diretor..." required />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="empresa">Empresa</label>
+                  <input type="text" id="empresa" name="empresa" placeholder="Nome da sua empresa" required />
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="email">E-mail corporativo</label>
+                    <input type="email" id="email" name="email" placeholder="voce@empresa.com" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="telefone">Telefone / WhatsApp</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(11) 90000-0000" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="cativa_status">Sua empresa já avalia ter uma corretora cativa?</label>
+                  <select id="cativa_status" name="cativa_status">
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="sim">Sim, já possui</option>
+                    <option value="avaliando">Em avaliação</option>
+                    <option value="nao">Ainda não</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="comentario">Comentário (opcional)</label>
+                  <textarea id="comentario" name="comentario" placeholder="Conte-nos mais sobre o interesse da sua empresa..."></textarea>
+                </div>
+                <button type="submit" class="form-submit-btn">Enviar inscrição →</button>
+                <p class="form-microcopy">
+                  <i class="fa-solid fa-lock"></i>
+                  Sua inscrição será analisada pela curadoria. Vagas limitadas.
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS MARQUEE -->
+    <div id="stats-bar" aria-hidden="true">
+      <div class="marquee-track" id="marquee-track">
+        <!-- duplicated for seamless loop -->
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Evento por convite</span>
+        <span class="stat-sep">·</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Curadoria MCI</span>
+        <span class="stat-sep">·</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Formato Talk Show</span>
+        <span class="stat-sep">·</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> CEOs e C-Level</span>
+        <span class="stat-sep">·</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Casa Manioca, Setembro/26</span>
+        <span class="stat-sep">·</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Gestão de Riscos Estratégica</span>
+        <span class="stat-sep">·</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Networking Exclusivo</span>
+        <span class="stat-sep">·</span>
+        <!-- duplicate -->
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Evento por convite</span>
+        <span class="stat-sep">·</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Curadoria MCI</span>
+        <span class="stat-sep">·</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Formato Talk Show</span>
+        <span class="stat-sep">·</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> CEOs e C-Level</span>
+        <span class="stat-sep">·</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Casa Manioca, Setembro/26</span>
+        <span class="stat-sep">·</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Gestão de Riscos Estratégica</span>
+        <span class="stat-sep">·</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Networking Exclusivo</span>
+        <span class="stat-sep">·</span>
+      </div>
+    </div>
+
+    <!-- SOBRE O EVENTO -->
+    <section id="sobre" class="section-pad" aria-labelledby="sobre-title">
+      <div class="container">
+        <div class="sobre-grid">
+          <div class="sobre-text fade-in">
+            <p class="t-tag">O Evento</p>
+            <div class="gold-rule" style="margin-top:0.75rem;"></div>
+            <h2 class="t-h2" id="sobre-title">Um espaço para quem decide, não para quem apenas assiste</h2>
+            <div style="margin-top:1.75rem;">
+              <p class="t-body">
+                O 1º Encontro de Corretoras Cativas do Brasil é um evento exclusivo voltado a CEOs e lideranças de grandes empresas com potencial para desenvolver uma estrutura de corretora cativa dentro de suas organizações.
+              </p>
+              <p class="t-body" style="margin-top:1rem;">
+                Com formato de talk show e curadoria da MCI, o encontro reunirá especialistas e executivos para discutir os principais temas relacionados ao mercado de cativas, gestão de riscos e novas oportunidades para o ambiente corporativo.
+              </p>
+              <p class="t-body" style="margin-top:1rem;">
+                Pensado para promover conexões estratégicas e troca de experiências, o evento aproxima grandes empresas das possibilidades e dos benefícios do modelo de corretora cativa.
+              </p>
+            </div>
+          </div>
+          <div class="sobre-visual fade-in">
+            <div class="sobre-quote-block">
+              <p class="sobre-quote-text">
+                "Feito por quem decide,<br/>para quem decide."
+              </p>
+              <div class="sobre-event-details">
+                <div class="detail-row"><i class="fa-solid fa-calendar-days"></i><div><strong>Data</strong> — Segunda quinzena de setembro/26</div></div>
+                <div class="detail-row"><i class="fa-solid fa-location-dot"></i><div><strong>Local</strong> — Casa Manioca</div></div>
+                <div class="detail-row"><i class="fa-solid fa-clock"></i><div><strong>Horário</strong> — 08h às 12h</div></div>
+                <div class="detail-row"><i class="fa-solid fa-microphone-lines"></i><div><strong>Formato</strong> — Talk Show com curadoria MCI</div></div>
+                <div class="detail-row"><i class="fa-solid fa-lock"></i><div><strong>Acesso</strong> — Exclusivo, por convite e análise de curadoria</div></div>
+              </div>
+              <div style="margin-top:1.75rem;">
+                <a href="#inscricao" class="btn-primary">Solicitar participação</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POR QUE UMA CATIVA -->
+    <section id="cativa" aria-labelledby="cativa-title">
+      <div class="container">
+        <div class="cativa-header fade-in">
+          <p class="t-tag">Por que uma Cativa</p>
+          <div class="gold-rule" style="margin-top:0.75rem;"></div>
+          <h2 class="t-h2" id="cativa-title">O modelo que transforma o seguro de custo em estratégia</h2>
+          <p class="cativa-intro">
+            Uma corretora cativa é a estrutura que grandes empresas criam para administrar, com mais controle e inteligência, toda a operação de seguros e gestão de riscos do próprio grupo — em vez de terceirizar essa função por completo.
+          </p>
+        </div>
+
+        <div class="benefits-grid">
+          <div class="benefit-card fade-in">
+            <div class="benefit-icon"><i class="fa-solid fa-gauge-high"></i></div>
+            <div class="benefit-title">Mais controle sobre custos e apólices</div>
+            <p class="benefit-desc">Decisões de risco e negociação passam a ser conduzidas internamente, com visão completa da operação.</p>
+          </div>
+          <div class="benefit-card fade-in">
+            <div class="benefit-icon"><i class="fa-solid fa-coins"></i></div>
+            <div class="benefit-title">Nova fonte de receita</div>
+            <p class="benefit-desc">A comissão que hoje vai para uma corretora externa passa a ficar dentro do próprio grupo.</p>
+          </div>
+          <div class="benefit-card fade-in">
+            <div class="benefit-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="benefit-title">Governança e dados sob domínio da empresa</div>
+            <p class="benefit-desc">Informações estratégicas de risco deixam de estar apenas com terceiros.</p>
+          </div>
+          <div class="benefit-card fade-in">
+            <div class="benefit-icon"><i class="fa-solid fa-sliders"></i></div>
+            <div class="benefit-title">Personalização da gestão de riscos</div>
+            <p class="benefit-desc">Programas de seguro desenhados sob medida para a realidade e o apetite de risco do negócio.</p>
+          </div>
+          <div class="benefit-card fade-in">
+            <div class="benefit-icon"><i class="fa-solid fa-sitemap"></i></div>
+            <div class="benefit-title">Fortalecimento do ecossistema do grupo</div>
+            <p class="benefit-desc">Abre espaço para atender também parceiros, franqueados ou cadeia de fornecedores.</p>
+          </div>
+        </div>
+
+        <div class="cativa-closing fade-in">
+          É uma oportunidade nascendo dentro das empresas brasileiras — e este encontro é o primeiro passo para explorá-la na prática.
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRAMAÇÃO -->
+    <section id="programacao" aria-labelledby="agenda-title">
+      <div class="container section-pad">
+        <div class="fade-in" style="max-width:600px;">
+          <p class="t-tag" style="color:var(--color-primary);">Agenda</p>
+          <div class="gold-rule" style="margin-top:0.75rem;"></div>
+          <h2 class="t-h2 t-h2-light" id="agenda-title">Programação do encontro</h2>
+        </div>
+
+        <table class="agenda-table fade-in" role="table" aria-label="Programação do evento">
+          <thead>
+            <tr>
+              <th scope="col">Horário</th>
+              <th scope="col" style="padding-left:40px;"></th>
+              <th scope="col" style="padding-left:2rem;">Atividade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="agenda-row">
+              <td class="agenda-time">08h</td>
+              <td class="agenda-dot"><div class="agenda-dot-inner"></div></td>
+              <td class="agenda-activity"><strong>Welcome coffee</strong></td>
+            </tr>
+            <tr class="agenda-row">
+              <td class="agenda-time">09h</td>
+              <td class="agenda-dot"><div class="agenda-dot-inner"></div></td>
+              <td class="agenda-activity"><strong>Abertura</strong></td>
+            </tr>
+            <tr class="agenda-row">
+              <td class="agenda-time">09h30</td>
+              <td class="agenda-dot"><div class="agenda-dot-inner"></div></td>
+              <td class="agenda-activity"><strong>Pitch dos cases</strong> — apresentação de modelos reais de corretoras cativas</td>
+            </tr>
+            <tr class="agenda-row">
+              <td class="agenda-time">11h30</td>
+              <td class="agenda-dot"><div class="agenda-dot-inner"></div></td>
+              <td class="agenda-activity"><strong>Talk show</strong> — debate com especialistas e lideranças do setor</td>
+            </tr>
+            <tr class="agenda-row">
+              <td class="agenda-time">12h</td>
+              <td class="agenda-dot"><div class="agenda-dot-inner"></div></td>
+              <td class="agenda-activity"><strong>Encerramento</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PERFIL DO PARTICIPANTE -->
+    <section id="perfil" aria-labelledby="perfil-title">
+      <div class="container">
+        <div class="fade-in" style="max-width:600px;">
+          <p class="t-tag">Para quem é</p>
+          <div class="gold-rule" style="margin-top:0.75rem;"></div>
+          <h2 class="t-h2" id="perfil-title">O encontro é exclusivo para executivos de alto nível</h2>
+        </div>
+        <div class="perfil-grid">
+          <div class="perfil-card fade-in">
+            <span class="perfil-num">01</span>
+            <div class="perfil-text">
+              <strong>CEOs e C-Level</strong>
+              <span>Lideranças executivas de grandes empresas com capacidade decisória para estruturar uma cativa.</span>
+            </div>
+          </div>
+          <div class="perfil-card fade-in">
+            <span class="perfil-num">02</span>
+            <div class="perfil-text">
+              <strong>Diretores Financeiros e de Risco</strong>
+              <span>Profissionais responsáveis pela gestão de riscos corporativos e programas de seguros.</span>
+            </div>
+          </div>
+          <div class="perfil-card fade-in">
+            <span class="perfil-num">03</span>
+            <div class="perfil-text">
+              <strong>Empresas com potencial cativo</strong>
+              <span>Grupos empresariais com volume e estrutura para transformar seguros em vantagem estratégica.</span>
+            </div>
+          </div>
+          <div class="perfil-card fade-in">
+            <span class="perfil-num">04</span>
+            <div class="perfil-text">
+              <strong>Lideranças em avaliação</strong>
+              <span>Executivos que já consideram ou estudam o modelo de corretora cativa para seu grupo.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PATROCINADORES -->
+    <section id="patrocinadores" aria-labelledby="pat-title">
+      <div class="container">
+        <p class="patrocinadores-label" id="pat-title">Patrocinadores e parceiros</p>
+        <div class="patrocinadores-logos">
+          <div class="logo-placeholder">Patrocinador Diamante</div>
+          <div class="logo-placeholder">Patrocinador Ouro</div>
+          <div class="logo-placeholder">Parceiro Mídia</div>
+          <div class="logo-placeholder">Apoio Institucional</div>
+        </div>
+        <div class="sponsor-cta">
+          <p>Sua empresa quer fazer parte desta iniciativa?</p>
+          <a href="mailto:contato@mci.com.br" class="btn-outline">Seja um patrocinador</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div style="text-align:center; max-width:520px; margin:0 auto;" class="fade-in">
+          <p class="t-tag">FAQ</p>
+          <div class="gold-rule gold-rule-center" style="margin-top:0.75rem;"></div>
+          <h2 class="t-h2" id="faq-title">Perguntas frequentes</h2>
+        </div>
+
+        <div class="faq-list" role="list">
+          <div class="faq-item fade-in" role="listitem">
+            <button class="faq-question" aria-expanded="false">
+              O evento é aberto ao público?
+              <span class="faq-icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer" role="region">
+              <div class="faq-answer-inner">
+                Não. O 1º Encontro de Corretoras Cativas do Brasil é um evento exclusivo, por convite, com participação restrita a CEOs e lideranças de grandes empresas. Todas as inscrições passam por análise prévia da curadoria MCI.
+              </div>
+            </div>
+          </div>
+          <div class="faq-item fade-in" role="listitem">
+            <button class="faq-question" aria-expanded="false">
+              Como funciona o processo de inscrição?
+              <span class="faq-icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer" role="region">
+              <div class="faq-answer-inner">
+                Você preenche o formulário nesta página com seus dados e informações sobre sua empresa. A curadoria do evento analisa o perfil e, em caso de aprovação, entrará em contato com os próximos passos para confirmação da participação.
+              </div>
+            </div>
+          </div>
+          <div class="faq-item fade-in" role="listitem">
+            <button class="faq-question" aria-expanded="false">
+              O que é uma corretora cativa?
+              <span class="faq-icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer" role="region">
+              <div class="faq-answer-inner">
+                Uma corretora cativa é a estrutura que grandes empresas criam para administrar, com mais controle e inteligência, toda a operação de seguros e gestão de riscos do próprio grupo — em vez de terceirizar essa função por completo a uma corretora independente.
+              </div>
+            </div>
+          </div>
+          <div class="faq-item fade-in" role="listitem">
+            <button class="faq-question" aria-expanded="false">
+              Qual é o formato do evento?
+              <span class="faq-icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer" role="region">
+              <div class="faq-answer-inner">
+                O evento tem formato de Talk Show, com duração de 08h às 12h. A programação inclui welcome coffee, abertura, pitch de cases de corretoras cativas, talk show com especialistas e encerramento.
+              </div>
+            </div>
+          </div>
+          <div class="faq-item fade-in" role="listitem">
+            <button class="faq-question" aria-expanded="false">
+              Onde será realizado o encontro?
+              <span class="faq-icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer" role="region">
+              <div class="faq-answer-inner">
+                O evento será realizado na Casa Manioca, na segunda quinzena de setembro de 2026. O endereço completo e demais informações logísticas serão enviados aos participantes confirmados pela curadoria.
+              </div>
+            </div>
+          </div>
+          <div class="faq-item fade-in" role="listitem">
+            <button class="faq-question" aria-expanded="false">
+              Quem realiza o evento?
+              <span class="faq-icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer" role="region">
+              <div class="faq-answer-inner">
+                O 1º Encontro de Corretoras Cativas do Brasil é realizado pela MCI, com curadoria própria para garantir a qualidade e relevância dos participantes e dos temas abordados.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL DE URGÊNCIA -->
+    <section id="cta-final" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="cta-final-inner fade-in">
+          <div class="urgency-tag"><i class="fa-solid fa-hourglass-half"></i> &nbsp;Vagas limitadas · Curadoria exclusiva</div>
+          <h2 class="cta-final-title" id="cta-title">
+            Vamos construir essa conversa juntos?
+          </h2>
+          <p class="cta-final-sub">
+            O 1º Encontro de Corretoras Cativas do Brasil nasce para se tornar uma tradição. Feito por quem decide, para quem decide.
+          </p>
+
+          <div class="cta-final-countdown" id="cta-countdown" aria-live="polite" aria-label="Contagem regressiva para o evento">
+            <div class="cd-unit">
+              <div class="cd-num" id="c-dias">--</div>
+              <div class="cd-label" style="color:rgba(255,255,255,0.4)">Dias</div>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+              <div class="cd-num" id="c-horas">--</div>
+              <div class="cd-label" style="color:rgba(255,255,255,0.4)">Horas</div>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+              <div class="cd-num" id="c-mins">--</div>
+              <div class="cd-label" style="color:rgba(255,255,255,0.4)">Min</div>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+              <div class="cd-num" id="c-segs">--</div>
+              <div class="cd-label" style="color:rgba(255,255,255,0.4)">Seg</div>
+            </div>
+          </div>
+
+          <a href="#inscricao" class="btn-primary" style="font-size:1rem; padding:1.1rem 2.5rem;">
+            Quero participar <i class="fa-solid fa-arrow-right" style="font-size:0.8rem;"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand-name">MCI <span>Corretoras Cativas</span></div>
+          <p class="footer-desc">
+            Realização do 1º Encontro de Corretoras Cativas do Brasil — um evento exclusivo para lideranças que decidem.
+          </p>
+          <div class="footer-social">
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Navegação</div>
+          <ul class="footer-links">
+            <li><a href="#sobre">O Evento</a></li>
+            <li><a href="#cativa">Por que uma Cativa</a></li>
+            <li><a href="#programacao">Programação</a></li>
+            <li><a href="#perfil">Para quem é</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#inscricao">Inscrição</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Informações do Evento</div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>Segunda quinzena de setembro/26</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Casa Manioca</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-clock"></i>
+            <span>08h às 12h</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-microphone-lines"></i>
+            <span>Formato Talk Show</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 MCI. Todos os direitos reservados.</p>
+        <p class="footer-realizacao">Realizado por <span>MCI</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCROLL TO TOP -->
+  <button id="scroll-top" aria-label="Voltar ao topo">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script>
+    /* ─────────────────────────────────────────
+       COUNTDOWN TIMER
+       Target: September 15, 2026 at 08:00 BRT (UTC-3)
+       Note: exact date TBD — using Sep 15 as mid-month placeholder
+    ───────────────────────────────────────── */
+    const eventDate = new Date('2026-09-15T08:00:00-03:00').getTime();
+
+    function updateCountdown() {
+      const now = Date.now();
+      const diff = eventDate - now;
+
+      const heroIds  = ['h-dias','h-horas','h-mins','h-segs'];
+      const ctaIds   = ['c-dias','c-horas','c-mins','c-segs'];
+
+      if (diff <= 0) {
+        [...heroIds, ...ctaIds].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = '00';
+        });
+        return;
+      }
+
+      const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+      const pad = n => String(n).padStart(2, '0');
+      const vals = [pad(days), pad(hours), pad(mins), pad(secs)];
+
+      heroIds.forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = vals[i];
+      });
+      ctaIds.forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = vals[i];
+      });
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* ─────────────────────────────────────────
+       FAQ ACCORDION
+    ───────────────────────────────────────── */
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item   = btn.closest('.faq-item');
+        const answer = item.querySelector('.faq-answer');
+        const isOpen = answer.classList.contains('open');
+
+        // close all
+        document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+        document.querySelectorAll('.faq-question').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-expanded', 'false');
+        });
+
+        if (!isOpen) {
+          answer.classList.add('open');
+          btn.classList.add('active');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    /* ─────────────────────────────────────────
+       HAMBURGER MENU
+    ───────────────────────────────────────── */
+    const hamburger   = document.getElementById('hamburger');
+    const mobileMenu  = document.getElementById('mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // close on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* ─────────────────────────────────────────
+       NAVBAR SCROLL STYLE
+    ───────────────────────────────────────── */
+    const navbar    = document.getElementById('navbar');
+    const scrollTop = document.getElementById('scroll-top');
+
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      navbar.classList.toggle('scrolled', y > 60);
+      scrollTop.classList.toggle('visible', y > 400);
+    }, { passive: true });
+
+    scrollTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ─────────────────────────────────────────
+       INTERSECTION OBSERVER — FADE IN
+    ───────────────────────────────────────── */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    /* ─────────────────────────────────────────
+       FORM SUBMIT
+    ───────────────────────────────────────── */
+    document.getElementById('form-inscricao').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('.form-submit-btn');
+      btn.textContent = '✓ Inscrição enviada! Aguarde contato.';
+      btn.style.background = '#4caf7d';
+      btn.style.color = '#fff';
+      btn.disabled = true;
+    });
+
+    /* ─────────────────────────────────────────
+       REDUCED MOTION
+    ───────────────────────────────────────── */
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.fade-in').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        el.classList.add('visible');
+      });
+      const marquee = document.querySelector('.marquee-track');
+      if (marquee) marquee.style.animation = 'none';
+    }
+  </script>
+</body>
+</html>

@@ -128,29 +128,6 @@
     /* ═══════════════════════════════════════
        TOP BAR
     ═══════════════════════════════════════ */
-    #topbar {
-      background: var(--bg-dark);
-      border-bottom: 1px solid rgba(176,178,118,0.2);
-      padding: 0.5rem 0;
-    }
-    .topbar-inner {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 1rem;
-    }
-    .topbar-meta { display: flex; align-items: center; gap: 1.5rem; }
-    .topbar-item {
-      display: flex; align-items: center; gap: 0.4rem;
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.6);
-    }
-    .topbar-item i { color: var(--color-primary); font-size: 0.7rem; }
-    .topbar-social { display: flex; gap: 0.75rem; }
-    .topbar-social a {
-      color: rgba(255,255,255,0.5);
-      font-size: 0.8rem;
-      transition: color var(--transition);
-    }
-    .topbar-social a:hover { color: var(--color-primary); }
 
     /* ═══════════════════════════════════════
        HEADER / NAV
@@ -223,47 +200,26 @@
     ═══════════════════════════════════════ */
     #hero {
       background: var(--bg-dark);
+      background-image: url('bg-encontro-cativas.png');
+      background-size: cover;
+      background-position: center;
       position: relative;
       overflow: hidden;
       padding: 5rem 0 4rem;
     }
-    /* Decorative diagonal accent lines */
+    /* Dark overlay for text readability */
     #hero::before {
       content: '';
       position: absolute; inset: 0;
-      background:
-        linear-gradient(135deg,
-          transparent 0%,
-          transparent 49.9%,
-          rgba(176,178,118,0.06) 50%,
-          rgba(176,178,118,0.06) 50.2%,
-          transparent 50.2%,
-          transparent 100%
-        ),
-        linear-gradient(135deg,
-          transparent 0%,
-          transparent 39.9%,
-          rgba(176,178,118,0.04) 40%,
-          rgba(176,178,118,0.04) 40.2%,
-          transparent 40.2%,
-          transparent 100%
-        );
+      background: rgba(6,28,41,0.55);
       pointer-events: none;
     }
-    /* Subtle radial glow */
-    #hero::after {
-      content: '';
-      position: absolute;
-      top: -20%; left: -10%;
-      width: 60%; height: 80%;
-      background: radial-gradient(ellipse, rgba(176,178,118,0.07) 0%, transparent 65%);
-      pointer-events: none;
-    }
+   
     .hero-inner {
       display: grid;
       grid-template-columns: 1fr 420px;
       gap: 4rem;
-      align-items: start;
+      align-items: center;
       position: relative; z-index: 1;
     }
     .hero-badge {
@@ -902,7 +858,11 @@
     .footer-realizacao {
       font-size: 0.75rem;
       color: rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
+    .footer-realizacao img { display: inline-block; vertical-align: middle; }
     .footer-realizacao span { color: var(--color-primary); font-weight: 600; }
 
     /* ═══════════════════════════════════════
@@ -950,7 +910,6 @@
     @media (max-width: 768px) {
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
-      .topbar-meta { display: none; }
       .form-row { grid-template-columns: 1fr; }
       .hero-countdown { gap: 0.5rem; }
       .cd-num { width: 52px; height: 52px; font-size: 1.5rem; }
@@ -968,37 +927,12 @@
 <body>
 
   <!-- TOP BAR -->
-  <div id="topbar" role="banner">
-    <div class="container">
-      <div class="topbar-inner">
-        <div class="topbar-meta">
-          <div class="topbar-item">
-            <i class="fa-solid fa-calendar-days"></i>
-            <span>Segunda quinzena de setembro/26</span>
-          </div>
-          <div class="topbar-item">
-            <i class="fa-solid fa-location-dot"></i>
-            <span>Casa Manioca</span>
-          </div>
-          <div class="topbar-item">
-            <i class="fa-solid fa-clock"></i>
-            <span>08h às 12h</span>
-          </div>
-        </div>
-        <div class="topbar-social">
-          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- NAVBAR -->
   <header id="navbar" role="navigation">
     <div class="container">
       <nav class="nav-inner" aria-label="Navegação principal">
         <div class="nav-logo">
-          MCI <span>Corretoras Cativas</span>
+          <img src="logo-white.png" width="130" alt="">
         </div>
         <ul class="nav-links">
           <li><a href="#sobre">O Evento</a></li>
@@ -1031,21 +965,10 @@
           <!-- LEFT: COPY -->
           <div>
            
-            <p class="hero-tag-above">1º Encontro de</p>
-            <h1 class="hero-headline" id="hero-title">
-              Corretoras<br />
-              <em>Cativas</em><br />
-              do Brasil
-            </h1>
+           <img src="logo-white.png">
             <p class="hero-subheadline">
               Um encontro exclusivo, por convite, para CEOs e lideranças de grandes empresas com potencial para estruturar sua própria corretora cativa.
             </p>
-            <div class="hero-chips">
-              <div class="chip"><i class="fa-solid fa-calendar-days"></i> Segunda quinzena de setembro/26</div>
-              <div class="chip"><i class="fa-solid fa-location-dot"></i> Casa Manioca</div>
-              <div class="chip"><i class="fa-solid fa-clock"></i> 08h às 12h</div>
-              <div class="chip"><i class="fa-solid fa-microphone"></i> Formato Talk Show</div>
-            </div>
 
             <p class="t-tag" style="margin-bottom:1rem;">Faltam para o evento</p>
             <div class="hero-countdown" id="hero-countdown" aria-live="polite" aria-label="Contagem regressiva">
@@ -1485,7 +1408,7 @@
     <div class="container">
       <div class="footer-inner">
         <div>
-          <div class="footer-brand-name">MCI <span>Corretoras Cativas</span></div>
+          <img src="logo-white.png" width="130" alt="">
           <p class="footer-desc">
             Realização do 1º Encontro de Corretoras Cativas do Brasil — um evento exclusivo para lideranças que decidem.
           </p>
@@ -1527,7 +1450,7 @@
       </div>
       <div class="footer-bottom">
         <p class="footer-copy">© 2026 MCI. Todos os direitos reservados.</p>
-        <p class="footer-realizacao">Realizado por <span>MCI</span></p>
+        <p class="footer-realizacao">Realizado por <img src="mci-logo.png" width="70px" alt="Logo MCI"></p>
       </div>
     </div>
   </footer>

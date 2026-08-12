@@ -480,7 +480,7 @@
     .cativa-intro { font-size: 1.0625rem; line-height: 1.75; color: var(--text-main); margin-top: 1.25rem; }
     .benefits-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
     }
     .benefit-card {
@@ -1063,7 +1063,7 @@
         <span class="stat-sep">·</span>
         <span class="stat-item"><i class="fa-solid fa-circle-check"></i> CEOs e C-Level</span>
         <span class="stat-sep">·</span>
-        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Casa Manioca, Setembro/26</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Casa Manioca, 24/09/26</span>
         <span class="stat-sep">·</span>
         <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Gestão de Riscos Estratégica</span>
         <span class="stat-sep">·</span>
@@ -1078,7 +1078,7 @@
         <span class="stat-sep">·</span>
         <span class="stat-item"><i class="fa-solid fa-circle-check"></i> CEOs e C-Level</span>
         <span class="stat-sep">·</span>
-        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Casa Manioca, Setembro/26</span>
+        <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Casa Manioca, 24/09/26</span>
         <span class="stat-sep">·</span>
         <span class="stat-item"><i class="fa-solid fa-circle-check"></i> Gestão de Riscos Estratégica</span>
         <span class="stat-sep">·</span>
@@ -1113,7 +1113,7 @@
                 "Feito por quem decide,<br/>para quem decide."
               </p>
               <div class="sobre-event-details">
-                <div class="detail-row"><i class="fa-solid fa-calendar-days"></i><div><strong>Data</strong> — Segunda quinzena de setembro/26</div></div>
+                <div class="detail-row"><i class="fa-solid fa-calendar-days"></i><div><strong>Data</strong> — 24 de setembro de 2026</div></div>
                 <div class="detail-row"><i class="fa-solid fa-location-dot"></i><div><strong>Local</strong> — Casa Manioca</div></div>
                 <div class="detail-row"><i class="fa-solid fa-clock"></i><div><strong>Horário</strong> — 08h às 12h</div></div>
                 <div class="detail-row"><i class="fa-solid fa-microphone-lines"></i><div><strong>Formato</strong> — Talk Show com curadoria MCI</div></div>
@@ -1146,7 +1146,11 @@
             <div class="benefit-title">Mais controle sobre custos e apólices</div>
             <p class="benefit-desc">Decisões de risco e negociação passam a ser conduzidas internamente, com visão completa da operação.</p>
           </div>
-         
+          <div class="benefit-card fade-in">
+            <div class="benefit-icon"><i class="fa-solid fa-coins"></i></div>
+            <div class="benefit-title">Nova fonte de receita</div>
+            <p class="benefit-desc">A comissão que hoje vai para uma corretora externa passa a ficar dentro do próprio grupo.</p>
+          </div>
           <div class="benefit-card fade-in">
             <div class="benefit-icon"><i class="fa-solid fa-shield-halved"></i></div>
             <div class="benefit-title">Governança e dados sob domínio da empresa</div>
@@ -1337,7 +1341,7 @@
             </button>
             <div class="faq-answer" role="region">
               <div class="faq-answer-inner">
-                O evento será realizado na Casa Manioca, na segunda quinzena de setembro de 2026. O endereço completo e demais informações logísticas serão enviados aos participantes confirmados pela curadoria.
+                O evento será realizado na Casa Manioca, em 24 de setembro de 2026. O endereço completo e demais informações logísticas serão enviados aos participantes confirmados pela curadoria.
               </div>
             </div>
           </div>
@@ -1428,7 +1432,7 @@
           <div class="footer-col-title">Informações do Evento</div>
           <div class="footer-contact-item">
             <i class="fa-solid fa-calendar-days"></i>
-            <span>Segunda quinzena de setembro/26</span>
+            <span>24 de setembro/2026</span>
           </div>
           <div class="footer-contact-item">
             <i class="fa-solid fa-location-dot"></i>
@@ -1459,10 +1463,9 @@
   <script>
     /* ─────────────────────────────────────────
        COUNTDOWN TIMER
-       Target: September 15, 2026 at 08:00 BRT (UTC-3)
-       Note: exact date TBD — using Sep 15 as mid-month placeholder
+       Target: September 24, 2026 at 08:00 BRT (UTC-3)
     ───────────────────────────────────────── */
-    const eventDate = new Date('2026-09-15T08:00:00-03:00').getTime();
+    const eventDate = new Date('2026-09-24T08:00:00-03:00').getTime();
 
     function updateCountdown() {
       const now = Date.now();

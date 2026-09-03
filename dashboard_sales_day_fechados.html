@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Day — Negócios Fechados</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#003894;--navy-mid:#004F94;--blue:#0082DE;--mint:#7ded8a;
+  --navy-dim:rgba(0,56,148,.08);--mint-dim:rgba(125,237,138,.12);--blue-dim:rgba(0,130,222,.10);
+  --bg:#FFFFFF;--surface:#FFFFFF;--surface-2:#F8FAFC;
+  --border:rgba(0,56,148,.08);--border-mid:rgba(0,56,148,.14);
+  --text-primary:#0B1F3A;--text-secondary:#3D5A80;--text-muted:#8BA3BE;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text-primary);font-family:'Montserrat',system-ui,sans-serif;font-size:13px;line-height:1.6;min-height:100vh}
+
+/* ── HEADER ── */
+.header{background:var(--navy);padding:0 40px;height:56px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:200}
+.header-left{display:flex;align-items:center;gap:24px}
+.header-logo img{height:28px;width:auto}
+.header-divider{width:1px;height:24px;background:rgba(255,255,255,.2)}
+.header-title{font-size:13px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.01em}
+.header-subtitle{font-size:10px;font-weight:400;color:rgba(255,255,255,.5);letter-spacing:.04em;text-transform:uppercase;margin-top:1px}
+.header-right{display:flex;align-items:center;gap:24px}
+.header-stat{text-align:right}
+.header-stat-val{font-size:18px;font-weight:800;color:var(--mint);line-height:1;letter-spacing:-.02em}
+.header-stat-label{font-size:9px;font-weight:600;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.status-pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:5px 12px;font-size:10px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.06em;text-transform:uppercase}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px var(--mint);animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ── FILTER BAR ── */
+.filter-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 40px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;position:fixed;top:56px;left:0;right:0;z-index:150;box-shadow:0 2px 8px rgba(0,56,148,.04)}
+.filter-label{font-size:9px;font-weight:700;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;margin-right:4px}
+.filter-group{display:flex;align-items:center;gap:8px}
+.filter-select{appearance:none;background:var(--surface-2);border:1px solid var(--border-mid);border-radius:8px;padding:7px 32px 7px 12px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--text-primary);cursor:pointer;outline:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238BA3BE' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;transition:border-color .2s,box-shadow .2s}
+.filter-select:hover,.filter-select:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-dim)}
+.filter-sep{width:1px;height:24px;background:var(--border-mid)}
+.filter-reset{padding:7px 16px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);background:var(--navy-dim);border:1px solid rgba(0,56,148,.12);border-radius:8px;cursor:pointer;transition:background .2s,box-shadow .2s}
+.filter-reset:hover{background:rgba(0,56,148,.12);box-shadow:0 2px 8px rgba(0,56,148,.1)}
+.filter-count{font-size:10px;font-weight:700;color:var(--text-muted);background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:4px 12px;letter-spacing:.04em}
+.filter-count span{color:var(--navy);font-weight:800}
+
+/* ── MAIN ── */
+.main{padding:128px 40px 64px;max-width:1440px;margin:0 auto;position:relative;z-index:1}
+
+/* ── SECTION LABELS ── */
+.section-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);margin-bottom:16px;margin-top:40px;display:flex;align-items:center;gap:10px}
+.section-label .sl-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.section-label:first-child{margin-top:0}
+
+/* ── KPI GRID ── */
+.kpi-grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.kpi-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.kpi-card{background:var(--surface);border:none;border-radius:12px;padding:24px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;animation:fadeUp .45s ease both;box-shadow:0 1px 3px rgba(0,56,148,.06)}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:transparent;border-radius:12px 12px 0 0}
+.kpi-card.c-mint::before{background:var(--mint)}
+.kpi-card.c-blue::before{background:var(--blue)}
+.kpi-card.c-navy::before{background:var(--navy)}
+.kpi-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,56,148,.10)}
+.kpi-label{font-size:10px;font-weight:600;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.kpi-value{font-size:32px;font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.kpi-value.v-mint{color:#2d8a3e}.kpi-value.v-blue{color:var(--blue)}.kpi-value.v-navy{color:var(--navy)}.kpi-value.v-white{color:var(--text-primary)}
+.kpi-sub{font-size:11px;font-weight:400;color:var(--text-secondary);margin-top:8px;line-height:1.4}
+.kpi-badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;padding:4px 10px;border-radius:20px;margin-top:10px;letter-spacing:.04em;text-transform:uppercase}
+.badge-mint{background:var(--mint-dim);color:#2d8a3e}.badge-teal{background:var(--blue-dim);color:var(--blue)}.badge-blue{background:var(--navy-dim);color:var(--navy)}.badge-muted{background:var(--surface-2);color:var(--text-secondary)}
+
+/* ── CHART GRIDS ── */
+.chart-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.chart-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.chart-grid-23{display:grid;grid-template-columns:1fr 1.5fr;gap:20px}
+.chart-card{background:var(--surface);border:none;border-radius:12px;padding:28px;display:flex;flex-direction:column;animation:fadeUp .5s ease both;box-shadow:0 1px 3px rgba(0,56,148,.06);transition:box-shadow .2s}
+.chart-card:hover{box-shadow:0 4px 16px rgba(0,56,148,.08)}
+.chart-card.tall{min-height:360px}.chart-card.xtall{min-height:440px}
+.chart-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px}
+.chart-title{font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--text-primary)}
+.chart-desc{font-size:11px;font-weight:400;color:var(--text-muted);margin-top:4px;line-height:1.4}
+.chart-tag{font-size:9px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;letter-spacing:.04em;text-transform:uppercase}
+.tag-mint{background:var(--mint-dim);color:#2d8a3e}.tag-teal{background:var(--blue-dim);color:var(--blue)}.tag-blue{background:var(--navy-dim);color:var(--navy)}.tag-muted{background:var(--surface-2);color:var(--text-secondary)}
+.chart-wrap{flex:1;position:relative;min-height:220px}
+
+/* ── BAR TABLE ── */
+.bar-table{display:flex;flex-direction:column;gap:10px}
+.bar-row{display:grid;align-items:center;gap:12px}
+.bar-row.col-3w{grid-template-columns:160px 1fr 80px}
+.bar-row.col-3n{grid-template-columns:150px 1fr 50px}
+.bar-name{font-size:11px;font-weight:500;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+.bar-track{height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;transition:width .9s cubic-bezier(.4,0,.2,1)}
+.bar-val{font-size:11px;font-weight:700;text-align:right;letter-spacing:-.01em;color:var(--text-primary)}
+
+/* ── PROP LIST ── */
+.prop-list{display:flex;flex-direction:column;gap:7px}
+.prop-item{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;background:var(--surface-2);transition:background .2s}
+.prop-item:hover{background:var(--navy-dim)}
+.prop-rank{font-size:10px;font-weight:700;color:var(--text-muted);text-align:center}
+.prop-rank.rank-top{color:#2d8a3e}
+.prop-name{font-size:12px;font-weight:600;color:var(--text-primary)}
+.prop-sub{font-size:10px;color:var(--text-muted);font-weight:400;margin-top:1px}
+.prop-count{font-size:15px;font-weight:800;color:#2d8a3e;text-align:right;letter-spacing:-.02em}
+
+/* ── LEGEND ── */
+.legend-row{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.legend-label{font-size:11px;font-weight:500;color:var(--text-secondary);flex:1}
+.legend-val{font-size:11px;font-weight:700;color:var(--text-primary)}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--border);margin:8px 0}
+
+/* ── FUNIL ── */
+.funnel-row{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.funnel-label{font-size:9px;font-weight:700;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;width:160px;flex-shrink:0;line-height:1.3}
+.funnel-track{flex:1;height:22px;background:var(--surface-2);border-radius:6px;overflow:hidden}
+.funnel-fill{height:100%;border-radius:6px;transition:width .9s cubic-bezier(.4,0,.2,1)}
+.funnel-val{font-size:15px;font-weight:800;letter-spacing:-.03em;width:72px;text-align:right;flex-shrink:0}
+
+/* ── MINI STAT ── */
+.mini-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini-stat{background:var(--surface-2);border-radius:8px;padding:14px 16px}
+.mini-stat-label{font-size:9px;font-weight:700;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.mini-stat-val{font-size:22px;font-weight:800;letter-spacing:-.03em}
+.mini-stat-sub{font-size:10px;color:var(--text-muted);margin-top:3px}
+
+/* ── DEAL TABLE ── */
+.deal-table{width:100%;border-collapse:collapse;font-size:11px}
+.deal-table th{text-align:left;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);padding:0 12px 12px 0;border-bottom:2px solid var(--border-mid)}
+.deal-table th:last-child{text-align:right}
+.deal-table td{padding:9px 12px 9px 0;border-bottom:1px solid var(--border);color:var(--text-secondary);vertical-align:middle}
+.deal-table td:first-child{color:var(--text-primary);font-weight:600}
+.deal-table td:last-child{text-align:right;font-weight:700;color:var(--navy)}
+.deal-table tr:last-child td{border-bottom:none}
+.deal-table tr:hover td{background:var(--surface-2)}
+.deal-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.04em}
+.deal-tag.dt-mint{background:var(--mint-dim);color:#2d8a3e}
+.deal-tag.dt-blue{background:var(--blue-dim);color:var(--blue)}
+.deal-tag.dt-navy{background:var(--navy-dim);color:var(--navy)}
+.deal-tag.dt-muted{background:var(--surface-2);color:var(--text-secondary)}
+
+/* ── FOOTER ── */
+.footer{text-align:center;padding:24px 40px;font-size:10px;font-weight:500;color:var(--text-muted);border-top:1px solid var(--border);letter-spacing:.06em;text-transform:uppercase}
+.footer span{color:var(--navy);font-weight:700}
+
+@media(max-width:1200px){.kpi-grid-5{grid-template-columns:repeat(3,1fr)}.chart-grid-2,.chart-grid-3,.chart-grid-23{grid-template-columns:1fr}}
+@media(max-width:768px){.main{padding:120px 16px 48px}.kpi-grid-5,.kpi-grid-4{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <div class="header-logo"><img src="https://51120278.fs1.hubspotusercontent-na1.net/hubfs/51120278/%5BAlper%5D%20Salesday/salesday-white.png" alt="Sales Day"></div>
+    <div class="header-divider"></div>
+    <div>
+      <div class="header-title">Negócios Fechados — Sales Day</div>
+      <div class="header-subtitle">Dashboard de Oportunidades Ganhas</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-stat">
+      <div class="header-stat-val">96</div>
+      <div class="header-stat-label">Negócios fechados</div>
+    </div>
+    <div class="header-stat">
+      <div class="header-stat-val">R$ 885k</div>
+      <div class="header-stat-label">Receita 12 meses</div>
+    </div>
+    <div class="status-pill">
+      <div class="status-dot"></div>
+      Fechado e Ganho
+    </div>
+  </div>
+</header>
+
+<div class="filter-bar">
+  <span class="filter-label">Filtrar por</span>
+  <div class="filter-group">
+    <select class="filter-select" id="fOrigem" onchange="applyFilters()">
+      <option value="">Todas as Origens</option>
+      <option value="Sales Day 3ª Ed.">Sales Day 3ª Ed.</option>
+      <option value="Comercial Alper">Comercial Alper</option>
+      <option value="Patria">Patria</option>
+      <option value="Partner">Partner</option>
+      <option value="Account">Account</option>
+      <option value="Alexandre Marroquim">Alexandre Marroquim</option>
+      <option value="Filial Maringá">Filial Maringá</option>
+      <option value="Top 20 Clientes">Top 20 Clientes</option>
+      <option value="Sales Break">Sales Break</option>
+      <option value="Seguros Corp.">Seguros Corp.</option>
+      <option value="Site">Site</option>
+      <option value="Sales Day 2026">Sales Day 2026</option>
+      <option value="Growth/Cross-Sell">Growth/Cross-Sell</option>
+      <option value="Outros">Outros</option>
+    </select>
+  </div>
+  <div class="filter-sep"></div>
+  <div class="filter-group">
+    <select class="filter-select" id="fTipo" onchange="applyFilters()">
+      <option value="">Todos os Tipos</option>
+      <option value="Automóvel">Automóvel</option>
+      <option value="Seguros Corporativos">Seguros Corporativos</option>
+      <option value="Transportes">Transportes</option>
+      <option value="Specialty">Specialty</option>
+      <option value="Benefícios PME">Benefícios PME</option>
+      <option value="Benefícios Corporate">Benefícios Corporate</option>
+      <option value="Agronegócio">Agronegócio</option>
+      <option value="Massificados">Massificados</option>
+    </select>
+  </div>
+  <div class="filter-sep"></div>
+  <div class="filter-group">
+    <select class="filter-select" id="fProd" onchange="applyFilters()">
+      <option value="">Todos os Produtos</option>
+      <option value="AUTOMOVEL INDIVIDUAL">Automóvel Individual</option>
+      <option value="GARANTIA">Garantia</option>
+      <option value="RC-V">RC-V</option>
+      <option value="VIDA">Vida</option>
+      <option value="P&C - EMPRESARIAL">P&C Empresarial</option>
+      <option value="RCTR-C">RCTR-C</option>
+      <option value="RCF-DC">RCF-DC</option>
+      <option value="RETA">RETA</option>
+      <option value="SAUDE">Saúde</option>
+      <option value="AUTOMOVEL FROTA">Automóvel Frota</option>
+      <option value="SEGURO RESIDENCIAL">Seg. Residencial</option>
+      <option value="AERONAVES (AERONAUTICO)">Aeronaves</option>
+    </select>
+  </div>
+  <div class="filter-sep"></div>
+  <div class="filter-group">
+    <select class="filter-select" id="fProp" onchange="applyFilters()">
+      <option value="">Todos os Proprietários</option>
+      <option value="Patricia Viana Mendes da Silva">Patricia Viana</option>
+      <option value="Roger Sena Monteiro">Roger Sena</option>
+      <option value="Floripes Rocha Barbosa">Floripes Rocha</option>
+      <option value="Juliane Cristina Neris Andrade">Juliane Cristina</option>
+      <option value="Tamara Cristina Barreiros da Silva">Tamara Cristina</option>
+      <option value="Augusto Gabriel Correa">Augusto Gabriel</option>
+      <option value="Jenifer Cristina Backes">Jenifer Backes</option>
+      <option value="Kelin Adriana Rzeznih Crusaro">Kelin Crusaro</option>
+      <option value="Leonardo Vitor Piva Dal Ri">Leonardo Piva</option>
+      <option value="Franksiliene Aparecida de Jesus">Franksiliene Jesus</option>
+    </select>
+  </div>
+  <div class="filter-sep"></div>
+  <button class="filter-reset" onclick="resetFilters()">↺ Limpar</button>
+  <div class="filter-count" id="filterCount"><span>96</span> negócios</div>
+</div>
+
+<main class="main">
+
+  <div class="section-label"><span class="sl-dot"></span>Resumo Executivo</div>
+  <div class="kpi-grid-5">
+    <div class="kpi-card" style="animation-delay:.04s">
+      <div class="kpi-label">Receita Total 12M</div>
+      <div class="kpi-value" id="kpiReceita">R$ 885,8k</div>
+      <div class="kpi-sub">96 negócios fechados e ganhos</div>
+    </div>
+    <div class="kpi-card" style="animation-delay:.09s">
+      <div class="kpi-label">Negócios Fechados</div>
+      <div class="kpi-value v-blue" id="kpiDeals">96</div>
+      <div class="kpi-sub">45 proprietários de oportunidade</div>
+     
+    </div>
+    <div class="kpi-card" style="animation-delay:.14s">
+      <div class="kpi-label">Ticket Médio</div>
+      <div class="kpi-value v-navy" id="kpiTicket">R$ 9,2k</div>
+      <div class="kpi-sub">Mediana: R$ 474 por deal</div>
+      <div class="kpi-badge badge-blue">por oportunidade</div>
+    </div>
+    <div class="kpi-card" style="animation-delay:.19s">
+      <div class="kpi-label">Sales Day 3ª Ed.</div>
+      <div class="kpi-value v-white" id="kpiSd3">39</div>
+      <div class="kpi-sub">R$ 77,5k em receita gerada</div>
+      <div class="kpi-badge badge-muted">40,6% dos deals</div>
+    </div>
+    <div class="kpi-card" style="animation-delay:.24s">
+      <div class="kpi-label">Maior Deal</div>
+      <div class="kpi-value v-white">R$ 885k</div>
+      <div class="kpi-sub">Patricia V. — Comercial Alper</div>
+      <div class="kpi-badge badge-muted">Saúde — Benef. PME</div>
+    </div>
+  </div>
+
+  <div class="kpi-grid-4" style="margin-top:16px">
+    <div class="kpi-card" style="animation-delay:.29s">
+      <div class="kpi-label">Proprietário #1</div>
+      <div class="kpi-value v-mint" style="font-size:20px">R$ 216,8k</div>
+      <div class="kpi-sub">Patricia Viana — 3 deals</div>
+    </div>
+    <div class="kpi-card" style="animation-delay:.34s">
+      <div class="kpi-label">Produto Líder (Receita)</div>
+      <div class="kpi-value v-blue" style="font-size:20px">Saúde</div>
+      <div class="kpi-sub">R$ 227k — 5 deals</div>
+    </div>
+    <div class="kpi-card" style="animation-delay:.39s">
+      <div class="kpi-label">Tipo Líder (Receita)</div>
+      <div class="kpi-value v-navy" style="font-size:20px">Benef. PME</div>
+      <div class="kpi-sub">R$ 231k — apenas 8 deals</div>
+    </div>
+    <div class="kpi-card" style="animation-delay:.44s">
+      <div class="kpi-label">Produto Mais Frequente</div>
+      <div class="kpi-value v-white" style="font-size:20px">Auto Ind.</div>
+      <div class="kpi-sub">20 ocorrências — baixo ticket</div>
+    </div>
+  </div>
+
+  <div class="section-label"><span class="sl-dot"></span>Proprietários da Oportunidade</div>
+  <div class="chart-grid-2">
+    <div class="chart-card tall">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Ranking por Receita 12M</div>
+          <div class="chart-desc">Top proprietários — receita acumulada de negócios fechados</div>
+        </div>
+        <span class="chart-tag tag-mint">Top 15</span>
+      </div>
+      <div class="prop-list" id="propList"></div>
+    </div>
+    <div class="chart-card tall">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Receita por Proprietário</div>
+          <div class="chart-desc">Distribuição de receita entre os top gestores</div>
+        </div>
+        <span class="chart-tag tag-teal">R$ 885,8k total</span>
+      </div>
+      <div class="chart-wrap"><canvas id="chartProp"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section-label"><span class="sl-dot"></span>Tipo de Negócio &amp; Origem</div>
+  <div class="chart-grid-2">
+    <div class="chart-card tall">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Receita por Tipo de Negócio</div>
+          <div class="chart-desc">Valor gerado vs. quantidade de deals por vertical</div>
+        </div>
+        <span class="chart-tag tag-blue">9 categorias</span>
+      </div>
+      <div class="bar-table">
+        <div class="bar-row col-3w"><div class="bar-name">Benefícios PME</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:#2d8a3e"></div></div><div class="bar-val" style="color:#2d8a3e">R$ 231k <span style="font-size:9px;color:var(--text-muted)">8 deals</span></div></div>
+        <div class="bar-row col-3w"><div class="bar-name">Seguros Corp.</div><div class="bar-track"><div class="bar-fill" style="width:72%;background:var(--blue)"></div></div><div class="bar-val" style="color:var(--blue)">R$ 167k <span style="font-size:9px;color:var(--text-muted)">25 deals</span></div></div>
+        <div class="bar-row col-3w"><div class="bar-name">Transportes</div><div class="bar-track"><div class="bar-fill" style="width:60.8%;background:var(--navy)"></div></div><div class="bar-val" style="color:var(--navy)">R$ 141k <span style="font-size:9px;color:var(--text-muted)">11 deals</span></div></div>
+        <div class="bar-row col-3w"><div class="bar-name">Specialty</div><div class="bar-track"><div class="bar-fill" style="width:51%;background:#0EA5E9"></div></div><div class="bar-val" style="color:#0EA5E9">R$ 118k <span style="font-size:9px;color:var(--text-muted)">10 deals</span></div></div>
+        <div class="bar-row col-3w"><div class="bar-name">Benefícios Corp.</div><div class="bar-track"><div class="bar-fill" style="width:48.3%;background:#6366F1"></div></div><div class="bar-val" style="color:#6366F1">R$ 112k <span style="font-size:9px;color:var(--text-muted)">5 deals</span></div></div>
+        <div class="bar-row col-3w"><div class="bar-name">Automóvel</div><div class="bar-track"><div class="bar-fill" style="width:42.5%;background:#F59E0B"></div></div><div class="bar-val" style="color:#F59E0B">R$ 98k <span style="font-size:9px;color:var(--text-muted)">25 deals</span></div></div>
+        <div class="bar-row col-3w"><div class="bar-name">Agronegócio</div><div class="bar-track"><div class="bar-fill" style="width:7.2%;background:#10B981"></div></div><div class="bar-val" style="color:#10B981">R$ 16,5k <span style="font-size:9px;color:var(--text-muted)">5 deals</span></div></div>
+        <div class="bar-row col-3w"><div class="bar-name">Massificados</div><div class="bar-track"><div class="bar-fill" style="width:0.5%;background:var(--text-muted)"></div></div><div class="bar-val" style="color:var(--text-muted)">R$ 1,2k <span style="font-size:9px;color:var(--text-muted)">5 deals</span></div></div>
+        <div class="bar-row col-3w"><div class="bar-name">Personal Lines</div><div class="bar-track"><div class="bar-fill" style="width:0.4%;background:var(--text-muted)"></div></div><div class="bar-val" style="color:var(--text-muted)">R$ 832 <span style="font-size:9px;color:var(--text-muted)">2 deals</span></div></div>
+      </div>
+    </div>
+    <div class="chart-card tall">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Receita &amp; Volume por Origem</div>
+          <div class="chart-desc">Canal responsável pela oportunidade fechada</div>
+        </div>
+        <span class="chart-tag tag-teal">14 origens</span>
+      </div>
+      <div class="chart-wrap" style="min-height:260px"><canvas id="chartOrigem"></canvas></div>
+      <div style="margin-top:16px" class="bar-table">
+        <div class="bar-row col-3w"><div class="bar-name">Comercial Alper</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:#2d8a3e"></div></div><div class="bar-val" style="color:#2d8a3e">R$ 287k</div></div>
+        <div class="bar-row col-3w"><div class="bar-name">Patria</div><div class="bar-track"><div class="bar-fill" style="width:47.9%;background:var(--blue)"></div></div><div class="bar-val" style="color:var(--blue)">R$ 137k</div></div>
+        <div class="bar-row col-3w"><div class="bar-name">Partner</div><div class="bar-track"><div class="bar-fill" style="width:29.2%;background:var(--navy)"></div></div><div class="bar-val" style="color:var(--navy)">R$ 84k</div></div>
+        <div class="bar-row col-3w"><div class="bar-name">Account</div><div class="bar-track"><div class="bar-fill" style="width:28.2%;background:#6366F1"></div></div><div class="bar-val" style="color:#6366F1">R$ 81k</div></div>
+        <div class="bar-row col-3w"><div class="bar-name">Sales Day 3ª Ed.</div><div class="bar-track"><div class="bar-fill" style="width:27%;background:#F59E0B"></div></div><div class="bar-val" style="color:#F59E0B">R$ 77,5k</div></div>
+        <div class="bar-row col-3w"><div class="bar-name">Seguros Corp.</div><div class="bar-track"><div class="bar-fill" style="width:26.1%;background:#0EA5E9"></div></div><div class="bar-val" style="color:#0EA5E9">R$ 75k</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label"><span class="sl-dot"></span>Produtos Vinculados</div>
+  <div class="chart-grid-2">
+    <div class="chart-card tall">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Receita por Produto Principal</div>
+          <div class="chart-desc">Produto primário da oportunidade x receita 12M gerada</div>
+        </div>
+        <span class="chart-tag tag-mint">R$ por produto</span>
+      </div>
+      <div class="chart-wrap"><canvas id="chartProdRev"></canvas></div>
+    </div>
+    <div class="chart-card tall">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Frequência de Produtos Vinculados</div>
+          <div class="chart-desc">Quantas vezes cada produto aparece (multi-produto incluído)</div>
+        </div>
+        <span class="chart-tag tag-blue">ocorrências</span>
+      </div>
+      <div class="bar-table">
+        <div class="bar-row col-3n"><div class="bar-name">Automóvel Indiv.</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:#F59E0B"></div></div><div class="bar-val" style="color:#F59E0B">20</div></div>
+        <div class="bar-row col-3n"><div class="bar-name">Garantia</div><div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--blue)"></div></div><div class="bar-val" style="color:var(--blue)">10</div></div>
+        <div class="bar-row col-3n"><div class="bar-name">RC-V</div><div class="bar-track"><div class="bar-fill" style="width:45%;background:var(--navy)"></div></div><div class="bar-val" style="color:var(--navy)">9</div></div>
+        <div class="bar-row col-3n"><div class="bar-name">Vida</div><div class="bar-track"><div class="bar-fill" style="width:40%;background:#6366F1"></div></div><div class="bar-val" style="color:#6366F1">8</div></div>
+        <div class="bar-row col-3n"><div class="bar-name">P&amp;C Empresarial</div><div class="bar-track"><div class="bar-fill" style="width:40%;background:#10B981"></div></div><div class="bar-val" style="color:#10B981">8</div></div>
+        <div class="bar-row col-3n"><div class="bar-name">RCTR-C</div><div class="bar-track"><div class="bar-fill" style="width:30%;background:#0EA5E9"></div></div><div class="bar-val" style="color:#0EA5E9">6</div></div>
+        <div class="bar-row col-3n"><div class="bar-name">RCF-DC</div><div class="bar-track"><div class="bar-fill" style="width:30%;background:#8B5CF6"></div></div><div class="bar-val" style="color:#8B5CF6">6</div></div>
+        <div class="bar-row col-3n"><div class="bar-name">RETA</div><div class="bar-track"><div class="bar-fill" style="width:30%;background:#EC4899"></div></div><div class="bar-val" style="color:#EC4899">6</div></div>
+        <div class="bar-row col-3n"><div class="bar-name">Saúde</div><div class="bar-track"><div class="bar-fill" style="width:25%;background:#2d8a3e"></div></div><div class="bar-val" style="color:#2d8a3e">5</div></div>
+        <div class="bar-row col-3n"><div class="bar-name">Automóvel Frota</div><div class="bar-track"><div class="bar-fill" style="width:25%;background:#F59E0B;opacity:.7"></div></div><div class="bar-val" style="color:#F59E0B">5</div></div>
+        <div class="bar-row col-3n"><div class="bar-name">Seg. Residencial</div><div class="bar-track"><div class="bar-fill" style="width:25%;background:#94A3B8"></div></div><div class="bar-val" style="color:#94A3B8">5</div></div>
+        <div class="bar-row col-3n"><div class="bar-name">Aeronaves</div><div class="bar-track"><div class="bar-fill" style="width:20%;background:#64748B"></div></div><div class="bar-val" style="color:#64748B">4</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label"><span class="sl-dot"></span>Análises Cruzadas</div>
+  <div class="chart-grid-3">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Deals por Origem</div>
+          <div class="chart-desc">Quantidade de negócios por canal de captação</div>
+        </div>
+        <span class="chart-tag tag-blue">96 deals</span>
+      </div>
+      <div class="chart-wrap" style="min-height:200px"><canvas id="chartOrigenDeals"></canvas></div>
+      <div style="margin-top:14px">
+        <div class="legend-row"><div class="legend-dot" style="background:#F59E0B"></div><div class="legend-label">Sales Day 3ª Ed.</div><div class="legend-val">39</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:#2d8a3e"></div><div class="legend-label">Comercial Alper</div><div class="legend-val">17</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:var(--blue)"></div><div class="legend-label">Alexandre Marroquim</div><div class="legend-val">8</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:var(--navy)"></div><div class="legend-label">Outros</div><div class="legend-val">8</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:#F43F5E"></div><div class="legend-label">Patria</div><div class="legend-val">4</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:#6366F1"></div><div class="legend-label">Filial Maringá</div><div class="legend-val">4</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:#94A3B8"></div><div class="legend-label">Demais</div><div class="legend-val">16</div></div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Deals por Tipo de Negócio</div>
+          <div class="chart-desc">Distribuição de deals por vertical</div>
+        </div>
+        <span class="chart-tag tag-teal">9 verticais</span>
+      </div>
+      <div class="chart-wrap" style="min-height:200px"><canvas id="chartTipoPie"></canvas></div>
+      <div style="margin-top:14px">
+        <div class="legend-row"><div class="legend-dot" style="background:#F59E0B"></div><div class="legend-label">Automóvel</div><div class="legend-val">25</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:var(--blue)"></div><div class="legend-label">Seguros Corporativos</div><div class="legend-val">25</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:var(--navy)"></div><div class="legend-label">Transportes</div><div class="legend-val">11</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:#6366F1"></div><div class="legend-label">Specialty</div><div class="legend-val">10</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:#2d8a3e"></div><div class="legend-label">Benefícios PME</div><div class="legend-val">8</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:#94A3B8"></div><div class="legend-label">Demais</div><div class="legend-val">17</div></div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Concentração por Faixa de Receita</div>
+          <div class="chart-desc">Distribuição de deals por ticket de receita anual</div>
+        </div>
+        <span class="chart-tag tag-mint">funil de valor</span>
+      </div>
+      <div style="padding-top:8px;flex:1;display:flex;flex-direction:column;justify-content:center;gap:4px">
+        <div class="funnel-row"><div class="funnel-label">R$ 100k+</div><div class="funnel-track"><div class="funnel-fill" style="width:2.1%;background:#2d8a3e"></div></div><div class="funnel-val" style="color:#2d8a3e">2</div></div>
+        <div class="funnel-row"><div class="funnel-label">R$ 20k – 100k</div><div class="funnel-track"><div class="funnel-fill" style="width:8.3%;background:var(--blue)"></div></div><div class="funnel-val" style="color:var(--blue)">8</div></div>
+        <div class="funnel-row"><div class="funnel-label">R$ 5k – 20k</div><div class="funnel-track"><div class="funnel-fill" style="width:15.6%;background:var(--navy)"></div></div><div class="funnel-val" style="color:var(--navy)">15</div></div>
+        <div class="funnel-row"><div class="funnel-label">R$ 501 – 5k</div><div class="funnel-track"><div class="funnel-fill" style="width:22.9%;background:#6366F1"></div></div><div class="funnel-val" style="color:#6366F1">22</div></div>
+        <div class="funnel-row"><div class="funnel-label">R$ 1 – 500</div><div class="funnel-track"><div class="funnel-fill" style="width:39.6%;background:#F59E0B"></div></div><div class="funnel-val" style="color:#F59E0B">38</div></div>
+        <div class="funnel-row" style="margin-bottom:0"><div class="funnel-label">R$ 0 (sem receita)</div><div class="funnel-track"><div class="funnel-fill" style="width:11.5%;background:#CBD5E1"></div></div><div class="funnel-val" style="color:#94A3B8">11</div></div>
+        <div class="divider" style="margin-top:20px"></div>
+        <div class="mini-stat-grid" style="margin-top:12px">
+          <div class="mini-stat"><div class="mini-stat-label">Top 10 deals</div><div class="mini-stat-val" style="color:#2d8a3e">~78%</div><div class="mini-stat-sub">da receita total</div></div>
+          <div class="mini-stat"><div class="mini-stat-label">Deals zerados</div><div class="mini-stat-val" style="color:var(--blue)">11</div><div class="mini-stat-sub">11,5% sem receita</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label"><span class="sl-dot"></span>Detalhamento — Negócios Fechados</div>
+  <div class="chart-card xtall">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Registro Completo de Oportunidades Ganhas</div>
+        <div class="chart-desc">Todos os negócios fechados — filtráveis pelo painel acima</div>
+      </div>
+      <span class="chart-tag tag-mint" id="tableCountTag">96 deals</span>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="deal-table" id="dealTable">
+        <thead><tr><th>Empresa / Cliente</th><th>Tipo de Negócio</th><th>Produto Vinculado</th><th>Origem</th><th>Proprietário</th><th style="text-align:right">Receita 12M</th></tr></thead>
+        <tbody id="dealTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer"><span>Sales Day — Alper Seguros</span> · Dashboard de Negócios Fechados · 96 oportunidades ganhas · Receita 12M: R$ 885.812,17</footer>
+
+<script>
+const DEALS=[
+{prop:"Patricia Viana Mendes da Silva",empresa:"MS ENGENHARIA LTDA",tipo:"Benefícios PME",prod:"SAUDE",origem:"Comercial Alper",rev:14853.59},
+{prop:"Elenilton Santos",empresa:"INVICTUS TRANSPORTES LOCAÇÃO E LOGISTICA LTDA",tipo:"Benefícios PME",prod:"SAUDE",origem:"Partner",rev:10239.60},
+{prop:"Juliane Cristina Neris Andrade",empresa:"ACEVILLE TRANSPORTES LTDA",tipo:"Transportes",prod:"RCTR-C",origem:"Account",rev:81000.00},
+{prop:"Floripes Rocha Barbosa",empresa:"COMEXPORT TRADING COMERCIO EXTERIOR LTDA",tipo:"Specialty",prod:"AERONAVES (AERONAUTICO)",origem:"Comercial Alper",rev:8508.70},
+{prop:"Tamara Cristina Barreiros da Silva",empresa:"ARTPLAN COMUNICAÇÃO SA",tipo:"Benefícios Corporate",prod:"VIDA",origem:"Seguros Corp.",rev:74557.78},
+{prop:"Paulo Henrique Martines",empresa:"FRUTAP ALIMENTOS S A",tipo:"Benefícios Corporate",prod:"VIDA",origem:"Outros",rev:24311.59},
+{prop:"Robson Barboza de Oliveira",empresa:"ASSOCIACAO DOS SERVIDORES DO PODER JUDICIARIO DE PERNAMBUCO",tipo:"Benefícios Corporate",prod:"VIDA",origem:"Comercial Alper",rev:5830.00},
+{prop:"Luciano Giovanelli Romano de Avila",empresa:"EPR PARTICIPACOES S A",tipo:"Seguros Corporativos",prod:"GARANTIA",origem:"Outros",rev:0.25},
+{prop:"Evelyn Souza de Andrade",empresa:"TREPKO DO BRASIL LTDA",tipo:"Seguros Corporativos",prod:"GARANTIA",origem:"Growth/Cross-Sell",rev:223.92},
+{prop:"Quezia Santos",empresa:"COOPERATIVA AGROINDUSTRIAL COOPERJA",tipo:"Agronegócio",prod:"PATRIMONIAL AGRO",origem:"Partner",rev:1842.23},
+{prop:"Patricia Viana Mendes da Silva",empresa:"SANTOS E DALLECIO LTDA",tipo:"Benefícios PME",prod:"SAUDE",origem:"Sales Day 2026",rev:25841.59},
+{prop:"Fernando Paes de Oliveira",empresa:"Conselho Regional de Farmácia de São Paulo",tipo:"Benefícios Corporate",prod:"VIDA",origem:"Site",rev:6912.65},
+{prop:"Jefferson De Brito Santos",empresa:"59.899.412 ROSEMEIRE GENTIL VITORIO DOS SANTOS",tipo:"Transportes",prod:"RC-V",origem:"Filial Maringá",rev:1860.00},
+{prop:"Jefferson De Brito Santos",empresa:"N.M. DE LIMA TRANSPORTES ME",tipo:"Transportes",prod:"RC-V",origem:"Filial Maringá",rev:1860.00},
+{prop:"Rita de Cassia Lopes Ponchelli Barbo",empresa:"MMLOG CUNHA TRANSPORTES LTDA",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Top 20 Clientes",rev:8175.68},
+{prop:"Patricia Viana Mendes da Silva",empresa:"ITOILET LTDA",tipo:"Benefícios PME",prod:"SAUDE",origem:"Comercial Alper",rev:176077.55},
+{prop:"Kelin Adriana Rzeznih Crusaro",empresa:"TRANSARALDI TRANSPORTES RODOVIARIOS LTDA",tipo:"Benefícios PME",prod:"VIDA",origem:"Comercial Alper",rev:669.00},
+{prop:"Jenifer Cristina Backes",empresa:"TANCREDO LEITE DE SOUZA",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Comercial Alper",rev:0.00},
+{prop:"Kelin Adriana Rzeznih Crusaro",empresa:"CAMARA MUNICIPAL DE VEREADORES DE XAXIM",tipo:"Seguros Corporativos",prod:"P&C - EMPRESARIAL",origem:"Comercial Alper",rev:340.37},
+{prop:"Floripes Rocha Barbosa",empresa:"EDURE ADM PARTICIP. E REPRES. LTDA",tipo:"Specialty",prod:"AERONAVES (AERONAUTICO)",origem:"Alexandre Marroquim",rev:36217.36},
+{prop:"Floripes Rocha Barbosa",empresa:"AERONAVES AGRO",tipo:"Specialty",prod:"AERONAVES (AERONAUTICO)",origem:"Comercial Alper",rev:64454.74},
+{prop:"Leonardo Vitor Piva Dal Ri",empresa:"BP SERVICOS COMBINADOS LTDA",tipo:"Seguros Corporativos",prod:"RC-V",origem:"Outros",rev:648.00},
+{prop:"Vinicius Motta Barreto",empresa:"Cliente Garantia",tipo:"Seguros Corporativos",prod:"GARANTIA",origem:"Comercial Alper",rev:1414.71},
+{prop:"Josiane Corvalao",empresa:"Cliente Agro",tipo:"Agronegócio",prod:"EQUIPAMENTOS AGRÍCOLAS",origem:"Comercial Alper",rev:6864.00},
+{prop:"Jenifer Cristina Backes",empresa:"Auto Cliente 2",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Comercial Alper",rev:0.00},
+{prop:"Simone Teixeira Jacobino Soares",empresa:"Cliente PME Sales Break",tipo:"Seguros Corporativos",prod:"P&C - EMPRESARIAL",origem:"Sales Break",rev:595.00},
+{prop:"Erica Cristina Fragoso da Silva",empresa:"RETA Cliente 1",tipo:"Massificados",prod:"RETA",origem:"Alexandre Marroquim",rev:64.18},
+{prop:"Erica Cristina Fragoso da Silva",empresa:"RETA Cliente 2",tipo:"Massificados",prod:"RETA",origem:"Alexandre Marroquim",rev:64.18},
+{prop:"Erica Cristina Fragoso da Silva",empresa:"RETA Cliente 3",tipo:"Massificados",prod:"RETA",origem:"Alexandre Marroquim",rev:64.18},
+{prop:"Kelin Adriana Rzeznih Crusaro",empresa:"Auto Ind. Cliente 3",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Comercial Alper",rev:362.70},
+{prop:"Kelin Adriana Rzeznih Crusaro",empresa:"Residencial Cliente",tipo:"Personal Lines/ Worksite",prod:"SEGURO RESIDENCIAL",origem:"Comercial Alper",rev:107.25},
+{prop:"BRUNO HENRIQUE SOUZA",empresa:"Cliente Frota",tipo:"Transportes",prod:"AUTOMOVEL FROTA",origem:"Outros",rev:8101.94},
+{prop:"Jefferson De Brito Santos",empresa:"CLIENTE MARINGÁ TRANSPORTES",tipo:"Transportes",prod:"RCF-DC",origem:"Filial Maringá",rev:3540.00},
+{prop:"Kelin Adriana Rzeznih Crusaro",empresa:"Residencial 2",tipo:"Personal Lines/ Worksite",prod:"SEGURO RESIDENCIAL",origem:"Comercial Alper",rev:197.43},
+{prop:"Anabelle Giesen Martins",empresa:"Cliente Saúde Site",tipo:"Benefícios PME",prod:"SAUDE",origem:"Site",rev:280.00},
+{prop:"Elzita Santos",empresa:"Cliente P&C",tipo:"Seguros Corporativos",prod:"P&C - EMPRESARIAL",origem:"Comercial Alper",rev:363.36},
+{prop:"Rita de Cassia Lopes Ponchelli Barbo",empresa:"ADUANA Cliente",tipo:"Seguros Corporativos",prod:"GARANTIA ADUANEIRO",origem:"Top 20 Clientes",rev:2779.80},
+{prop:"Eunice Maria Menezes",empresa:"RC Eventos",tipo:"Seguros Corporativos",prod:"P&C - RC EVENTOS",origem:"Seguros Corp.",rev:367.50},
+{prop:"Floripes Rocha Barbosa",empresa:"RETA Aeronáutico 1",tipo:"Specialty",prod:"RETA",origem:"Alexandre Marroquim",rev:158.32},
+{prop:"Floripes Rocha Barbosa",empresa:"RETA Aeronáutico 2",tipo:"Specialty",prod:"RETA",origem:"Alexandre Marroquim",rev:251.44},
+{prop:"Augusto Gabriel Correa",empresa:"Frota TEV Partner",tipo:"Transportes",prod:"AUTOMOVEL FROTA",origem:"Partner",rev:71702.36},
+{prop:"Franksiliene Aparecida de Jesus",empresa:"Auto Indiv. 1",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Comercial Alper",rev:485.90},
+{prop:"Franksiliene Aparecida de Jesus",empresa:"JN SABADIN SERVIÇOS",tipo:"Seguros Corporativos",prod:"P&C - EMPRESARIAL",origem:"Outros",rev:3697.74},
+{prop:"Ana Carolina Lourenco Vasconcellos",empresa:"PENHOR RURAL Cliente",tipo:"Agronegócio",prod:"PENHOR RURAL",origem:"Comercial Alper",rev:6398.90},
+{prop:"Leonardo Vitor Piva Dal Ri",empresa:"TRANSPORTE INTERNACIONAL",tipo:"Transportes",prod:"TRANSPORTE INTERNACIONAL - EXPORTAÇÃO",origem:"Sales Day 3ª Ed.",rev:354.60},
+{prop:"Roger Sena Monteiro",empresa:"PATRIA Cliente 1",tipo:"Seguros Corporativos",prod:"GARANTIA",origem:"Patria",rev:138.83},
+{prop:"Yasmin Dal Mas",empresa:"MARINGÁ RC Cliente",tipo:"Transportes",prod:"RC-V",origem:"Filial Maringá",rev:1860.00},
+{prop:"Jenifer Cristina Backes",empresa:"SD3 Auto 1",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:0.00},
+{prop:"Odimar Ferraz Missel",empresa:"SD3 Auto 2",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:153.60},
+{prop:"Jenifer Cristina Backes",empresa:"SD3 Auto 3",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:0.00},
+{prop:"Leandro Farinha Luz",empresa:"SD3 Garantia 1",tipo:"Seguros Corporativos",prod:"GARANTIA",origem:"Sales Day 3ª Ed.",rev:112.50},
+{prop:"Rogerio Fernando Goncalves",empresa:"SD3 Garantia 2",tipo:"Seguros Corporativos",prod:"GARANTIA",origem:"Sales Day 3ª Ed.",rev:357.56},
+{prop:"Leandro Farinha Luz",empresa:"SD3 Garantia 3",tipo:"Seguros Corporativos",prod:"GARANTIA",origem:"Sales Day 3ª Ed.",rev:90.00},
+{prop:"Kelin Adriana Rzeznih Crusaro",empresa:"SD3 P&C RC Geral",tipo:"Seguros Corporativos",prod:"P&C - RC GERAL",origem:"Sales Day 3ª Ed.",rev:98.36},
+{prop:"Leonardo Vitor Piva Dal Ri",empresa:"SD3 Residencial",tipo:"Personal Lines/ Worksite",prod:"SEGURO RESIDENCIAL",origem:"Sales Day 3ª Ed.",rev:408.00},
+{prop:"Priscila De Paula Luz",empresa:"SD3 Garantia SB",tipo:"Seguros Corporativos",prod:"GARANTIA",origem:"Outros",rev:40.00},
+{prop:"Liryan Antunes",empresa:"SD3 Vida",tipo:"Benefícios Corporate",prod:"VIDA",origem:"Sales Day 3ª Ed.",rev:204.00},
+{prop:"Leonardo Vitor Piva Dal Ri",empresa:"SD3 Viagem",tipo:"Massificados",prod:"VIAGEM",origem:"Sales Day 3ª Ed.",rev:720.00},
+{prop:"Matheus Paravizi Espindola",empresa:"SD3 Auto Ind. 1",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:333.65},
+{prop:"Daniele Cristina Moreira Marques",empresa:"SD3 Frota",tipo:"Automóvel",prod:"AUTOMOVEL FROTA",origem:"Sales Day 3ª Ed.",rev:4566.06},
+{prop:"Jenifer Cristina Backes",empresa:"SD3 Auto 4",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:0.00},
+{prop:"Kelin Adriana Rzeznih Crusaro",empresa:"SD3 Residencial 2",tipo:"Personal Lines/ Worksite",prod:"SEGURO RESIDENCIAL",origem:"Sales Day 3ª Ed.",rev:462.63},
+{prop:"Matheus Paravizi Espindola",empresa:"SD3 Auto Ind. 2",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:427.14},
+{prop:"Marcus Vinicius Barbosa dos Santos Sobrinho",empresa:"SD3 D&O",tipo:"Seguros Corporativos",prod:"LF - D&O",origem:"Sales Day 3ª Ed.",rev:12936.00},
+{prop:"Matheus Paravizi Espindola",empresa:"SD3 Auto Ind. 3",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:0.00},
+{prop:"Jenifer Cristina Backes",empresa:"SD3 Residencial",tipo:"Personal Lines/ Worksite",prod:"SEGURO RESIDENCIAL",origem:"Sales Day 3ª Ed.",rev:0.00},
+{prop:"Kelin Adriana Rzeznih Crusaro",empresa:"SD3 Carta Verde",tipo:"Transportes",prod:"CARTA VERDE",origem:"Sales Day 3ª Ed.",rev:28.45},
+{prop:"Jenifer Cristina Backes",empresa:"SD3 P&C Emp.",tipo:"Seguros Corporativos",prod:"P&C - EMPRESARIAL",origem:"Sales Day 3ª Ed.",rev:0.00},
+{prop:"Leonardo Vitor Piva Dal Ri",empresa:"SD3 Auto Ind. 2",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:540.00},
+{prop:"Jenifer Cristina Backes",empresa:"SD3 Auto 5",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:0.00},
+{prop:"Roger Sena Monteiro",empresa:"PATRIA Condomínio",tipo:"Seguros Corporativos",prod:"P&C - COMPREENSIVO CONDOMINIO",origem:"Patria",rev:7039.82},
+{prop:"Eliana Maria De Almeida Gomes",empresa:"SD3 RC Eventos",tipo:"Seguros Corporativos",prod:"P&C - RC EVENTOS",origem:"Sales Day 3ª Ed.",rev:980.00},
+{prop:"Daniele Cristina Moreira Marques",empresa:"SD3 RC-V",tipo:"Transportes",prod:"RC-V",origem:"Sales Day 3ª Ed.",rev:5148.00},
+{prop:"Jenifer Cristina Backes",empresa:"SD3 Patrim Agro",tipo:"Agronegócio",prod:"PATRIMONIAL AGRO",origem:"Sales Day 3ª Ed.",rev:0.00},
+{prop:"Roger Sena Monteiro",empresa:"PATRIA P&C Emp.",tipo:"Seguros Corporativos",prod:"P&C - EMPRESARIAL",origem:"Patria",rev:8344.16},
+{prop:"Lucas da Silva Roque",empresa:"SD3 P&C Emp. 2",tipo:"Seguros Corporativos",prod:"P&C - EMPRESARIAL",origem:"Sales Day 3ª Ed.",rev:4896.57},
+{prop:"Matheus Paravizi Espindola",empresa:"SD3 Auto Ind. 4",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:322.96},
+{prop:"Jenifer Cristina Backes",empresa:"SD3 Auto 6",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:0.00},
+{prop:"Odimar Ferraz Missel",empresa:"SD3 Vida 2",tipo:"Benefícios Corporate",prod:"VIDA",origem:"Sales Day 3ª Ed.",rev:610.70},
+{prop:"Jessica Thais Soares dos Santos",empresa:"SD3 Vida 3",tipo:"Benefícios Corporate",prod:"VIDA",origem:"Sales Day 3ª Ed.",rev:2714.34},
+{prop:"Edgar Dias dos Santos",empresa:"SD3 Auto",tipo:"Automóvel",prod:"AUTO",origem:"Sales Day 3ª Ed.",rev:111.58},
+{prop:"Leonardo Vitor Piva Dal Ri",empresa:"SD3 Auto Ind. 3",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:432.00},
+{prop:"Leonardo Vitor Piva Dal Ri",empresa:"SD3 Auto Ind. 4",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:187.20},
+{prop:"Roger Sena Monteiro",empresa:"PATRIA Logístico",tipo:"Transportes",prod:"LOGISTICO TRANSPORTES",origem:"Patria",rev:121805.37},
+{prop:"Floripes Rocha Barbosa",empresa:"AERONAUTICO 4",tipo:"Specialty",prod:"AERONAVES (AERONAUTICO)",origem:"Alexandre Marroquim",rev:8112.50},
+{prop:"Leonardo Vitor Piva Dal Ri",empresa:"SD3 P&C Emp.",tipo:"Seguros Corporativos",prod:"P&C - EMPRESARIAL",origem:"Sales Day 3ª Ed.",rev:187.20},
+{prop:"Simone Teixeira Jacobino Soares",empresa:"SB Garantia 1",tipo:"Seguros Corporativos",prod:"GARANTIA",origem:"Sales Break",rev:47.50},
+{prop:"Simone Teixeira Jacobino Soares",empresa:"SB Garantia 2",tipo:"Seguros Corporativos",prod:"GARANTIA",origem:"Sales Break",rev:47.50},
+{prop:"Franksiliene Aparecida de Jesus",empresa:"SD3 Auto Ind. 2",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Sales Day 3ª Ed.",rev:386.69},
+{prop:"Ana Paula Tiberio",empresa:"SD3 RC-V Grande",tipo:"Transportes",prod:"RC-V",origem:"Sales Day 3ª Ed.",rev:36900.00},
+{prop:"Yasmim Fermiano Pinto",empresa:"SD3 Frota 2",tipo:"Automóvel",prod:"AUTOMOVEL FROTA",origem:"Sales Day 3ª Ed.",rev:1425.69},
+{prop:"Claudia Pacheco de Sousa Brasil",empresa:"RETA Alexandre 4",tipo:"Specialty",prod:"RETA",origem:"Alexandre Marroquim",rev:164.81},
+{prop:"Franksiliene Aparecida de Jesus",empresa:"SD3 Equip. Agrícolas",tipo:"Agronegócio",prod:"EQUIPAMENTOS AGRÍCOLAS",origem:"Sales Day 3ª Ed.",rev:1448.06},
+{prop:"Juliane Cristina Neris Andrade",empresa:"JULIANE CRISTINA NERIS DE ANDRADE LTDA",tipo:"Transportes",prod:"RCTR-C",origem:"Outros",rev:6900.00},
+{prop:"Wellington Correia Barros",empresa:"JAJSEG Corretora",tipo:"Seguros Corporativos",prod:"RC-V",origem:"Outros",rev:648.00},
+{prop:"Rita de Cassia Lopes Ponchelli Barbo",empresa:"Auto Ind. Top20",tipo:"Automóvel",prod:"AUTOMOVEL INDIVIDUAL",origem:"Top 20 Clientes",rev:834.65}
+];
+
+const COLORS={mint:'#2d8a3e',blue:'#0082DE',navy:'#003894',indigo:'#6366F1',amber:'#F59E0B',cyan:'#0EA5E9',violet:'#8B5CF6',pink:'#EC4899',rose:'#F43F5E',teal:'#10B981',slate:'#94A3B8',gray:'#64748B'};
+const colorArr=Object.values(COLORS);
+
+Chart.defaults.color='#8BA3BE';
+Chart.defaults.borderColor='rgba(0,56,148,0.06)';
+Chart.defaults.font.family='Montserrat, system-ui, sans-serif';
+Chart.defaults.font.size=11;
+
+const propData=[
+{name:"Patricia Viana Mendes da Silva",rev:216772.73,count:3},
+{name:"Roger Sena Monteiro",rev:137328.18,count:4},
+{name:"Floripes Rocha Barbosa",rev:117703.06,count:6},
+{name:"Juliane Cristina Neris Andrade",rev:87900.00,count:2},
+{name:"Tamara Cristina Barreiros da Silva",rev:74557.78,count:1},
+{name:"Augusto Gabriel Correa",rev:71702.36,count:1},
+{name:"Ana Paula Tiberio",rev:36900.00,count:1},
+{name:"Paulo Henrique Martines",rev:24311.59,count:1},
+{name:"Marcus Vinicius Barbosa dos Santos Sobrinho",rev:12936.00,count:1},
+{name:"Rita de Cassia Lopes Ponchelli Barbo",rev:11790.13,count:3},
+{name:"Elenilton Santos",rev:10239.60,count:1},
+{name:"Daniele Cristina Moreira Marques",rev:9714.06,count:2},
+{name:"BRUNO HENRIQUE SOUZA",rev:8101.94,count:1},
+{name:"Jefferson De Brito Santos",rev:7260.00,count:3},
+{name:"Fernando Paes de Oliveira",rev:6912.65,count:1}
+];
+
+function shortName(n){const p=n.split(' ');return p[0]+' '+(p[1]||'');}
+function fmtRev(v){if(v>=1000000)return'R$ '+(v/1000000).toFixed(1)+'M';if(v>=1000)return'R$ '+(v/1000).toFixed(1)+'k';return'R$ '+v.toFixed(0);}
+
+function buildPropList(){
+  const el=document.getElementById('propList');el.innerHTML='';
+  propData.forEach((p,i)=>{
+    el.innerHTML+=`<div class="prop-item"><div class="prop-rank ${i<3?'rank-top':''}">${i+1}</div><div><div class="prop-name">${p.name.split(' ').slice(0,3).join(' ')}</div><div class="prop-sub">${p.count} deal${p.count>1?'s':''}</div></div><div class="prop-count">${fmtRev(p.rev)}</div></div>`;
+  });
+}
+buildPropList();
+
+new Chart(document.getElementById('chartProp'),{
+  type:'bar',
+  data:{labels:propData.slice(0,10).map(p=>shortName(p.name)),datasets:[{label:'Receita 12M',data:propData.slice(0,10).map(p=>p.rev),backgroundColor:propData.slice(0,10).map((_,i)=>colorArr[i%colorArr.length]+'CC'),borderRadius:6,borderSkipped:false}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` R$ ${c.raw.toLocaleString('pt-BR',{maximumFractionDigits:0})}`}}},scales:{x:{grid:{color:'rgba(0,56,148,0.06)'},ticks:{callback:v=>fmtRev(v)}},y:{grid:{display:false},ticks:{font:{size:10,weight:'600'}}}}}
+});
+
+const origLabels=['Comercial Alper','Patria','Partner','Account','Sales Day 3ª Ed.','Seguros Corp.','Alexandre Marroquim','Outros','Sales Day 2026','Top 20 Clientes','Filial Maringá','Site','Sales Break','Growth/Cross-Sell'];
+const origRevs=[286928.20,137328.18,83784.19,81000.00,77543.54,74925.28,45096.97,44347.52,25841.59,11790.13,9120.00,7192.65,690.00,223.92];
+const origCounts=[17,4,3,1,39,2,8,8,1,3,4,2,3,1];
+
+new Chart(document.getElementById('chartOrigem'),{
+  type:'bubble',
+  data:{datasets:origLabels.map((l,i)=>({label:l,data:[{x:origCounts[i],y:origRevs[i]/1000,r:Math.max(5,Math.sqrt(origRevs[i])/18)}],backgroundColor:colorArr[i%colorArr.length]+'AA',borderColor:colorArr[i%colorArr.length],borderWidth:1.5}))},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.dataset.label} — ${c.parsed.x} deals / R$ ${(c.parsed.y).toFixed(0)}k`}}},scales:{x:{title:{display:true,text:'Quantidade de Deals',color:'#8BA3BE',font:{size:10,weight:'600'}},grid:{color:'rgba(0,56,148,0.06)'}},y:{title:{display:true,text:'Receita (R$ mil)',color:'#8BA3BE',font:{size:10,weight:'600'}},grid:{color:'rgba(0,56,148,0.06)'},ticks:{callback:v=>'R$ '+v+'k'}}}}
+});
+
+const prodRevLabels=['SAUDE','LOG. TRANSPORTES','AERONAVES','VIDA','RCTR-C','AUTO FROTA','RC-V','P&C EMPRESARIAL','LF D&O','AUTO INDIVIDUAL'];
+const prodRevVals=[227292,121805,117293,115810,87900,85796,48924,18424,12936,12642];
+
+new Chart(document.getElementById('chartProdRev'),{
+  type:'bar',
+  data:{labels:prodRevLabels,datasets:[{label:'Receita 12M',data:prodRevVals,backgroundColor:prodRevLabels.map((_,i)=>colorArr[i%colorArr.length]+'BB'),borderRadius:5,borderSkipped:false}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`R$ ${c.raw.toLocaleString('pt-BR')}`}}},scales:{x:{grid:{display:false},ticks:{font:{size:9},maxRotation:40}},y:{grid:{color:'rgba(0,56,148,0.06)'},ticks:{callback:v=>fmtRev(v)}}}}
+});
+
+new Chart(document.getElementById('chartOrigenDeals'),{
+  type:'doughnut',
+  data:{labels:['Sales Day 3ª Ed.','Comercial Alper','Alexandre Marroquim','Outros','Patria','Filial Maringá','Top 20 Clientes','Sales Break','Partner','Seguros Corp.','Demais'],datasets:[{data:[39,17,8,8,4,4,3,3,3,2,5],backgroundColor:['#F59E0B','#2d8a3e','#0082DE','#003894','#F43F5E','#6366F1','#0EA5E9','#8B5CF6','#EC4899','#10B981','#94A3B8'],borderWidth:2,borderColor:'#FFFFFF',hoverOffset:8}]},
+  options:{responsive:true,maintainAspectRatio:true,cutout:'62%',plugins:{legend:{display:false}}}
+});
+
+new Chart(document.getElementById('chartTipoPie'),{
+  type:'doughnut',
+  data:{labels:['Automóvel','Seguros Corp.','Transportes','Specialty','Benefícios PME','Benefícios Corp.','Agronegócio','Massificados','Personal Lines'],datasets:[{data:[25,25,11,10,8,5,5,5,2],backgroundColor:['#F59E0B','#0082DE','#003894','#6366F1','#2d8a3e','#8B5CF6','#10B981','#94A3B8','#CBD5E1'],borderWidth:2,borderColor:'#FFFFFF',hoverOffset:8}]},
+  options:{responsive:true,maintainAspectRatio:true,cutout:'62%',plugins:{legend:{display:false}}}
+});
+
+const ORIGEM_LABELS={'Sales Day 3ª Ed.':{cls:'dt-mint',label:'Sales Day 3ª'},'Comercial Alper':{cls:'dt-blue',label:'Comerc. Alper'},'Patria':{cls:'dt-blue',label:'Patria'},'Partner':{cls:'dt-navy',label:'Partner'},'Account':{cls:'dt-navy',label:'Account'},'Alexandre Marroquim':{cls:'dt-muted',label:'A. Marroquim'},'Filial Maringá':{cls:'dt-muted',label:'Filial Maringá'},'Sales Break':{cls:'dt-muted',label:'Sales Break'},'Top 20 Clientes':{cls:'dt-muted',label:'Top 20'},'Sales Day 2026':{cls:'dt-mint',label:'SD 2026'}};
+
+function origTag(o){const t=ORIGEM_LABELS[o]||{cls:'dt-muted',label:o};return`<span class="deal-tag ${t.cls}">${t.label}</span>`;}
+
+function renderTable(data){
+  const tbody=document.getElementById('dealTableBody');tbody.innerHTML='';
+  data.forEach(d=>{
+    const rev=d.rev>0?`R$ ${d.rev.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}`:'<span style="color:var(--text-muted)">R$ 0,00</span>';
+    const empresa=d.empresa.length>40?d.empresa.substring(0,38)+'…':d.empresa;
+    tbody.innerHTML+=`<tr class="data-row"><td title="${d.empresa}">${empresa}</td><td>${d.tipo}</td><td>${d.prod}</td><td>${origTag(d.origem)}</td><td style="font-size:10px;color:var(--text-secondary)">${d.prop.split(' ').slice(0,2).join(' ')}</td><td>${rev}</td></tr>`;
+  });
+  document.getElementById('tableCountTag').textContent=data.length+' deals';
+  document.getElementById('filterCount').innerHTML=`<span>${data.length}</span> negócios`;
+}
+renderTable(DEALS);
+
+function applyFilters(){
+  const fO=document.getElementById('fOrigem').value;
+  const fT=document.getElementById('fTipo').value;
+  const fP=document.getElementById('fProd').value;
+  const fPr=document.getElementById('fProp').value;
+  const filtered=DEALS.filter(d=>{
+    if(fO&&d.origem!==fO)return false;
+    if(fT&&!d.tipo.includes(fT))return false;
+    if(fP&&!d.prod.includes(fP))return false;
+    if(fPr&&d.prop!==fPr)return false;
+    return true;
+  });
+  renderTable(filtered);
+  const tot=filtered.reduce((s,d)=>s+d.rev,0);
+  document.getElementById('kpiReceita').textContent=tot>=1000000?'R$ '+(tot/1000000).toFixed(2)+'M':tot>=1000?'R$ '+(tot/1000).toFixed(1)+'k':'R$ '+tot.toFixed(0);
+  document.getElementById('kpiDeals').textContent=filtered.length;
+  document.getElementById('kpiTicket').textContent=filtered.length?fmtRev(tot/filtered.length):'R$ 0';
+  const sd3=filtered.filter(d=>d.origem==='Sales Day 3ª Ed.');
+  document.getElementById('kpiSd3').textContent=sd3.length;
+}
+
+function resetFilters(){
+  ['fOrigem','fTipo','fProd','fProp'].forEach(id=>document.getElementById(id).value='');
+  applyFilters();
+}
+</script>
+</body>
+</html>

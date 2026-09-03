@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Day 3ª Edição — Dashboard de Negócios</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy:       #003894;
+    --navy-mid:   #004F94;
+    --blue:       #0082DE;
+    --mint:       #7ded8a;
+    --mint-dim:   rgba(125,237,138,0.12);
+    --blue-dim:   rgba(0,130,222,0.10);
+    --navy-dim:   rgba(0,56,148,0.06);
+    --bg:         #FFFFFF;
+    --surface:    #FFFFFF;
+    --surface-2:  #F8FAFC;
+    --border:     rgba(0,56,148,0.08);
+    --border-mid: rgba(0,56,148,0.14);
+    --text-primary:   #0B1F3A;
+    --text-secondary: #3D5A80;
+    --text-muted:     #8BA3BE;
+    --accent-1: #7ded8a;
+    --accent-2: #0082DE;
+    --accent-3: #004F94;
+    --accent-4: #003894;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--navy);
+    padding: 0 40px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-left { display: flex; align-items: center; gap: 24px; }
+
+  .header-logo img {
+    height: 28px;
+    width: auto;
+  }
+
+  .header-divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(255,255,255,0.2);
+  }
+
+  .header-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.01em;
+  }
+  .header-subtitle {
+    font-size: 10px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .header-stat { text-align: right; }
+  .header-stat-val {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--mint);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .header-stat-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .status-pill {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .status-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--mint);
+    box-shadow: 0 0 8px var(--mint);
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.85)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+
+  /* ── LAYOUT ── */
+  .main {
+    padding: 32px 40px 64px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  /* ── SECTION LABELS ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 16px;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label .sl-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+    flex-shrink: 0;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ── KPI GRID ── */
+  .kpi-grid-5 { display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; }
+  .kpi-grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+
+  .kpi-card {
+    background: var(--surface);
+    border: none;
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+    animation: fadeUp .45s ease both;
+    box-shadow: 0 1px 3px rgba(0,56,148,0.06);
+  }
+  .kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,56,148,0.10);
+  }
+
+  .kpi-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .kpi-value {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .kpi-value.v-mint   { color: var(--mint); }
+  .kpi-value.v-teal   { color: var(--blue); }
+  .kpi-value.v-blue   { color: var(--navy); }
+  .kpi-value.v-white  { color: var(--text-primary); }
+
+  .kpi-sub {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+  .kpi-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .badge-mint  { background: var(--mint-dim); color: #2d8a3e; }
+  .badge-teal  { background: var(--blue-dim); color: var(--blue); }
+  .badge-blue  { background: var(--navy-dim); color: var(--navy); }
+  .badge-muted { background: var(--surface-2); color: var(--text-secondary); }
+
+  /* ── CHART GRIDS ── */
+  .chart-grid-2  { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .chart-grid-3  { display: grid; grid-template-columns: 1.2fr 1fr 0.8fr; gap: 20px; }
+  .chart-grid-32 { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; }
+  .chart-grid-23 { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; }
+
+  .chart-card {
+    background: var(--surface);
+    border: none;
+    border-radius: 12px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    animation: fadeUp .5s ease both;
+    box-shadow: 0 1px 3px rgba(0,56,148,0.06);
+    transition: box-shadow .2s ease;
+  }
+  .chart-card:hover {
+    box-shadow: 0 4px 16px rgba(0,56,148,0.08);
+  }
+  .chart-card.tall  { min-height: 360px; }
+  .chart-card.xtall { min-height: 420px; }
+  .chart-card.compact { align-self: start; }
+
+  .chart-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 12px;
+  }
+  .chart-title {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+  }
+  .chart-desc {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+  .chart-tag {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .tag-mint  { background: var(--mint-dim); color: #2d8a3e; }
+  .tag-teal  { background: var(--blue-dim); color: var(--blue); }
+  .tag-blue  { background: var(--navy-dim); color: var(--navy); }
+  .tag-muted { background: var(--surface-2); color: var(--text-secondary); }
+
+  .chart-wrap { flex: 1; position: relative; min-height: 220px; }
+
+  /* ── BAR TABLE ── */
+  .bar-table { display: flex; flex-direction: column; gap: 10px; }
+  .bar-row { display: grid; align-items: center; gap: 12px; }
+  .bar-row.col-3  { grid-template-columns: 130px 1fr 50px; }
+  .bar-row.col-3w { grid-template-columns: 160px 1fr 50px; }
+  .bar-row.col-4  { grid-template-columns: 120px 1fr 50px 36px; }
+
+  .bar-name {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+  }
+  .bar-track {
+    height: 6px;
+    background: var(--surface-2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width .9s cubic-bezier(.4,0,.2,1);
+  }
+  .bar-val {
+    font-size: 12px;
+    font-weight: 700;
+    text-align: right;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── FILIAL TABLE ── */
+  .filial-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .filial-table th {
+    text-align: left;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 12px 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .filial-table th:last-child { text-align: right; }
+  .filial-table td {
+    padding: 10px 12px 10px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: middle;
+    font-size: 11px;
+  }
+  .filial-table td:first-child { color: var(--text-primary); font-weight: 600; }
+  .filial-table td:last-child  { text-align: right; font-weight: 700; color: var(--text-primary); }
+  .filial-table tr:last-child td { border-bottom: none; }
+  .filial-table tr:hover td { background: var(--surface-2); }
+
+  .sparkbar {
+    display: inline-block;
+    height: 4px;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  /* ── PROP LIST ── */
+  .prop-list { display: flex; flex-direction: column; gap: 8px; }
+  .prop-item {
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: var(--surface-2);
+    transition: background .2s;
+  }
+  .prop-item:hover {
+    background: var(--navy-dim);
+  }
+  .prop-rank {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-align: center;
+  }
+  .prop-rank.rank-top { color: var(--mint); }
+  .prop-name { font-size: 12px; font-weight: 600; }
+  .prop-sub  { font-size: 10px; color: var(--text-muted); font-weight: 400; margin-top: 1px; }
+  .prop-count {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--mint);
+    text-align: right;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── HEATMAP ── */
+  .heatmap-grid {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 110px repeat(6,1fr);
+  }
+  .hm-header {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 4px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .hm-row-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 12px;
+  }
+  .hm-cell {
+    border-radius: 6px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    transition: transform .15s;
+    cursor: default;
+  }
+  .hm-cell:hover { transform: scale(1.08); z-index: 2; }
+
+  /* ── LEGEND ROW ── */
+  .legend-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .legend-label { font-size: 11px; font-weight: 500; color: var(--text-secondary); flex: 1; }
+  .legend-val { font-size: 11px; font-weight: 700; color: var(--text-primary); }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: var(--border); margin: 8px 0; }
+
+  /* ── FUNIL BARS ── */
+  .funnel-row { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .funnel-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    width: 180px;
+    flex-shrink: 0;
+    line-height: 1.3;
+  }
+  .funnel-track {
+    flex: 1;
+    height: 22px;
+    background: var(--surface-2);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .funnel-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width .9s cubic-bezier(.4,0,.2,1);
+  }
+  .funnel-val {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    width: 52px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ── MINI STAT GRID ── */
+  .mini-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .mini-stat {
+    background: var(--surface-2);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .mini-stat-label { font-size: 9px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .mini-stat-val { font-size: 24px; font-weight: 800; letter-spacing: -0.03em; }
+  .mini-stat-sub { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 24px 40px;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .footer span { color: var(--navy); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <div class="header-logo">
+      <img src="https://51120278.fs1.hubspotusercontent-na1.net/hubfs/51120278/%5BAlper%5D%20Salesday/salesday-white.png" alt="Sales Day">
+    </div>
+    <div class="header-divider"></div>
+    <div class="header-info">
+      <div class="header-title">Dashboard de Leads &amp; Oportunidades</div>
+      <div class="header-subtitle">3ª Edição — Resultados completos</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-stat">
+      <div class="header-stat-val">367</div>
+      <div class="header-stat-label">Leads captados</div>
+    </div>
+    <div class="header-stat">
+      <div class="header-stat-val">13</div>
+      <div class="header-stat-label">Filiais ativas</div>
+    </div>
+    <div class="status-pill">
+      <div class="status-dot"></div>
+      23 categorias
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- KPIs PRINCIPAIS -->
+  <div class="section-label"><span class="sl-dot"></span>Visão Geral do Evento</div>
+
+  <div class="kpi-grid-5">
+    <div class="kpi-card c-mint" style="animation-delay:.04s">
+      <div class="kpi-label">Total de Leads</div>
+      <div class="kpi-value v-mint">367</div>
+      <div class="kpi-sub">Todos os registros gerados no evento</div>
+      <div class="kpi-badge badge-mint">↑ Sales Day 3ª Ed.</div>
+    </div>
+    <div class="kpi-card c-blue" style="animation-delay:.09s">
+      <div class="kpi-label">Leads Quentes</div>
+      <div class="kpi-value v-teal">145</div>
+      <div class="kpi-sub">39,5% do total captado</div>
+      <div class="kpi-badge badge-teal">Alta prioridade</div>
+    </div>
+    <div class="kpi-card" style="animation-delay:.14s">
+      <div class="kpi-label">Filiais Ativas</div>
+      <div class="kpi-value v-blue">13</div>
+      <div class="kpi-sub">De Norte ao Sul do país</div>
+      <div class="kpi-badge badge-blue">Cobertura nacional</div>
+    </div>
+    <div class="kpi-card" style="animation-delay:.19s">
+      <div class="kpi-label">Indicadores Ativos</div>
+      <div class="kpi-value v-white">107</div>
+      <div class="kpi-sub">Colaboradores participantes</div>
+      <div class="kpi-badge badge-muted">Engajamento interno</div>
+    </div>
+    <div class="kpi-card" style="animation-delay:.24s">
+      <div class="kpi-label">Parceiros / Associados</div>
+      <div class="kpi-value v-white">14</div>
+      <div class="kpi-sub">Corretores e M&amp;A indicados</div>
+      <div class="kpi-badge badge-muted">Expansão de canal</div>
+    </div>
+  </div>
+
+  <div class="kpi-grid-4" style="margin-top:12px;">
+    <div class="kpi-card" style="animation-delay:.29s">
+      <div class="kpi-label">Pessoa Jurídica</div>
+      <div class="kpi-value v-teal" style="font-size:28px;">286</div>
+      <div class="kpi-sub">78% do total de leads</div>
+    </div>
+    <div class="kpi-card" style="animation-delay:.34s">
+      <div class="kpi-label">Pessoa Física</div>
+      <div class="kpi-value v-blue" style="font-size:28px;">81</div>
+      <div class="kpi-sub">22% do total de leads</div>
+    </div>
+    <div class="kpi-card" style="animation-delay:.39s">
+      <div class="kpi-label">Contato Prévio (Sim)</div>
+      <div class="kpi-value v-mint" style="font-size:28px;">174</div>
+      <div class="kpi-sub">47,4% dos leads indicados</div>
+    </div>
+    <div class="kpi-card" style="animation-delay:.44s">
+      <div class="kpi-label">Leads com SF ID</div>
+      <div class="kpi-value v-teal" style="font-size:28px;">200<span style="font-size:16px;color:var(--text-muted);font-weight:400;">+</span></div>
+      <div class="kpi-sub">Registros já no Salesforce</div>
+    </div>
+  </div>
+
+  <!-- PORTFÓLIO DE PRODUTOS -->
+  <div class="section-label"><span class="sl-dot"></span>Portfólio de Produtos</div>
+
+  <div class="chart-grid-23">
+    <!-- Linha de Negócio -->
+    <div class="chart-card tall">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Distribuição por Linha de Negócio</div>
+          <div class="chart-desc">Total de leads por produto indicado</div>
+        </div>
+        <span class="chart-tag tag-mint">367 leads</span>
+      </div>
+      <div class="bar-table">
+        <div class="bar-row col-3w">
+          <div class="bar-name">Seguro Saúde</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--mint);"></div></div>
+          <div class="bar-val" style="color:var(--mint);">156</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Seguro Auto</div>
+          <div class="bar-track"><div class="bar-fill" style="width:34.6%;background:var(--blue);"></div></div>
+          <div class="bar-val" style="color:var(--blue);">54</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Seguro de Vida</div>
+          <div class="bar-track"><div class="bar-fill" style="width:26.3%;background:var(--blue);"></div></div>
+          <div class="bar-val" style="color:var(--blue);">41</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Plano Saúde Indiv.</div>
+          <div class="bar-track"><div class="bar-fill" style="width:17.3%;background:#5BA8F0;"></div></div>
+          <div class="bar-val" style="color:#5BA8F0;">27</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Patrimonial</div>
+          <div class="bar-track"><div class="bar-fill" style="width:15.4%;background:#2FD9C8;"></div></div>
+          <div class="bar-val" style="color:#2FD9C8;">24</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Consórcios</div>
+          <div class="bar-track"><div class="bar-fill" style="width:10.3%;background:rgba(125,237,138,0.65);"></div></div>
+          <div class="bar-val" style="color:rgba(125,237,138,0.8);">16</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Transportes</div>
+          <div class="bar-track"><div class="bar-fill" style="width:9.6%;background:rgba(0,130,222,0.55);"></div></div>
+          <div class="bar-val" style="color:rgba(0,130,222,0.7);">15</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Benefícios PME</div>
+          <div class="bar-track"><div class="bar-fill" style="width:8.3%;background:rgba(0,130,222,0.55);"></div></div>
+          <div class="bar-val" style="color:rgba(0,130,222,0.75);">13</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Seg. Executivos</div>
+          <div class="bar-track"><div class="bar-fill" style="width:4.5%;background:rgba(58,86,122,0.8);"></div></div>
+          <div class="bar-val" style="color:var(--text-muted);">7</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Resp. Civil Geral</div>
+          <div class="bar-track"><div class="bar-fill" style="width:3.2%;background:rgba(58,86,122,0.6);"></div></div>
+          <div class="bar-val" style="color:var(--text-muted);">5</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Frota</div>
+          <div class="bar-track"><div class="bar-fill" style="width:3.2%;background:rgba(58,86,122,0.5);"></div></div>
+          <div class="bar-val" style="color:var(--text-muted);">5</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Agro</div>
+          <div class="bar-track"><div class="bar-fill" style="width:2.6%;background:rgba(58,86,122,0.4);"></div></div>
+          <div class="bar-val" style="color:var(--text-muted);">4</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tipo de Negócio -->
+    <div class="chart-card compact">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Tipo de Negócio</div>
+          <div class="chart-desc">Segmentação por vertical comercial</div>
+        </div>
+        <span class="chart-tag tag-blue">6 categorias</span>
+      </div>
+      <div class="chart-wrap" style="height:340px;">
+        <canvas id="chartTipoNegocio"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERFIL DOS LEADS -->
+  <div class="section-label"><span class="sl-dot"></span>Perfil dos Leads</div>
+
+  <div class="chart-grid-3">
+    <!-- Contato Prévio -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Contato Prévio com o Lead</div>
+          <div class="chart-desc">O indicador já conhecia a pessoa?</div>
+        </div>
+        <span class="chart-tag tag-teal">qualificação</span>
+      </div>
+      <div class="chart-wrap" style="min-height:180px;">
+        <canvas id="chartContatoPrevio"></canvas>
+      </div>
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+        <div class="kpi-badge badge-muted">Não — 193 (52,6%)</div>
+        <div class="kpi-badge badge-mint">Sim — 174 (47,4%)</div>
+      </div>
+    </div>
+
+    <!-- Tipo de Pessoa -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Tipo de Pessoa</div>
+          <div class="chart-desc">Perfil jurídico vs físico dos leads</div>
+        </div>
+        <span class="chart-tag tag-blue">perfil</span>
+      </div>
+      <div class="chart-wrap" style="min-height:180px;">
+        <canvas id="chartTipoPessoa"></canvas>
+      </div>
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+        <div class="kpi-badge badge-blue">PJ — 286 (78%)</div>
+        <div class="kpi-badge badge-teal">PF — 81 (22%)</div>
+      </div>
+    </div>
+
+    <!-- Relação com o Indicado -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Relação com o Indicado</div>
+          <div class="chart-desc">Grau de proximidade do indicador</div>
+        </div>
+        <span class="chart-tag tag-muted">networking</span>
+      </div>
+      <div class="chart-wrap" style="min-height:180px;">
+        <canvas id="chartRelacao"></canvas>
+      </div>
+      <div style="margin-top:12px;" class="bar-table">
+        <div class="bar-row col-3">
+          <div class="bar-name" style="font-size:9px;">Sem relac. direto</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;background:rgba(58,86,122,0.6);"></div></div>
+          <div class="bar-val" style="color:var(--text-secondary);">197</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name" style="font-size:9px;">Amigo/Familiar</div>
+          <div class="bar-track"><div class="bar-fill" style="width:36.5%;background:var(--mint);"></div></div>
+          <div class="bar-val" style="color:var(--mint);">72</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name" style="font-size:9px;">Prof./Mercado</div>
+          <div class="bar-track"><div class="bar-fill" style="width:35.5%;background:var(--blue);"></div></div>
+          <div class="bar-val" style="color:var(--blue);">70</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name" style="font-size:9px;">Cliente/Parceiro</div>
+          <div class="bar-track"><div class="bar-fill" style="width:10.2%;background:var(--blue);"></div></div>
+          <div class="bar-val" style="color:var(--blue);">20</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name" style="font-size:9px;">Ex-colega</div>
+          <div class="bar-track"><div class="bar-fill" style="width:4.1%;background:rgba(58,86,122,0.5);"></div></div>
+          <div class="bar-val" style="color:var(--text-muted);">8</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILIAIS -->
+  <div class="section-label"><span class="sl-dot"></span>Desempenho por Filial</div>
+
+  <div class="chart-grid-32">
+    <!-- Gráfico barras horizontal -->
+    <div class="chart-card tall">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Leads Captados por Filial</div>
+          <div class="chart-desc">Volume total por unidade participante</div>
+        </div>
+        <span class="chart-tag tag-mint">13 filiais</span>
+      </div>
+      <div class="chart-wrap" style="min-height:300px;">
+        <canvas id="chartFilial"></canvas>
+      </div>
+    </div>
+
+    <!-- Tabela ranking -->
+    <div class="chart-card tall">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Ranking de Filiais</div>
+          <div class="chart-desc">Leads + produto principal por unidade</div>
+        </div>
+        <span class="chart-tag tag-blue">detalhado</span>
+      </div>
+      <table class="filial-table">
+        <thead>
+          <tr>
+            <th>Filial</th>
+            <th>Produto Líder</th>
+            <th style="text-align:right">Leads</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Matriz SP</td><td><span class="sparkbar" style="width:80px;background:var(--mint);"></span>Seg. Saúde / Vida</td><td>119</td></tr>
+          <tr><td>Filial ES - Vitória</td><td><span class="sparkbar" style="width:65px;background:var(--mint);"></span>Seg. Saúde (95%)</td><td>61</td></tr>
+          <tr><td>Filial BA - Salvador</td><td><span class="sparkbar" style="width:63px;background:var(--mint);"></span>Seg. Saúde + Patrim.</td><td>59</td></tr>
+          <tr><td>Filial SC - Chapecó</td><td><span class="sparkbar" style="width:35px;background:var(--blue);"></span>Seg. Auto (72%)</td><td>32</td></tr>
+          <tr><td>Filial Guarulhos</td><td><span class="sparkbar" style="width:34px;background:var(--mint);"></span>Seg. Saúde (65%)</td><td>31</td></tr>
+          <tr><td>Filial PR - Curitiba</td><td><span class="sparkbar" style="width:28px;background:var(--blue);"></span>Seg. Vida (42%)</td><td>26</td></tr>
+          <tr><td>Filial RJ</td><td><span class="sparkbar" style="width:20px;background:var(--blue);"></span>Consórcios (42%)</td><td>19</td></tr>
+          <tr><td>Filial PR - Maringá</td><td><span class="sparkbar" style="width:8px;background:var(--blue);"></span>Plano Saúde Indiv.</td><td>6</td></tr>
+          <tr><td>Filial MT - Lucas RV</td><td><span class="sparkbar" style="width:8px;background:var(--blue);"></span>Seg. Auto (67%)</td><td>6</td></tr>
+          <tr><td>Filial Norte</td><td><span class="sparkbar" style="width:5px;background:rgba(58,86,122,0.8);"></span>Transp / Frota</td><td>4</td></tr>
+          <tr><td>Filial SP Interior</td><td><span class="sparkbar" style="width:3px;background:rgba(58,86,122,0.6);"></span>Consórcios</td><td>2</td></tr>
+          <tr><td>Filial RS (POA + Cruz Alta)</td><td><span class="sparkbar" style="width:3px;background:var(--blue);"></span>Seg. Auto</td><td>2</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- HEATMAP -->
+  <div class="chart-card xtall" style="margin-top:16px;">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Mapa de Calor — Filial × Produto</div>
+        <div class="chart-desc">Intensidade de geração de leads cruzando filial e linha de negócio</div>
+      </div>
+      <span class="chart-tag tag-mint">cruzamento dimensional</span>
+    </div>
+    <div style="overflow-x:auto;padding-bottom:4px;">
+      <div class="heatmap-grid" style="min-width:600px;">
+        <div></div>
+        <div class="hm-header">Seg. Saúde</div>
+        <div class="hm-header">Seg. Auto</div>
+        <div class="hm-header">Seg. Vida</div>
+        <div class="hm-header">Patrimonial</div>
+        <div class="hm-header">Consórcios</div>
+        <div class="hm-header">Transportes</div>
+
+        <div class="hm-row-label">Matriz SP</div>
+        <div class="hm-cell" style="background:rgba(125,237,138,0.60);color:#020C1E;">~60</div>
+        <div class="hm-cell" style="background:rgba(125,237,138,0.20);color:var(--mint);">8</div>
+        <div class="hm-cell" style="background:rgba(125,237,138,0.35);color:var(--mint);">30</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.15);color:var(--blue);">5</div>
+        <div class="hm-cell" style="background:rgba(0,82,148,0.18);color:var(--text-secondary);">4</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.22);color:var(--blue);">9</div>
+
+        <div class="hm-row-label">ES - Vitória</div>
+        <div class="hm-cell" style="background:rgba(125,237,138,0.55);color:#020C1E;">58</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.08);color:var(--text-muted);">1</div>
+
+        <div class="hm-row-label">BA - Salvador</div>
+        <div class="hm-cell" style="background:rgba(125,237,138,0.40);color:var(--mint);">34</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.15);color:var(--text-secondary);">5</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.10);color:var(--text-secondary);">2</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.22);color:var(--blue);">14</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+
+        <div class="hm-row-label">SC - Chapecó</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.35);color:var(--blue);">23</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.10);color:var(--text-secondary);">2</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.12);color:var(--text-secondary);">5</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+
+        <div class="hm-row-label">Guarulhos</div>
+        <div class="hm-cell" style="background:rgba(125,237,138,0.28);color:var(--mint);">20</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.10);color:var(--text-secondary);">4</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+        <div class="hm-cell" style="background:rgba(0,82,148,0.12);color:var(--text-muted);">2</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.10);color:var(--text-secondary);">4</div>
+
+        <div class="hm-row-label">PR - Curitiba</div>
+        <div class="hm-cell" style="background:rgba(0,82,148,0.08);color:var(--text-muted);">2</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.12);color:var(--text-secondary);">5</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.22);color:var(--blue);">11</div>
+        <div class="hm-cell" style="background:rgba(0,82,148,0.08);color:var(--text-muted);">2</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+
+        <div class="hm-row-label">RJ - Rio</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+        <div class="hm-cell" style="background:rgba(0,82,148,0.10);color:var(--text-muted);">3</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+        <div class="hm-cell" style="background:rgba(0,130,222,0.18);color:var(--blue);">8</div>
+        <div class="hm-cell" style="background:rgba(7,20,40,0.9);color:var(--text-muted);">0</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;font-size:10px;color:var(--text-muted);display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <span style="font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">Intensidade:</span>
+      <div style="display:flex;gap:4px;align-items:center;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:rgba(7,20,40,0.9);border:1px solid var(--border);"></span><span style="font-size:10px;">0</span></div>
+      <div style="display:flex;gap:4px;align-items:center;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:rgba(0,130,222,0.12);"></span><span style="font-size:10px;">1–5</span></div>
+      <div style="display:flex;gap:4px;align-items:center;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:rgba(0,130,222,0.28);"></span><span style="font-size:10px;">6–20</span></div>
+      <div style="display:flex;gap:4px;align-items:center;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:rgba(125,237,138,0.55);"></span><span style="font-size:10px;">20–58</span></div>
+    </div>
+  </div>
+
+  <!-- PROPRIETÁRIOS -->
+  <div class="section-label"><span class="sl-dot"></span>Proprietários das Oportunidades (Leads Quentes)</div>
+
+  <div class="chart-grid-2">
+    <div class="chart-card tall">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Top Gestores — Leads Quentes</div>
+          <div class="chart-desc">Proprietário da oportunidade no Salesforce</div>
+        </div>
+        <span class="chart-tag tag-mint">145 leads quentes</span>
+      </div>
+      <div class="prop-list">
+        <div class="prop-item">
+          <div class="prop-rank rank-top">#1</div>
+          <div><div class="prop-name">Mario Jorge Santos de Azevedo</div><div class="prop-sub">Filial BA - Salvador</div></div>
+          <div class="prop-count">32</div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-rank rank-top">#2</div>
+          <div><div class="prop-name">Enelize Leandra Bortolini Piva</div><div class="prop-sub">Filial SC - Chapecó</div></div>
+          <div class="prop-count">27</div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-rank rank-top">#3</div>
+          <div><div class="prop-name">Geandro Ferreira da Silva</div><div class="prop-sub">Matriz SP</div></div>
+          <div class="prop-count">17</div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-rank">#4</div>
+          <div><div class="prop-name">Matteo Puosso Ritacco</div><div class="prop-sub">Filial Guarulhos</div></div>
+          <div class="prop-count" style="color:var(--blue);">12</div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-rank">#5</div>
+          <div><div class="prop-name">Maryha Rany R. de Albuquerque</div><div class="prop-sub">Matriz SP</div></div>
+          <div class="prop-count" style="color:var(--blue);">4</div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-rank">#6</div>
+          <div><div class="prop-name">Jackson Froguel</div><div class="prop-sub">Filial PR - Maringá</div></div>
+          <div class="prop-count" style="color:var(--blue);">3</div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-rank">#7</div>
+          <div><div class="prop-name">Alessandro Barletta Gomes</div><div class="prop-sub">Filial Norte</div></div>
+          <div class="prop-count" style="color:var(--blue);">2</div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-rank">#8</div>
+          <div><div class="prop-name">Vera Victor / Richard Coelho</div><div class="prop-sub">Filial RJ / Curitiba</div></div>
+          <div class="prop-count" style="color:var(--blue);">2–2</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card tall">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Distribuição de Carteira</div>
+          <div class="chart-desc">Share de leads quentes por gestor</div>
+        </div>
+        <span class="chart-tag tag-blue">leads quentes</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="chartProprietarios"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP INDICADORES -->
+  <div class="section-label"><span class="sl-dot"></span>Top Indicadores do Sales Day</div>
+
+  <div class="chart-grid-2">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Ranking de Indicadores</div>
+          <div class="chart-desc">Colaboradores que mais geraram leads no evento</div>
+        </div>
+        <span class="chart-tag tag-mint">top 10</span>
+      </div>
+      <div class="bar-table">
+        <div class="bar-row col-3w">
+          <div class="bar-name">Karina Canholato</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--mint);"></div></div>
+          <div class="bar-val" style="color:var(--mint);">46</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Eveline Victoria</div>
+          <div class="bar-track"><div class="bar-fill" style="width:82.6%;background:var(--blue);"></div></div>
+          <div class="bar-val" style="color:var(--blue);">38</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Wellington F. Silva</div>
+          <div class="bar-track"><div class="bar-fill" style="width:76.1%;background:var(--blue);"></div></div>
+          <div class="bar-val" style="color:var(--blue);">35</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Thalita Moreira</div>
+          <div class="bar-track"><div class="bar-fill" style="width:45.7%;background:#5BA8F0;"></div></div>
+          <div class="bar-val" style="color:#5BA8F0;">21</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Edilene Souza Pereira</div>
+          <div class="bar-track"><div class="bar-fill" style="width:43.5%;background:#2FD9C8;"></div></div>
+          <div class="bar-val" style="color:#2FD9C8;">20</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Andreia N. Oliveira</div>
+          <div class="bar-track"><div class="bar-fill" style="width:28.3%;background:rgba(125,237,138,0.65);"></div></div>
+          <div class="bar-val" style="color:rgba(125,237,138,0.85);">13</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Emanoela F. Santos</div>
+          <div class="bar-track"><div class="bar-fill" style="width:28.3%;background:rgba(0,130,222,0.65);"></div></div>
+          <div class="bar-val" style="color:rgba(0,130,222,0.85);">13</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Lindinelva N. Santos</div>
+          <div class="bar-track"><div class="bar-fill" style="width:28.3%;background:rgba(0,130,222,0.65);"></div></div>
+          <div class="bar-val" style="color:rgba(0,130,222,0.85);">13</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Thais C. Lima Leite</div>
+          <div class="bar-track"><div class="bar-fill" style="width:26.1%;background:rgba(58,86,122,0.7);"></div></div>
+          <div class="bar-val" style="color:var(--text-secondary);">12</div>
+        </div>
+        <div class="bar-row col-3w">
+          <div class="bar-name">Marcelo Adilson</div>
+          <div class="bar-track"><div class="bar-fill" style="width:13%;background:rgba(58,86,122,0.5);"></div></div>
+          <div class="bar-val" style="color:var(--text-muted);">6</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Volume Top 10 Indicadores</div>
+          <div class="chart-desc">Comparativo visual de performance de indicação</div>
+        </div>
+        <span class="chart-tag tag-teal">comparativo</span>
+      </div>
+      <div class="chart-wrap" style="min-height:300px;">
+        <canvas id="chartIndicadores"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORIGEM DOS LEADS -->
+  <div class="section-label"><span class="sl-dot"></span>Origem dos Leads &amp; Canal de Captação</div>
+
+  <div class="chart-grid-3">
+    <!-- Origem SF -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Origem SF Produção</div>
+          <div class="chart-desc">De onde cada lead foi registrado</div>
+        </div>
+        <span class="chart-tag tag-blue">fonte</span>
+      </div>
+      <div class="chart-wrap" style="min-height:160px;">
+        <canvas id="chartOrigem"></canvas>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="legend-row"><div class="legend-dot" style="background:var(--mint);"></div><div class="legend-label">Sales Day 3ª Edição</div><div class="legend-val">338</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:var(--blue);"></div><div class="legend-label">Site (Marketing)</div><div class="legend-val">18</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:var(--blue);"></div><div class="legend-label">Sales Break (Evento)</div><div class="legend-val">5</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:#5BA8F0;"></div><div class="legend-label">Referência / Inbound</div><div class="legend-val">3</div></div>
+        <div class="legend-row"><div class="legend-dot" style="background:var(--text-muted);"></div><div class="legend-label">Outros (Outbound, etc.)</div><div class="legend-val">3</div></div>
+      </div>
+    </div>
+
+    <!-- Tipo Origem -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Tipo de Origem</div>
+          <div class="chart-desc">Classificação estratégica do canal</div>
+        </div>
+        <span class="chart-tag tag-teal">canal</span>
+      </div>
+      <div class="chart-wrap" style="min-height:160px;">
+        <canvas id="chartTipoOrigem"></canvas>
+      </div>
+      <div style="margin-top:14px;" class="bar-table">
+        <div class="bar-row col-3">
+          <div class="bar-name">SALES DAY</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--mint);"></div></div>
+          <div class="bar-val" style="color:var(--mint);">338</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name">MARKETING</div>
+          <div class="bar-track"><div class="bar-fill" style="width:5.3%;background:var(--blue);"></div></div>
+          <div class="bar-val" style="color:var(--blue);">18</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name">EVENTO</div>
+          <div class="bar-track"><div class="bar-fill" style="width:1.5%;background:var(--blue);"></div></div>
+          <div class="bar-val" style="color:var(--blue);">5</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name">INBOUND</div>
+          <div class="bar-track"><div class="bar-fill" style="width:0.9%;background:#5BA8F0;"></div></div>
+          <div class="bar-val" style="color:#5BA8F0;">3</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name">OUTBOUND</div>
+          <div class="bar-track"><div class="bar-fill" style="width:0.6%;background:rgba(58,86,122,0.7);"></div></div>
+          <div class="bar-val" style="color:var(--text-muted);">2</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Produtos por Matriz -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Leads por Matriz de Produto</div>
+          <div class="chart-desc">Volume em cada vertical de negócio</div>
+        </div>
+        <span class="chart-tag tag-muted">matrizes</span>
+      </div>
+      <div style="margin-top:6px;display:flex;align-items:center;gap:8px;margin-bottom:18px;">
+        <div class="kpi-badge badge-teal">Matriz SP</div>
+        <div style="font-size:11px;color:var(--text-muted);">foco na análise</div>
+      </div>
+      <div class="bar-table">
+        <div class="bar-row col-3">
+          <div class="bar-name">Benefícios PME</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--mint);"></div></div>
+          <div class="bar-val" style="color:var(--mint);">57</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name">Saúde Individual</div>
+          <div class="bar-track"><div class="bar-fill" style="width:19.3%;background:var(--blue);"></div></div>
+          <div class="bar-val" style="color:var(--blue);">11</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name">Transportes</div>
+          <div class="bar-track"><div class="bar-fill" style="width:19.3%;background:var(--blue);"></div></div>
+          <div class="bar-val" style="color:var(--blue);">11</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name">Seguros Corp.</div>
+          <div class="bar-track"><div class="bar-fill" style="width:17.5%;background:#2FD9C8;"></div></div>
+          <div class="bar-val" style="color:#2FD9C8;">10</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name">Benefícios Corp.</div>
+          <div class="bar-track"><div class="bar-fill" style="width:15.8%;background:#5BA8F0;"></div></div>
+          <div class="bar-val" style="color:#5BA8F0;">9</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name">Auto</div>
+          <div class="bar-track"><div class="bar-fill" style="width:14%;background:rgba(125,237,138,0.55);"></div></div>
+          <div class="bar-val" style="color:rgba(125,237,138,0.8);">8</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name">Consórcio</div>
+          <div class="bar-track"><div class="bar-fill" style="width:7%;background:rgba(58,86,122,0.7);"></div></div>
+          <div class="bar-val" style="color:var(--text-secondary);">4</div>
+        </div>
+        <div class="bar-row col-3">
+          <div class="bar-name">Agro</div>
+          <div class="bar-track"><div class="bar-fill" style="width:7%;background:rgba(58,86,122,0.5);"></div></div>
+          <div class="bar-val" style="color:var(--text-muted);">4</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSIGHTS ESTRATÉGICOS -->
+  <div class="section-label"><span class="sl-dot"></span>Insights Estratégicos</div>
+
+  <div class="chart-grid-2">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Concentração Geográfica</div>
+          <div class="chart-desc">As 5 filiais top respondem por 87% dos leads</div>
+        </div>
+        <span class="chart-tag tag-mint">insight</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="chartConcentracao"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Funil de Qualificação</div>
+          <div class="chart-desc">Da captação ao lead quente qualificado</div>
+        </div>
+        <span class="chart-tag tag-teal">funil</span>
+      </div>
+      <div style="padding-top:12px;display:flex;flex-direction:column;gap:6px;flex:1;">
+        <div class="funnel-row">
+          <div class="funnel-label">Total de Leads<br>Captados</div>
+          <div class="funnel-track">
+            <div class="funnel-fill" style="width:100%;background:linear-gradient(to right, var(--mint), rgba(125,237,138,0.6));"></div>
+          </div>
+          <div class="funnel-val" style="color:var(--mint);">367</div>
+        </div>
+        <div class="funnel-row">
+          <div class="funnel-label">Leads Quentes<br>(Alta Prioridade)</div>
+          <div class="funnel-track">
+            <div class="funnel-fill" style="width:39.5%;background:linear-gradient(to right, var(--blue), rgba(0,130,222,0.6));"></div>
+          </div>
+          <div class="funnel-val" style="color:var(--blue);">145</div>
+        </div>
+        <div class="funnel-row">
+          <div class="funnel-label">Com SF Lead ID<br>(no CRM)</div>
+          <div class="funnel-track">
+            <div class="funnel-fill" style="width:55%;background:linear-gradient(to right, var(--blue), rgba(0,130,222,0.6));"></div>
+          </div>
+          <div class="funnel-val" style="color:var(--blue);">~200</div>
+        </div>
+        <div class="funnel-row">
+          <div class="funnel-label">Parceiros /<br>Associados</div>
+          <div class="funnel-track">
+            <div class="funnel-fill" style="width:3.8%;background:rgba(0,79,148,0.7);"></div>
+          </div>
+          <div class="funnel-val" style="color:var(--text-secondary);">14</div>
+        </div>
+        <div class="divider" style="margin:12px 0;"></div>
+        <div class="mini-stat-grid">
+          <div class="mini-stat">
+            <div class="mini-stat-label">Taxa de Qualificação</div>
+            <div class="mini-stat-val" style="color:var(--mint);">39,5%</div>
+            <div class="mini-stat-sub">Leads quentes / total</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-label">Leads com CRM</div>
+            <div class="mini-stat-val" style="color:var(--blue);">~55%</div>
+            <div class="mini-stat-sub">Registros no Salesforce</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  Sales Day 3ª Edição · <span>Alper Seguros</span> · Dashboard gerado automaticamente · <span>367 leads</span> analisados em 23 categorias
+</footer>
+
+<script>
+Chart.defaults.color = '#3D5A80';
+Chart.defaults.borderColor = 'rgba(0,56,148,0.08)';
+Chart.defaults.font.family = 'Montserrat, system-ui, sans-serif';
+Chart.defaults.font.size = 11;
+
+const MINT   = '#7ded8a';
+const BLUE   = '#0082DE';
+const NAVY   = '#004F94';
+const NAVY2  = '#003894';
+const BLUE2  = '#5BA8F0';
+const MUTED  = 'rgba(0,56,148,0.35)';
+const BG_DARK = '#FFFFFF';
+
+function makeGradient(ctx, color) {
+  const g = ctx.createLinearGradient(0, 0, 0, 300);
+  g.addColorStop(0, color + 'CC');
+  g.addColorStop(1, color + '22');
+  return g;
+}
+
+// ── TIPO DE NEGÓCIO (doughnut) ──
+new Chart(document.getElementById('chartTipoNegocio'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Benef. Corporate','Benef. PME','Automóvel','Seg. Corporativos','Transportes','Agronegócio'],
+    datasets: [{
+      data: [139, 63, 55, 32, 20, 5],
+      backgroundColor: [MINT, BLUE, NAVY, BLUE2, MUTED, 'rgba(0,56,148,0.2)'],
+      borderWidth: 2,
+      borderColor: '#FFFFFF',
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '64%',
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#0B1F3A',
+        titleColor: '#E8F0FF',
+        bodyColor: '#7A9CC6',
+        callbacks: {
+          label: (c) => ` ${c.label}: ${c.raw} leads (${Math.round(c.raw/314*100)}%)`
+        }
+      }
+    }
+  }
+});
+
+// ── CONTATO PRÉVIO (doughnut) ──
+new Chart(document.getElementById('chartContatoPrevio'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Não (52,6%)', 'Sim (47,4%)'],
+    datasets: [{
+      data: [193, 174],
+      backgroundColor: [MUTED, MINT],
+      borderWidth: 2, borderColor: '#FFFFFF', hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: true,
+    cutout: '68%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: '#0B1F3A', titleColor: '#E8F0FF', bodyColor: '#7A9CC6' }
+    }
+  }
+});
+
+// ── TIPO DE PESSOA (doughnut) ──
+new Chart(document.getElementById('chartTipoPessoa'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Pessoa Jurídica (78%)', 'Pessoa Física (22%)'],
+    datasets: [{
+      data: [286, 81],
+      backgroundColor: [BLUE, NAVY],
+      borderWidth: 2, borderColor: '#FFFFFF', hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: true,
+    cutout: '68%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: '#0B1F3A', titleColor: '#E8F0FF', bodyColor: '#7A9CC6' }
+    }
+  }
+});
+
+// ── RELAÇÃO (polar area) ──
+new Chart(document.getElementById('chartRelacao'), {
+  type: 'polarArea',
+  data: {
+    labels: ['Sem relac. direto', 'Amigo/Familiar', 'Prof./Mercado', 'Cliente/Parceiro', 'Ex-colega'],
+    datasets: [{
+      data: [197, 72, 70, 20, 8],
+      backgroundColor: [
+        'rgba(0,56,148,0.3)',
+        MINT + 'CC',
+        BLUE + 'CC',
+        NAVY + 'CC',
+        BLUE2 + 'CC'
+      ],
+      borderWidth: 1, borderColor: 'rgba(0,56,148,0.15)'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      r: {
+        grid: { color: 'rgba(0,56,148,0.08)' },
+        ticks: { display: false }
+      }
+    }
+  }
+});
+
+// ── FILIAL (horizontal bar) ──
+new Chart(document.getElementById('chartFilial'), {
+  type: 'bar',
+  data: {
+    labels: ['Matriz SP','ES - Vitória','BA - Salvador','SC - Chapecó','Guarulhos','PR - Curitiba','RJ - Rio','PR - Maringá','MT - Lucas','Filial Norte','SP Interior','RS (POA+CA)'],
+    datasets: [{
+      label: 'Leads',
+      data: [119, 61, 59, 32, 31, 26, 19, 6, 6, 4, 2, 2],
+      backgroundColor: [
+        MINT, MINT+'CC', MINT+'AA',
+        BLUE, BLUE, NAVY, BLUE2,
+        MUTED, MUTED, 'rgba(0,56,148,0.25)', 'rgba(0,56,148,0.2)', 'rgba(0,56,148,0.15)'
+      ],
+      borderRadius: 4,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: '#0B1F3A', titleColor: '#E8F0FF', bodyColor: '#7A9CC6' }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(0,56,148,0.06)' }, ticks: { color: '#3D5A80' } },
+      y: { grid: { display: false }, ticks: { color: '#3D5A80', font: { size: 10 } } }
+    }
+  }
+});
+
+// ── PROPRIETÁRIOS (horizontal bar) ──
+new Chart(document.getElementById('chartProprietarios'), {
+  type: 'bar',
+  data: {
+    labels: ['Mario Jorge', 'Enelize Piva', 'Geandro Silva', 'Matteo Ritacco', 'Maryha Albuq.', 'Jackson Froguel', 'Alessandro B.', 'Vera Victor', 'Richard Coelho'],
+    datasets: [{
+      label: 'Leads Quentes',
+      data: [32, 27, 17, 12, 4, 3, 2, 2, 2],
+      backgroundColor: [MINT, MINT+'CC', BLUE, NAVY, BLUE2, MUTED, 'rgba(0,56,148,0.25)', 'rgba(0,56,148,0.2)', 'rgba(0,56,148,0.15)'],
+      borderRadius: 4, borderSkipped: false
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: '#0B1F3A', titleColor: '#E8F0FF', bodyColor: '#7A9CC6' }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(0,56,148,0.06)' }, ticks: { color: '#3D5A80' } },
+      y: { grid: { display: false }, ticks: { color: '#3D5A80', font: { size: 10 } } }
+    }
+  }
+});
+
+// ── INDICADORES (bar chart) ──
+new Chart(document.getElementById('chartIndicadores'), {
+  type: 'bar',
+  data: {
+    labels: ['Karina', 'Eveline', 'Wellington', 'Thalita', 'Edilene', 'Andreia O.', 'Emanoela', 'Lindinelva', 'Thais Leite', 'Marcelo A.'],
+    datasets: [{
+      label: 'Leads Indicados',
+      data: [46, 38, 35, 21, 20, 13, 13, 13, 12, 6],
+      backgroundColor: [MINT, BLUE, NAVY, BLUE2, MUTED, MINT+'99', BLUE+'99', NAVY+'99', 'rgba(0,56,148,0.25)', 'rgba(0,56,148,0.2)'],
+      borderRadius: 5, borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: '#0B1F3A', titleColor: '#E8F0FF', bodyColor: '#7A9CC6' }
+    },
+    scales: {
+      y: { grid: { color: 'rgba(0,56,148,0.06)' }, ticks: { color: '#3D5A80' } },
+      x: { grid: { display: false }, ticks: { color: '#3D5A80', font: { size: 9 }, maxRotation: 45 } }
+    }
+  }
+});
+
+// ── ORIGEM SF (doughnut) ──
+new Chart(document.getElementById('chartOrigem'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Sales Day 3ª Ed.','Site (Marketing)','Sales Break','Referência/Inbound','Outros'],
+    datasets: [{
+      data: [338, 18, 5, 3, 3],
+      backgroundColor: [MINT, BLUE, NAVY, BLUE2, MUTED],
+      borderWidth: 2, borderColor: '#FFFFFF', hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: true,
+    cutout: '62%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: '#0B1F3A', titleColor: '#E8F0FF', bodyColor: '#7A9CC6' }
+    }
+  }
+});
+
+// ── TIPO ORIGEM (doughnut) ──
+new Chart(document.getElementById('chartTipoOrigem'), {
+  type: 'doughnut',
+  data: {
+    labels: ['SALES DAY','MARKETING','EVENTO','INBOUND','OUTBOUND'],
+    datasets: [{
+      data: [338, 18, 5, 3, 2],
+      backgroundColor: [MINT, BLUE, NAVY, BLUE2, MUTED],
+      borderWidth: 2, borderColor: '#FFFFFF', hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: true,
+    cutout: '62%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: '#0B1F3A', titleColor: '#E8F0FF', bodyColor: '#7A9CC6' }
+    }
+  }
+});
+
+// ── CONCENTRAÇÃO GEOGRÁFICA (pie) ──
+new Chart(document.getElementById('chartConcentracao'), {
+  type: 'pie',
+  data: {
+    labels: ['Matriz SP (119)', 'ES Vitória (61)', 'BA Salvador (59)', 'SC Chapecó (32)', 'Guarulhos (31)', 'Demais (65)'],
+    datasets: [{
+      data: [119, 61, 59, 32, 31, 65],
+      backgroundColor: [MINT, BLUE, NAVY, BLUE2, MUTED, 'rgba(0,56,148,0.2)'],
+      borderWidth: 2, borderColor: '#FFFFFF', hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'right',
+        labels: {
+          boxWidth: 10,
+          font: { size: 10, family: 'Montserrat' },
+          padding: 12,
+          color: '#3D5A80'
+        }
+      },
+      tooltip: { backgroundColor: '#0B1F3A', titleColor: '#E8F0FF', bodyColor: '#7A9CC6' }
+    }
+  }
+});
+</script>
+</body>
+</html>

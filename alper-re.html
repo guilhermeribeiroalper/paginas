@@ -1043,6 +1043,75 @@
       flex-shrink: 0;
     }
 
+    /* ── GLOBAL MAP ── */
+    .global-map-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .global-map-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+    }
+
+    .global-map-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .global-map-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .connection-line {
+      stroke-dasharray: 5 4;
+      animation: dashMove 1.8s linear infinite;
+    }
+
+    @keyframes dashMove {
+      to { stroke-dashoffset: -18; }
+    }
+
+    .brazil-pulse {
+      animation: pulseRing 2.5s ease-out infinite;
+    }
+
+    @keyframes pulseRing {
+      0% { r: 14; opacity: 0.4; }
+      70% { r: 26; opacity: 0; }
+      100% { r: 26; opacity: 0; }
+    }
+
+    .dest-pulse {
+      animation: destPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes destPulse {
+      0%, 100% { opacity: 0.15; }
+      50% { opacity: 0.4; }
+    }
+
+    .global-map-caption {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-light);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+      .global-map-wrap {
+        max-width: 100%;
+      }
+    }
+
     /* ── NÚMEROS ── */
     #numeros {
       background: var(--dark);
@@ -1250,7 +1319,7 @@
 
     /* ── FORMULÁRIO ── */
     #contato {
-      background: linear-gradient(135deg, var(--hero-from), var(--hero-to));
+      background: #1E293B;
       position: relative;
       overflow: hidden;
     }
@@ -1268,7 +1337,7 @@
       align-items: center;
       text-align: center;
       gap: 2rem;
-      padding: 5rem 0 4.5rem;
+      /* padding: 5rem 0 4.5rem; */
     }
 
     .contact-inner .section-title {
@@ -1278,14 +1347,14 @@
     }
     .contact-inner .section-title em {
       font-style: normal;
-      color: var(--green);
+      color: var(--blue);
     }
 
     .contact-beats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem 3rem;
-      max-width: 740px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      max-width: 600px;
       margin-bottom: 1rem;
     }
 
@@ -1308,8 +1377,8 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: var(--green);
-      color: var(--dark);
+      background: var(--blue);
+      color: #fff;
       font-family: 'Inter', sans-serif;
       font-size: 0.85rem;
       font-weight: 700;
@@ -1320,7 +1389,7 @@
       transition: background 0.2s, transform 0.2s;
     }
     .contact-btn:hover {
-      background: #6dd67b;
+      background: var(--blue-hover);
       transform: translateY(-1px);
     }
     .contact-btn svg {
@@ -1512,7 +1581,7 @@
       .form-row { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; gap: 2rem; }
       .footer-bottom { flex-direction: column; gap: 0.8rem; text-align: center; }
-      .contact-beats { grid-template-columns: 1fr; gap: 0.8rem; }
+      .contact-beats { gap: 0.6rem; }
       .contact-inner { padding: 3.5rem 0 3rem; }
     }
 
@@ -1538,20 +1607,21 @@
       <li><a href="#problema" data-en="How We Think">Como Pensamos</a></li>
       <li><a href="#estruturas" data-en="How We Operate">Como atuamos</a></li>
       <li><a href="#numeros" data-en="Reach">Alcance</a></li>
-      <li><a href="#contato" data-en="Contact">Contato</a></li>
-      <li class="nav-dropdown">
+      <!-- <li><a href="#contato" data-en="Contact">Contato</a></li> -->
+      <li><a href="https://alpercarreiras.gupy.io/" target="_BLANK" data-en="Careers">Carreiras</a></li>
+      <!-- <li class="nav-dropdown">
         <a href="#" data-en="Careers">Carreiras</a>
         <ul class="nav-dropdown-menu">
           <li><a href="https://alpercarreiras.gupy.io/" target="_blank" rel="noopener" data-en="Open Positions">Vagas</a></li>
           <li><a href="banco-de-talentos.html" data-en="Talent Pool">Banco de Talentos</a></li>
         </ul>
-      </li>
+      </li> -->
     </ul>
-    <a class="nav-cta" href="#contato" data-en="Get in Touch">Fale conosco</a>
     <div class="nav-lang">
       <button class="active" onclick="setLang('pt')">PT</button>
       <button onclick="setLang('en')">EN</button>
     </div>
+    <a class="nav-cta" href="mailto:contato@alperre.com.br" data-en="Get in Touch">Fale conosco</a>
     <button class="nav-hamburger" aria-label="Menu" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">
       <span></span><span></span><span></span>
     </button>
@@ -1622,8 +1692,8 @@
   <!-- CASOS -->
   <section id="casos">
     <div class="casos-h-header">
-      <h2 class="section-title reveal" data-en="The most relevant opportunities don't always appear where everyone is looking">As oportunidades mais <em>relevantes</em> nem sempre surgem onde todos estão olhando</h2>
-      <p class="section-body reveal" data-en="From golf to space, from lotteries to emerging markets — there are challenges that seem impossible, until we find the right structure to make them viable.">Do golfe ao espaço, de loterias a mercados emergentes - existem desafios que parecem impossíveis, até encontrarmos a estrutura certa para torná-los viáveis.</p>
+      <h2 class="section-title reveal" data-en="The most relevant opportunities don't always appear where everyone is looking">As oportunidades mais <em>relevantes</em> nem sempre surgem onde todos estão olhando.</h2>
+      <p class="section-body reveal" data-en="From golf to space, from lotteries to emerging markets — there are challenges that seem impossible, until we find the right structure to make them viable.">Do golfe ao espaço, de loterias a mercados emergentes — existem desafios que parecem impossíveis, até encontrarmos a estrutura certa para torná-los viáveis.</p>
     </div>
 
     <div class="casos-h-top">
@@ -1634,14 +1704,13 @@
     <div class="casos-h-viewport">
       <div class="casos-h-track" id="casos-h-track">
         <div class="casos-h-card">
-          <div class="casos-h-card-bg" style="background-image: url('https://images.unsplash.com/photo-1607863680198-23d4b2565df0?w=1600&q=80');"></div>
+          <div class="casos-h-card-bg" style="background-image: url('https://images.unsplash.com/photo-1693163637018-cec278130a11?w=1600&q=80');"></div>
           <div class="casos-h-card-overlay"></div>
           <div class="casos-h-card-content">
             <p class="casos-h-card-num">01 / 03</p>
             <p class="casos-h-card-kicker">Prize Indemnity</p>
             <h3 class="casos-h-card-title" data-en="Where luck becomes <em>exposure</em>">Onde a sorte vira <em>exposição</em></h3>
             <p class="casos-h-card-text" data-en="Big prizes. Unlikely moments. A single stroke can turn an action into a great success — or a great financial exposure. Yet brands keep betting on the impact of these moments. Because someone found a way to make this risk viable.">Grandes prêmios. Momentos improváveis. Uma única tacada pode transformar uma ação em um grande sucesso — ou em uma grande exposição financeira. Ainda assim, marcas continuam apostando no impacto desses momentos. Porque alguém encontrou uma maneira de tornar esse risco viável.</p>
-            <span class="casos-h-card-tag">Prize Indemnity</span>
           </div>
         </div>
 
@@ -1653,7 +1722,6 @@
             <p class="casos-h-card-kicker">Space & Aviation</p>
             <h3 class="casos-h-card-title" data-en="Missions that cannot <em>stop</em>">Missões que não podem <em>parar</em></h3>
             <p class="casos-h-card-text" data-en="Satellites fail. Rockets explode. Missions are postponed. Yet the space sector keeps growing. Because someone found a way to turn uncertainty into viability.">Satélites falham. Foguetes explodem. Missões são adiadas. Mesmo assim, o setor espacial continua crescendo. Porque alguém encontrou uma maneira de transformar incerteza em viabilidade.</p>
-            <span class="casos-h-card-tag">Space Risk</span>
           </div>
         </div>
 
@@ -1665,7 +1733,6 @@
             <p class="casos-h-card-kicker">Political & Emerging Market Risk</p>
             <h3 class="casos-h-card-title" data-en="Where few <em>dare</em> to go">Onde <em>poucos</em> querem ir</h3>
             <p class="casos-h-card-text" data-en="Political risks. Regulatory changes. Social instability. Growth rarely happens in the most comfortable zones. Yet it is possible to create structures to advance where risk is greater.">Riscos políticos. Mudanças regulatórias. Instabilidade social. O crescimento raramente acontece nas zonas mais confortáveis. Ainda assim, é possível criar estruturas para avançar onde o risco é maior.</p>
-            <span class="casos-h-card-tag">Political Risk</span>
           </div>
         </div>
       </div>
@@ -1689,8 +1756,10 @@
   <section id="estruturas">
     <div class="section-inner">
       <div class="estruturas-intro reveal">
-        <h2 class="section-title" data-en="Most of the market looks at risk from the <em>same angle</em>.">A maioria do mercado olha o risco pelo <em>mesmo ângulo</em>.</h2>
-        <p class="section-body" data-en="<strong>Since 2021, Alper Re chose to broaden this perspective.</strong> That's why we don't work with a single formula. We create the right structure for each dimension of the challenge."><strong>Desde 2021, a Alper Re escolheu ampliar essa perspectiva.</strong> Por isso, não trabalhamos com uma fórmula única. Criamos a estrutura certa para cada dimensão do desafio.</p>
+        <h2 class="section-title" data-en="Most of the market looks at risk from the <em>same angle.</em>">A maioria do mercado olha o risco pelo <em>mesmo ângulo.</em></h2>
+        <p class="section-body" data-en="<strong>Since 2021, Alper Re chose to broaden this perspective.</strong> That's why we don't work with a single formula. We create the right structure for each dimension of the challenge.">
+          <strong>Desde 2021</strong>, a Alper Re escolheu ampliar essa perspectiva.<br>
+          Por isso, não trabalhamos com uma fórmula única. Criamos a estrutura certa para cada dimensão do desafio.</p>
       </div>
       <div class="estruturas-cards">
         <div class="estrutura-card reveal">
@@ -1724,13 +1793,44 @@
           <p class="section-body reveal" data-en="Why is capacity still always sought in the same places? The reinsurance world goes far beyond the United States–Europe axis.">Por que a capacidade ainda é procurada sempre nos mesmos lugares? O mundo do resseguro vai muito além do eixo Estados Unidos–Europa.</p>
           <p class="section-body reveal" style="margin-top:1.2rem;" data-en="Our role is to connect complex challenges to markets that may not be the most obvious choice — but may be the best answer.">Nosso papel é conectar desafios complexos a mercados que talvez não fossem a escolha mais óbvia — mas possam ser a melhor resposta.</p>
         </div>
-        <div class="global-regions reveal">
-          <div class="region-item" data-en="Specialized markets in the Middle East"><div class="region-dot"></div>Mercados especializados do Oriente Médio</div>
-          <div class="region-item" data-en="Asian expertise in emerging risks"><div class="region-dot"></div>Experiência asiática com riscos emergentes</div>
-          <div class="region-item" data-en="Innovative structures for climate risks"><div class="region-dot"></div>Estruturas inovadoras para riscos climáticos</div>
-          <div class="region-item" data-en="Capacity for highly specialized exposures"><div class="region-dot"></div>Capacidades para exposições altamente específicas</div>
-          <div class="region-item" data-en="Traditional US–Europe axis"><div class="region-dot"></div>Eixo tradicional EUA–Europa</div>
-          <p style="margin-top:1rem; font-size:0.8rem; color:var(--text-light); line-height:1.6;" data-en="Because the next solution may be where few are looking.">Porque a próxima solução pode estar onde poucos estão procurando.</p>
+        <div class="global-map-container reveal">
+          <div class="global-map-wrap">
+            <img class="global-map-img" src="continentsHigh.svg" alt="Mapa-múndi" />
+            <svg class="global-map-overlay" viewBox="259.35 -2.65 496.3 496.3" xmlns="http://www.w3.org/2000/svg">
+              <!-- Brazil to North America -->
+              <path class="connection-line" d="M473,355 C420,280 350,190 310,120" fill="none" stroke="#0082DE" stroke-width="1.2" stroke-dasharray="5,4" opacity="0.6"/>
+              <!-- Brazil to Europe -->
+              <path class="connection-line" d="M473,355 C450,280 435,190 430,100" fill="none" stroke="#0082DE" stroke-width="1.2" stroke-dasharray="5,4" opacity="0.6"/>
+              <!-- Brazil to Middle East -->
+              <path class="connection-line" d="M473,355 C514,327 583,260 614,228" fill="none" stroke="#0082DE" stroke-width="1.2" stroke-dasharray="5,4" opacity="0.6"/>
+              <!-- Brazil to Asia -->
+              <path class="connection-line" d="M473,355 C500,290 560,200 620,120" fill="none" stroke="#0082DE" stroke-width="1.2" stroke-dasharray="5,4" opacity="0.6"/>
+              <!-- Brazil to Oceania -->
+              <path class="connection-line" d="M473,355 C520,355 630,358 695,360" fill="none" stroke="#0082DE" stroke-width="1.2" stroke-dasharray="5,4" opacity="0.6"/>
+
+              <!-- Brazil origin -->
+              <circle class="brazil-pulse" cx="473" cy="355" r="14" fill="none" stroke="#0082DE" stroke-width="1" opacity="0.4"/>
+              <circle cx="473" cy="355" r="5" fill="#0082DE"/>
+              <circle cx="473" cy="355" r="2" fill="#fff"/>
+
+              <!-- Destinations -->
+              <circle class="dest-pulse" cx="310" cy="120" r="10" fill="none" stroke="#0082DE" stroke-width="0.6" opacity="0.25"/>
+              <circle cx="310" cy="120" r="3" fill="#0082DE" opacity="0.6"/>
+
+              <circle class="dest-pulse" cx="430" cy="100" r="10" fill="none" stroke="#0082DE" stroke-width="0.6" opacity="0.25"/>
+              <circle cx="430" cy="100" r="3" fill="#0082DE" opacity="0.6"/>
+
+              <circle class="dest-pulse" cx="614" cy="228" r="10" fill="none" stroke="#0082DE" stroke-width="0.6" opacity="0.25"/>
+              <circle cx="614" cy="228" r="3" fill="#0082DE" opacity="0.6"/>
+
+              <circle class="dest-pulse" cx="620" cy="120" r="10" fill="none" stroke="#0082DE" stroke-width="0.6" opacity="0.25"/>
+              <circle cx="620" cy="120" r="3" fill="#0082DE" opacity="0.6"/>
+
+              <circle class="dest-pulse" cx="695" cy="360" r="10" fill="none" stroke="#0082DE" stroke-width="0.6" opacity="0.25"/>
+              <circle cx="695" cy="360" r="3" fill="#0082DE" opacity="0.6"/>
+            </svg>
+          </div>
+          <p class="global-map-caption" data-en="Because the next solution may be where few are looking.">Porque a próxima solução pode estar onde poucos estão procurando.</p>
         </div>
       </div>
     </div>
@@ -1756,8 +1856,8 @@
           <p class="bento-label" data-en="strategic partners">parceiros estratégicos</p>
         </div>
         <div class="bento-card reveal">
-          <p class="bento-valor"><span data-target="300" data-prefix="+">0</span></p>
-          <p class="bento-label" data-en="structured operations">operações estruturadas</p>
+          <p class="bento-valor"><span data-target="10" data-prefix="+">0</span></p>
+          <p class="bento-label" data-en="specialties">especialidades</p>
         </div>
       </div>
     </div>
@@ -1767,7 +1867,7 @@
   <section id="contato">
     <div class="section-inner">
       <div class="contact-inner reveal">
-        <h2 class="section-title" data-en="Some <em>decisions</em> require more than courage">Algumas <em>decisões</em> exigem mais do que coragem</h2>
+        <h2 class="section-title" data-en="Some <em>decisions</em> require more than <em>courage.</em>">Algumas <em>decisões</em> exigem mais do que <em>coragem.</em></h2>
         <div class="contact-beats">
           <p class="contact-beat" data-en="They require a structure capable of turning uncertainty into possibility.">Exigem uma estrutura capaz de transformar incerteza em possibilidade.</p>
           <p class="contact-beat" data-en="That's what reinsurance makes possible.">É isso que o resseguro torna possível.</p>
@@ -1775,9 +1875,10 @@
           <p class="contact-beat" data-en="It means creating the conditions for growth to happen.">É criar as condições para que ele aconteça.</p>
         </div>
         <a href="mailto:contato@alperre.com.br" class="contact-btn" data-en="Get in Touch">
-          Fale conosco
+          Fale com nosso time
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
+        <small style="color: var(--bg-soft); font-size: 9px;">Respondemos em até 24 horas úteis.</small>
       </div>
     </div>
   </section>
@@ -1805,7 +1906,7 @@
       <div class="footer-col">
         <div class="footer-col-title" data-en="Get in touch">Fale conosco</div>
         <ul class="footer-links">
-          <li><a href="#contato" data-en="Contact">Contato</a></li>
+          <li><a href="mailto:contato@alperre.com.br" data-en="Contact">Contato</a></li>
           <li><a href="https://alpercarreiras.gupy.io/" target="_blank" rel="noopener" data-en="Careers">Carreiras</a></li>
         </ul>
       </div>

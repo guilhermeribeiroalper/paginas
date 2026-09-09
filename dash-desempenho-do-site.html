@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alper · Dashboard de Desempenho 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #003894;
+  --navy2:   #004f94;
+  --blue:    #0082DE;
+  --teal:    #00d4ab;
+  --green:   #7ded8a;
+  --warn:    #f0b429;
+  --danger:  #e04848;
+  --bg:      #f0f4f8;
+  --surface: #ffffff;
+  --surface2:#e8edf4;
+  --border:  #d1dae6;
+  --text:    #0d1b2e;
+  --muted:   #5a6a80;
+  --light:   #8fa0b5;
+  --sidebar-w: 220px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.5;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ─── SIDEBAR ─────────────────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--navy);
+  min-height: 100vh;
+  position: fixed;
+  top: 0; left: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+  overflow-y: auto;
+}
+
+.sidebar-brand {
+  padding: 28px 20px 24px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.brand-mark {
+  width: 32px; height: 32px;
+  background: var(--teal);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: var(--navy);
+  margin-bottom: 10px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.brand-name {
+  font-size: 15px; font-weight: 700; color: #fff;
+  letter-spacing: .01em;
+}
+
+.brand-sub {
+  font-size: 10px; color: rgba(255,255,255,.4);
+  text-transform: uppercase; letter-spacing: .1em;
+  margin-top: 2px;
+}
+
+.sidebar-nav {
+  padding: 16px 0;
+  flex: 1;
+}
+
+.nav-section-label {
+  padding: 12px 20px 6px;
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255,255,255,.3);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  color: rgba(255,255,255,.55);
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  color: rgba(255,255,255,.9);
+  background: rgba(255,255,255,.06);
+}
+
+.nav-item.active {
+  color: #fff;
+  background: rgba(255,255,255,.1);
+  border-left-color: var(--teal);
+}
+
+.nav-icon {
+  width: 16px; height: 16px;
+  opacity: .7;
+  flex-shrink: 0;
+}
+
+.nav-item.active .nav-icon { opacity: 1; }
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.period-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.period-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: rgba(255,255,255,.55);
+}
+
+.p-dot {
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ─── MAIN ─────────────────────────────────────────────────── */
+.main-wrap {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ─── TOP BAR ───────────────────────────────────────────────── */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 8px rgba(0,56,148,.06);
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.breadcrumb-item { color: var(--muted); }
+.breadcrumb-sep { color: var(--light); font-size: 10px; }
+.breadcrumb-current { color: var(--text); font-weight: 600; }
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.date-badge {
+  background: var(--navy);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: .04em;
+}
+
+.weeks-badge {
+  font-size: 11px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 6px;
+}
+
+/* ─── CONTENT ───────────────────────────────────────────────── */
+.content {
+  padding: 28px 32px 48px;
+  max-width: 1440px;
+}
+
+section {
+  margin-bottom: 48px;
+  scroll-margin-top: 72px;
+}
+
+/* ─── SECTION HEADER ─────────────────────────────────────────── */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.section-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 4px;
+}
+
+.section-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -.01em;
+}
+
+.section-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ─── ALERT BANNER ───────────────────────────────────────────── */
+.alert-banner {
+  background: linear-gradient(135deg, #e04848 0%, #c73535 100%);
+  border-radius: 10px;
+  padding: 16px 24px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 20px rgba(224,72,72,.25);
+}
+
+.alert-icon {
+  width: 40px; height: 40px;
+  background: rgba(255,255,255,.15);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+
+.alert-body { }
+.alert-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.alert-desc { font-size: 12px; color: rgba(255,255,255,.75); }
+
+.alert-stat {
+  text-align: right;
+}
+.alert-num { font-size: 26px; font-weight: 700; color: #fff; font-family: 'JetBrains Mono', monospace; line-height: 1; }
+.alert-num-label { font-size: 10px; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .08em; margin-top: 2px; }
+
+/* ─── KPI GRID ───────────────────────────────────────────────── */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.kpi-row-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px 14px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow .2s;
+}
+
+.kpi-card:hover {
+  box-shadow: 0 4px 16px rgba(0,56,148,.1);
+}
+
+.kpi-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.kpi-card.c-navy::after   { background: var(--navy); }
+.kpi-card.c-blue::after   { background: var(--blue); }
+.kpi-card.c-teal::after   { background: var(--teal); }
+.kpi-card.c-green::after  { background: var(--green); }
+.kpi-card.c-warn::after   { background: var(--warn); }
+.kpi-card.c-danger::after { background: var(--danger); }
+
+.kpi-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 10px;
+}
+
+.kpi-value {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -.02em;
+  margin-bottom: 6px;
+}
+
+.kpi-card.c-navy  .kpi-value { color: var(--navy); }
+.kpi-card.c-blue  .kpi-value { color: var(--blue); }
+.kpi-card.c-teal  .kpi-value { color: var(--teal); }
+.kpi-card.c-green .kpi-value { color: #3abf4e; }
+.kpi-card.c-warn  .kpi-value { color: var(--warn); }
+.kpi-card.c-danger .kpi-value { color: var(--danger); }
+
+.kpi-meta { font-size: 11px; color: var(--muted); }
+
+.kpi-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 6px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.delta-up   { background: rgba(0,212,171,.12); color: #00a084; }
+.delta-down { background: rgba(224,72,72,.12); color: var(--danger); }
+.delta-warn { background: rgba(240,180,41,.12); color: #b07a00; }
+.delta-muted { background: rgba(90,106,128,.1); color: var(--muted); }
+
+/* ─── CHART BOX ──────────────────────────────────────────────── */
+.chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  box-shadow: 0 1px 4px rgba(0,56,148,.04);
+}
+
+.chart-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.chart-card-sub {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.chart-wrap {
+  position: relative;
+}
+
+/* ─── GRID LAYOUTS ───────────────────────────────────────────── */
+.col-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.col-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.col-7-5 { display: grid; grid-template-columns: 7fr 5fr; gap: 16px; }
+.col-5-7 { display: grid; grid-template-columns: 5fr 7fr; gap: 16px; }
+
+/* ─── ANNOTATION ─────────────────────────────────────────────── */
+.annotation {
+  background: #f7f9fc;
+  border-left: 3px solid var(--blue);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 14px;
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 14px;
+  line-height: 1.6;
+}
+
+.annotation strong { color: var(--text); }
+
+/* ─── INSIGHT CARDS ───────────────────────────────────────────── */
+.insight-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.insight-card {
+  border-radius: 8px;
+  border: 1px solid;
+  padding: 14px 16px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.insight-card-title {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.insight-card-body { color: var(--muted); font-size: 11.5px; }
+
+.insight-card.pos {
+  background: rgba(0,212,171,.06);
+  border-color: rgba(0,212,171,.25);
+}
+.insight-card.pos .insight-card-title { color: #00936f; }
+
+.insight-card.neg {
+  background: rgba(224,72,72,.06);
+  border-color: rgba(224,72,72,.2);
+}
+.insight-card.neg .insight-card-title { color: var(--danger); }
+
+.insight-card.warn {
+  background: rgba(240,180,41,.06);
+  border-color: rgba(240,180,41,.25);
+}
+.insight-card.warn .insight-card-title { color: #9a6900; }
+
+.insight-card.info {
+  background: rgba(0,56,148,.05);
+  border-color: rgba(0,56,148,.2);
+}
+.insight-card.info .insight-card-title { color: var(--navy); }
+
+/* ─── TABLE ───────────────────────────────────────────────────── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.data-table thead th {
+  padding: 8px 12px;
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table tbody td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.data-table tbody tr:hover td {
+  background: rgba(0,56,148,.025);
+}
+
+.data-table .mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+}
+
+.data-table .right { text-align: right; }
+
+.data-table .path {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--blue);
+  font-weight: 500;
+}
+
+.up   { color: #00936f; font-weight: 600; }
+.down { color: var(--danger); font-weight: 600; }
+.neutral { color: var(--muted); }
+
+.tfoot-row td {
+  font-weight: 700;
+  background: var(--bg);
+  border-top: 2px solid var(--border) !important;
+}
+
+/* ─── FUNNEL ──────────────────────────────────────────────────── */
+.funnel-step {
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.funnel-step:last-child { border-bottom: none; }
+
+.funnel-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.funnel-bar-track {
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.funnel-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width .6s ease;
+}
+
+.funnel-pct {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.funnel-label {
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.funnel-sub {
+  font-size: 10.5px;
+  color: var(--muted);
+}
+
+.funnel-center {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── DEVICE VISUAL ──────────────────────────────────────────── */
+.device-visual {
+  display: grid;
+  gap: 10px;
+}
+
+.device-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 60px;
+  align-items: center;
+  gap: 10px;
+}
+
+.device-label {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.device-bar-track {
+  height: 20px;
+  background: var(--bg);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+}
+
+.device-seg {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(0,0,0,.5);
+  transition: opacity .2s;
+}
+
+.device-seg:hover { opacity: .8; }
+
+.device-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* ─── REC CARDS ───────────────────────────────────────────────── */
+.rec-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.rec-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.rec-num-badge {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.rec-num-badge.hi   { background: rgba(224,72,72,.12); color: var(--danger); }
+.rec-num-badge.med  { background: rgba(0,130,222,.12); color: var(--blue); }
+.rec-num-badge.lo   { background: rgba(0,212,171,.12); color: #00936f; }
+
+.rec-content { }
+
+.rec-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rec-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.rec-badge.hi  { background: rgba(224,72,72,.1); color: var(--danger); }
+.rec-badge.med { background: rgba(240,180,41,.1); color: #9a6900; }
+.rec-badge.lo  { background: rgba(0,212,171,.1); color: #00936f; }
+
+.rec-body {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ─── STRATEGIC CLOSE ─────────────────────────────────────────── */
+.strategy-box {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin-top: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.strategy-box::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(0,212,171,.08);
+  pointer-events: none;
+}
+
+.strategy-box::after {
+  content: '';
+  position: absolute;
+  bottom: -50px; left: 20%;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(0,130,222,.06);
+  pointer-events: none;
+}
+
+.strategy-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  margin-bottom: 8px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.strategy-text {
+  font-size: 14px;
+  color: rgba(255,255,255,.9);
+  line-height: 1.7;
+  max-width: 800px;
+  position: relative;
+  z-index: 1;
+}
+
+.strategy-text strong { color: #fff; }
+
+/* ─── DIVIDER ─────────────────────────────────────────────────── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+/* ─── TAG ─────────────────────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.tag-p1 { background: rgba(0,56,148,.1); color: var(--navy); border: 1px solid rgba(0,56,148,.2); }
+.tag-p2 { background: rgba(0,130,222,.1); color: var(--blue); border: 1px solid rgba(0,130,222,.2); }
+.tag-p3 { background: rgba(0,212,171,.1); color: #00936f; border: 1px solid rgba(0,212,171,.25); }
+
+/* ─── PERIOD BAR ─────────────────────────────────────────────── */
+.period-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 20px;
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.period-legend-label {
+  font-size: 10px;
+  color: var(--light);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-weight: 600;
+}
+
+.period-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.period-dot {
+  width: 10px; height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.period-item strong { font-weight: 600; }
+.period-item span { color: var(--muted); }
+
+/* ─── MOBILE BAR INLINE ───────────────────────────────────────── */
+.bar-inline {
+  display: inline-block;
+  height: 5px;
+  border-radius: 3px;
+  vertical-align: middle;
+  opacity: .7;
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .kpi-row { grid-template-columns: repeat(3, 1fr); }
+  .col-7-5, .col-5-7 { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar { display: none; }
+  .main-wrap { margin-left: 0; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .kpi-row-4 { grid-template-columns: 1fr 1fr; }
+  .col-2, .col-3, .rec-grid { grid-template-columns: 1fr; }
+  .content { padding: 20px 16px 40px; }
+  .insight-row { grid-template-columns: 1fr; }
+}
+
+/* ─── SCROLLBAR ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ═══════════════════════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-mark">A</div>
+    <div class="brand-name">Alper Seguros</div>
+    <div class="brand-sub">GA4 · Analytics</div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Análise</div>
+    <a class="nav-item active" href="#resumo" onclick="setActive(this)">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Resumo Executivo
+    </a>
+    <a class="nav-item" href="#periodos" onclick="setActive(this)">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Períodos
+    </a>
+    <a class="nav-item" href="#canais" onclick="setActive(this)">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      Canais
+    </a>
+    <a class="nav-item" href="#funil" onclick="setActive(this)">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      Funil
+    </a>
+    <a class="nav-item" href="#dispositivos" onclick="setActive(this)">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      Dispositivos
+    </a>
+    <a class="nav-item" href="#landing" onclick="setActive(this)">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Landing Pages
+    </a>
+    <a class="nav-item" href="#eventos" onclick="setActive(this)">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Eventos
+    </a>
+    <div class="nav-section-label" style="margin-top:8px;">Diagnóstico</div>
+    <a class="nav-item" href="#recomendacoes" onclick="setActive(this)">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Recomendações
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="period-chips">
+      <div style="font-size:9px;font-weight:600;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">Períodos</div>
+      <div class="period-chip">
+        <div class="p-dot" style="background:#003894"></div>
+        <span><strong style="color:rgba(255,255,255,.8)">P1</strong> Jan–Mar 2026</span>
+      </div>
+      <div class="period-chip">
+        <div class="p-dot" style="background:#0082DE"></div>
+        <span><strong style="color:rgba(255,255,255,.8)">P2</strong> Abr–Jun 2026</span>
+      </div>
+      <div class="period-chip">
+        <div class="p-dot" style="background:#00d4ab"></div>
+        <span><strong style="color:rgba(255,255,255,.8)">P3</strong> Jul–Set 2026</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══════════════════════════════════════════════════════ -->
+<div class="main-wrap">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-breadcrumb">
+        <span class="breadcrumb-item">Alper</span>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-item">GA4</span>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">Desempenho do Site 2026</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="weeks-badge">36 semanas · 6 fontes GA4</span>
+      <span class="date-badge">01 Jan – 07 Set 2026</span>
+    </div>
+  </header>
+
+  <div class="content">
+
+  <!-- ══ ALERTA CRÍTICO ════════════════════════════════════════════ -->
+  <div class="alert-banner">
+    <div class="alert-icon">📱</div>
+    <div class="alert-body">
+      <div class="alert-title">Gargalo crítico: Mobile converte 14× menos que Desktop</div>
+      <div class="alert-desc">53,3% do tráfego vem de mobile — mas apenas 6,6% dos formulários enviados são de mobile. A taxa de conclusão do formulário no mobile é de 0,65% vs 11% no desktop. Este é o maior problema de conversão identificado.</div>
+    </div>
+    <div class="alert-stat">
+      <div class="alert-num">0,65%</div>
+      <div class="alert-num-label">conclusão mobile</div>
+    </div>
+  </div>
+
+  <!-- ══ RESUMO EXECUTIVO ══════════════════════════════════════════ -->
+  <section id="resumo">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Visão Geral</div>
+        <div class="section-title">Resumo Executivo</div>
+        <div class="section-sub">Performance acumulada em 36 semanas · jan–set 2026</div>
+      </div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card c-navy">
+        <div class="kpi-label">Total de Sessões</div>
+        <div class="kpi-value">83.467</div>
+        <div class="kpi-meta">3 períodos · 36 semanas</div>
+      </div>
+      <div class="kpi-card c-blue">
+        <div class="kpi-label">Pico de Sessões</div>
+        <div class="kpi-value">36.302</div>
+        <div class="kpi-meta">P2 (Abr–Jun)</div>
+        <span class="kpi-delta delta-up">↑ +43,7% vs P1</span>
+      </div>
+      <div class="kpi-card c-teal">
+        <div class="kpi-label">Generate Lead (P3)</div>
+        <div class="kpi-value">7.330</div>
+        <div class="kpi-meta">Maior crescimento do período</div>
+        <span class="kpi-delta delta-up">↑ +75,7% vs P2</span>
+      </div>
+      <div class="kpi-card c-green">
+        <div class="kpi-label">Form Submits Total</div>
+        <div class="kpi-value">288</div>
+        <div class="kpi-meta">Funil 3 etapas</div>
+      </div>
+      <div class="kpi-card c-warn">
+        <div class="kpi-label">Organic Search Share</div>
+        <div class="kpi-value">56,8%</div>
+        <div class="kpi-meta">Dependência estrutural</div>
+      </div>
+      <div class="kpi-card c-danger">
+        <div class="kpi-label">Mobile → Submit</div>
+        <div class="kpi-value">0,65%</div>
+        <div class="kpi-meta">19 de 2.929 inícios mobile</div>
+        <span class="kpi-delta delta-down">↓ crítico</span>
+      </div>
+    </div>
+
+    <div class="insight-row">
+      <div class="insight-card pos">
+        <div class="insight-card-title">P2 foi o pico de tráfego</div>
+        <div class="insight-card-body">Abr–Jun concentrou o maior volume (36.302 sessões), impulsionado por Display e Paid Search. Crescimento de +43,7% sobre P1.</div>
+      </div>
+      <div class="insight-card pos">
+        <div class="insight-card-title">Generate Lead dispara em P3</div>
+        <div class="insight-card-body">Mesmo com tráfego menor, P3 registrou 7.330 events generate_lead (+75,7% vs P2). Destaque para a semana 32 com 1.461 leads — o maior pico do ano.</div>
+      </div>
+      <div class="insight-card neg">
+        <div class="insight-card-title">Display e Paid Video colapsam em P3</div>
+        <div class="insight-card-body">Display caiu −66,4% e Paid Video −84,8% em P3. As campanhas foram encerradas, explicando a queda de tráfego total — mas a qualidade das sessões melhorou.</div>
+      </div>
+      <div class="insight-card neg">
+        <div class="insight-card-title">Mobile converte 14× menos que Desktop</div>
+        <div class="insight-card-body">53% do tráfego vem de mobile, mas apenas 6,6% dos formulários enviados são de mobile (19 vs 269 do desktop). Gargalo crítico de UX.</div>
+      </div>
+      <div class="insight-card warn">
+        <div class="insight-card-title">Paid Search: muito tráfego, zero resultado</div>
+        <div class="insight-card-body">6.104 acessos e 1.027 inícios de formulário (16,8% de taxa) — mas apenas 3 envios completos. Conversão final de 0,05%.</div>
+      </div>
+      <div class="insight-card info">
+        <div class="insight-card-title">Organic Search: canal mais eficiente</div>
+        <div class="insight-card-body">Organic Search responde por 67% das conversões (193 de 288 formulários). Apesar da queda de −34,9% em P3, mantém a maior qualidade de tráfego.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ COMPARATIVO DE PERÍODOS ════════════════════════════════════ -->
+  <section id="periodos">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Análise Temporal</div>
+        <div class="section-title">Comparativo de Períodos</div>
+        <div class="section-sub">Evolução semanal de tráfego e métricas por fase</div>
+      </div>
+    </div>
+
+    <div class="col-3" style="margin-bottom:16px;">
+      <div class="kpi-card c-navy">
+        <div class="kpi-label"><span class="tag tag-p1">P1</span>&ensp;Jan–Mar 2026</div>
+        <div class="kpi-value">25.270</div>
+        <div class="kpi-meta">sessões totais</div>
+        <div style="margin-top:10px;font-size:11px;color:var(--muted);">
+          Form submit: <strong style="color:var(--text);">187</strong>&emsp;Generate lead: <strong style="color:var(--text);">4.021</strong>
+        </div>
+      </div>
+      <div class="kpi-card c-blue">
+        <div class="kpi-label"><span class="tag tag-p2">P2</span>&ensp;Abr–Jun 2026</div>
+        <div class="kpi-value">36.302</div>
+        <div class="kpi-meta">sessões totais</div>
+        <span class="kpi-delta delta-up">↑ +43,7% vs P1</span>
+        <div style="margin-top:10px;font-size:11px;color:var(--muted);">
+          Form submit: <strong style="color:var(--text);">153</strong>&emsp;Generate lead: <strong style="color:var(--text);">4.171</strong>
+        </div>
+      </div>
+      <div class="kpi-card c-teal">
+        <div class="kpi-label"><span class="tag tag-p3">P3</span>&ensp;Jul–Set 2026</div>
+        <div class="kpi-value">21.895</div>
+        <div class="kpi-meta">sessões totais</div>
+        <span class="kpi-delta delta-down">↓ −39,7% vs P2</span>
+        <div style="margin-top:10px;font-size:11px;color:var(--muted);">
+          Form submit: <strong style="color:var(--text);">202</strong>&emsp;Generate lead: <strong style="color:var(--text);">7.330</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-bottom:16px;">
+      <div class="chart-card-title">Evolução semanal de sessões — todos os canais</div>
+      <div class="chart-card-sub">36 semanas · Jan–Set 2026 · bandas coloridas por período</div>
+      <div class="chart-wrap" style="height:260px;">
+        <canvas id="weeklyChart"></canvas>
+      </div>
+      <div class="annotation">
+        📌 <strong>Pico na semana 15 (Abril)</strong> coincide com campanha de Display atingindo máximo (1.063 sessões da página /pme-curitiba). Queda em P3 reflete encerramento de campanhas pagas — não perda orgânica.
+      </div>
+    </div>
+
+    <div class="col-2">
+      <div class="chart-card">
+        <div class="chart-card-title">Generate Lead por período</div>
+        <div class="chart-card-sub">Evento de intenção de cotação · P3 bate recorde</div>
+        <div class="chart-wrap" style="height:180px;">
+          <canvas id="leadChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Form Submit vs Form Start</div>
+        <div class="chart-card-sub">Taxa de conclusão do formulário por período</div>
+        <div class="chart-wrap" style="height:180px;">
+          <canvas id="formChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-row" style="grid-template-columns:1fr 1fr 1fr;">
+      <div class="insight-card info">
+        <div class="insight-card-title">P2 = Volume / P3 = Qualidade</div>
+        <div class="insight-card-body">P2 trouxe +43,7% em tráfego, mas P3 gerou mais leads (7.330 vs 4.171) e mais submits (202 vs 153) com 39,7% menos sessões.</div>
+      </div>
+      <div class="insight-card warn">
+        <div class="insight-card-title">Form start explodiu em P2, depois colapsou</div>
+        <div class="insight-card-body">P2 teve 4.819 inícios (+211,9% vs P1) — possivelmente LP/campanha específica. Em P3 voltou ao nível de P1 (1.514).</div>
+      </div>
+      <div class="insight-card pos">
+        <div class="insight-card-title">Sem campanhas, o orgânico sustenta</div>
+        <div class="insight-card-body">Em P3, sem Display e Paid Video, o site gerou 21.895 sessões. Organic Search respondeu por 56,6% do total — base orgânica sólida.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CANAIS ══════════════════════════════════════════════════════ -->
+  <section id="canais">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Aquisição</div>
+        <div class="section-title">Desempenho por Canal</div>
+        <div class="section-sub">Sessões por período e variações P1→P2→P3</div>
+      </div>
+    </div>
+
+    <div class="col-2" style="margin-bottom:16px;">
+      <div class="chart-card">
+        <div class="chart-card-title">Mix de canais por período</div>
+        <div class="chart-card-sub">Distribuição proporcional de sessões (empilhado)</div>
+        <div class="chart-wrap" style="height:240px;">
+          <canvas id="mixChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Evolução semanal por canal principal</div>
+        <div class="chart-card-sub">Top 4 canais · 36 semanas</div>
+        <div class="chart-wrap" style="height:240px;">
+          <canvas id="channelLineChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card" style="overflow-x:auto;">
+      <div class="chart-card-title">Tabela comparativa por canal e período</div>
+      <div class="chart-card-sub" style="margin-bottom:14px;">Sessões absolutas · variação percentual entre períodos</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Canal</th>
+            <th class="right"><span class="tag tag-p1">P1</span> Jan–Mar</th>
+            <th class="right"><span class="tag tag-p2">P2</span> Abr–Jun</th>
+            <th class="right">P1→P2</th>
+            <th class="right"><span class="tag tag-p3">P3</span> Jul–Set</th>
+            <th class="right">P2→P3</th>
+            <th>Barra relativa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;">Organic Search</td>
+            <td class="right mono">16.810</td>
+            <td class="right mono">19.026</td>
+            <td class="right up">+13,2%</td>
+            <td class="right mono">12.390</td>
+            <td class="right down">−34,9%</td>
+            <td><span class="bar-inline" style="width:120px;background:#003894;"></span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Direct</td>
+            <td class="right mono">5.102</td>
+            <td class="right mono">7.053</td>
+            <td class="right up">+38,2%</td>
+            <td class="right mono">4.538</td>
+            <td class="right down">−35,7%</td>
+            <td><span class="bar-inline" style="width:44px;background:#00d4ab;"></span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Paid Search</td>
+            <td class="right mono">875</td>
+            <td class="right mono">3.198</td>
+            <td class="right up">+265,5%</td>
+            <td class="right mono">2.301</td>
+            <td class="right down">−28,0%</td>
+            <td><span class="bar-inline" style="width:24px;background:#0082DE;"></span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Display</td>
+            <td class="right mono neutral">—</td>
+            <td class="right mono">4.187</td>
+            <td class="right neutral">— novo</td>
+            <td class="right mono">1.406</td>
+            <td class="right down">−66,4%</td>
+            <td><span class="bar-inline" style="width:35px;background:#7ded8a;"></span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Referral</td>
+            <td class="right mono">860</td>
+            <td class="right mono">1.270</td>
+            <td class="right up">+47,7%</td>
+            <td class="right mono">635</td>
+            <td class="right down">−50,0%</td>
+            <td><span class="bar-inline" style="width:9px;background:#6b7a8d;"></span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Email</td>
+            <td class="right mono">909</td>
+            <td class="right mono">559</td>
+            <td class="right down">−38,5%</td>
+            <td class="right mono">162</td>
+            <td class="right down">−71,0%</td>
+            <td><span class="bar-inline" style="width:7px;background:#004f94;"></span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Organic Social</td>
+            <td class="right mono">714</td>
+            <td class="right mono">509</td>
+            <td class="right down">−28,7%</td>
+            <td class="right mono">387</td>
+            <td class="right down">−24,0%</td>
+            <td><span class="bar-inline" style="width:5px;background:#00d4ab;"></span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Paid Video</td>
+            <td class="right mono neutral">—</td>
+            <td class="right mono">500</td>
+            <td class="right neutral">— novo</td>
+            <td class="right mono">76</td>
+            <td class="right down">−84,8%</td>
+            <td><span class="bar-inline" style="width:4px;background:#e04848;"></span></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="tfoot-row">
+            <td>TOTAL</td>
+            <td class="right mono">25.270</td>
+            <td class="right mono">36.302</td>
+            <td class="right up">+43,7%</td>
+            <td class="right mono">21.895</td>
+            <td class="right down">−39,7%</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="annotation">
+        ⚠️ <strong>Email em colapso:</strong> De 909 sessões em P1 para apenas 162 em P3 — queda acumulada de 82% em 6 meses. O canal de email está sendo negligenciado ou as campanhas foram desativadas.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FUNIL ═══════════════════════════════════════════════════════ -->
+  <section id="funil">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Conversão</div>
+        <div class="section-title">Funil de Conversão</div>
+        <div class="section-sub">3 etapas · total jan–set 2026 · por canal e por dispositivo</div>
+      </div>
+    </div>
+
+    <div class="col-5-7" style="margin-bottom:16px;">
+      <!-- FUNIL GERAL -->
+      <div class="chart-card">
+        <div class="chart-card-title">Funil Geral — 3 Etapas</div>
+        <div class="chart-card-sub">Usuários ativos em cada etapa do caminho</div>
+
+        <div class="funnel-step">
+          <div>
+            <div class="funnel-num" style="color:var(--navy);">64.273</div>
+          </div>
+          <div class="funnel-center">
+            <div class="funnel-label">Acessou a Página</div>
+            <div class="funnel-sub">etapa 1 · 100% de entrada</div>
+            <div class="funnel-bar-track" style="margin-top:6px;">
+              <div class="funnel-bar-fill" style="width:100%;background:var(--navy);"></div>
+            </div>
+          </div>
+          <div class="funnel-pct" style="color:var(--navy);">100%</div>
+        </div>
+
+        <div class="funnel-step">
+          <div>
+            <div class="funnel-num" style="color:var(--warn);">5.378</div>
+          </div>
+          <div class="funnel-center">
+            <div class="funnel-label">Iniciou o Formulário</div>
+            <div class="funnel-sub">etapa 2 · 8,4% da E1</div>
+            <div class="funnel-bar-track" style="margin-top:6px;">
+              <div class="funnel-bar-fill" style="width:8.4%;background:var(--warn);"></div>
+            </div>
+          </div>
+          <div class="funnel-pct" style="color:var(--warn);">8,4%</div>
+        </div>
+
+        <div class="funnel-step">
+          <div>
+            <div class="funnel-num" style="color:var(--danger);">288</div>
+          </div>
+          <div class="funnel-center">
+            <div class="funnel-label">Enviou o Formulário</div>
+            <div class="funnel-sub">etapa 3 · 5,4% da E2 · 0,45% total</div>
+            <div class="funnel-bar-track" style="margin-top:6px;">
+              <div class="funnel-bar-fill" style="width:0.45%;background:var(--danger);"></div>
+            </div>
+          </div>
+          <div class="funnel-pct" style="color:var(--danger);">0,45%</div>
+        </div>
+
+        <div class="annotation" style="margin-top:14px;">
+          A taxa de abandono entre E2→E3 é de <strong>94,6%</strong>. A maioria dos usuários que iniciam o formulário não o completa. Este é o principal ponto de melhoria de conversão do site.
+        </div>
+      </div>
+
+      <!-- FUNIL POR CANAL -->
+      <div class="chart-card">
+        <div class="chart-card-title">Funil por Canal de Origem</div>
+        <div class="chart-card-sub">Onde cada canal perde usuários ao longo das etapas</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Canal</th>
+              <th class="right">E1 Acesso</th>
+              <th class="right">E2 Form Start</th>
+              <th class="right">E3 Submit</th>
+              <th class="right">Taxa Final</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:600;">Organic Search</td>
+              <td class="right mono">36.597</td>
+              <td class="right mono">1.489</td>
+              <td class="right mono up">193 ✓</td>
+              <td class="right up">0,53%</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">Direct</td>
+              <td class="right mono">12.611</td>
+              <td class="right mono">1.710</td>
+              <td class="right mono">59</td>
+              <td class="right neutral">0,47%</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">Paid Search</td>
+              <td class="right mono">6.104</td>
+              <td class="right mono">1.027</td>
+              <td class="right mono down">3 ✗</td>
+              <td class="right down">0,05%</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">Display</td>
+              <td class="right mono">5.065</td>
+              <td class="right mono">774</td>
+              <td class="right mono down">0 ✗</td>
+              <td class="right down">0%</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">Organic Social</td>
+              <td class="right mono">1.330</td>
+              <td class="right mono">60</td>
+              <td class="right mono">4</td>
+              <td class="right neutral">0,30%</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="annotation" style="margin-top:12px;">
+          🚨 <strong>Display gerou 5.065 visitas e zero formulários enviados.</strong> Paid Search: 1.027 inícios e apenas 3 envios (0,29% de conclusão E2→E3).
+        </div>
+        <div class="chart-card-title" style="margin-top:18px;margin-bottom:4px;">Taxa de conclusão E2→E3 por canal</div>
+        <div class="chart-card-sub" style="margin-bottom:10px;">Percentual de quem iniciou o formulário e chegou ao envio</div>
+        <div class="chart-wrap" style="height:160px;">
+          <canvas id="funnelConvChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ DISPOSITIVOS ════════════════════════════════════════════════ -->
+  <section id="dispositivos">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">UX · Mobile vs Desktop</div>
+        <div class="section-title">Análise por Dispositivo</div>
+        <div class="section-sub">Funil de conversão segmentado — o gargalo do mobile</div>
+      </div>
+    </div>
+
+    <div class="kpi-row-4" style="margin-bottom:16px;">
+      <div class="kpi-card c-navy">
+        <div class="kpi-label">Mobile · % de acessos</div>
+        <div class="kpi-value">53,3%</div>
+        <div class="kpi-meta">34.277 usuários · maioria absoluta</div>
+      </div>
+      <div class="kpi-card c-danger">
+        <div class="kpi-label">Mobile · Form Submits</div>
+        <div class="kpi-value">19</div>
+        <div class="kpi-meta">6,6% dos envios · gargalo crítico</div>
+        <span class="kpi-delta delta-down">↓ 0,65% de conclusão</span>
+      </div>
+      <div class="kpi-card c-teal">
+        <div class="kpi-label">Desktop · Form Submits</div>
+        <div class="kpi-value">269</div>
+        <div class="kpi-meta">93,4% dos envios</div>
+        <span class="kpi-delta delta-up">↑ 11,0% conclusão E2→E3</span>
+      </div>
+      <div class="kpi-card c-warn">
+        <div class="kpi-label">Diferença Mobile/Desktop</div>
+        <div class="kpi-value">14×</div>
+        <div class="kpi-meta">pior taxa de conclusão relativa</div>
+      </div>
+    </div>
+
+    <div class="col-2">
+      <div class="chart-card">
+        <div class="chart-card-title">Funil por dispositivo — onde o mobile perde</div>
+        <div class="chart-card-sub">Cada barra representa usuários em cada etapa</div>
+        <div class="chart-wrap" style="height:200px;">
+          <canvas id="deviceFunnelChart"></canvas>
+        </div>
+        <div class="annotation" style="margin-top:12px;">
+          📱 O mobile representa 53,3% dos acessos e 54,5% dos inícios de formulário — mas apenas 6,6% dos envios. O usuário mobile chega, começa o formulário, mas abandona antes de enviar.
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Distribuição de tráfego por etapa e dispositivo</div>
+        <div class="chart-card-sub">Proporção relativa em cada fase do funil</div>
+        <div class="device-visual" style="margin-top:12px;">
+          <div style="font-size:10px;color:var(--muted);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;">E1 — Acessou (64.516 total)</div>
+          <div class="device-row">
+            <div class="device-label">Mobile</div>
+            <div class="device-bar-track">
+              <div class="device-seg" style="width:53.1%;background:#003894cc;">53,1%</div>
+              <div class="device-seg" style="width:46.4%;background:#00d4abcc;">46,4%</div>
+              <div class="device-seg" style="width:0.5%;background:#0082DEcc;"></div>
+            </div>
+            <div class="device-pct">53,1%</div>
+          </div>
+          <div style="font-size:10px;color:var(--muted);margin:16px 0 6px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;">E2 — Iniciou Formulário (5.378 total)</div>
+          <div class="device-row">
+            <div class="device-label">Dispositivos</div>
+            <div class="device-bar-track">
+              <div class="device-seg" style="width:54.5%;background:#003894cc;">54,5%</div>
+              <div class="device-seg" style="width:45.3%;background:#00d4abcc;">45,3%</div>
+              <div class="device-seg" style="width:0.2%;background:#0082DEcc;"></div>
+            </div>
+            <div class="device-pct">54,5%</div>
+          </div>
+          <div style="font-size:10px;color:var(--muted);margin:16px 0 6px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;">E3 — Enviou Formulário (288 total)</div>
+          <div class="device-row">
+            <div class="device-label">Conversão</div>
+            <div class="device-bar-track">
+              <div class="device-seg" style="width:6.6%;background:#e04848cc;">6,6%</div>
+              <div class="device-seg" style="width:93.4%;background:#00d4abcc;">Desktop 93,4%</div>
+            </div>
+            <div class="device-pct down">6,6%</div>
+          </div>
+          <div style="margin-top:10px;display:flex;gap:12px;font-size:11px;">
+            <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#003894;border-radius:2px;display:inline-block;"></span>Mobile</span>
+            <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#00d4ab;border-radius:2px;display:inline-block;"></span>Desktop</span>
+            <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#0082DE;border-radius:2px;display:inline-block;"></span>Tablet</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LANDING PAGES ════════════════════════════════════════════════ -->
+  <section id="landing">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Conteúdo</div>
+        <div class="section-title">Landing Pages</div>
+        <div class="section-sub">Páginas com maior tráfego e suas variações temporais</div>
+      </div>
+    </div>
+
+    <div class="chart-card" style="overflow-x:auto;">
+      <div class="chart-card-title">Top Landing Pages por período</div>
+      <div class="chart-card-sub" style="margin-bottom:14px;">Sessões acumuladas por trimestre</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>URL</th>
+            <th class="right"><span class="tag tag-p1">P1</span></th>
+            <th class="right"><span class="tag tag-p2">P2</span></th>
+            <th class="right"><span class="tag tag-p3">P3</span></th>
+            <th class="right">Total</th>
+            <th>Perfil</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="path">/ (homepage)</td>
+            <td class="right mono">9.029</td>
+            <td class="right mono">10.052</td>
+            <td class="right mono">8.905</td>
+            <td class="right mono" style="font-weight:700;">27.986</td>
+            <td><span class="up">Consistente · melhor conversor</span></td>
+          </tr>
+          <tr>
+            <td class="path">/blog/cidades-mais-seguras-do-brasil</td>
+            <td class="right mono">2.410</td>
+            <td class="right mono">3.078</td>
+            <td class="right mono">1.734</td>
+            <td class="right mono">7.222</td>
+            <td><span class="neutral">SEO · 0 conversões</span></td>
+          </tr>
+          <tr>
+            <td class="path">/pme-curitiba-plano-de-saude</td>
+            <td class="right mono neutral">—</td>
+            <td class="right mono">3.666</td>
+            <td class="right mono">745</td>
+            <td class="right mono">4.411</td>
+            <td><span style="color:var(--warn);">LP campanha · desativada P3</span></td>
+          </tr>
+          <tr>
+            <td class="path">/pme-vitoria-plano-de-saude-familiar</td>
+            <td class="right mono">298</td>
+            <td class="right mono">1.190</td>
+            <td class="right mono">321</td>
+            <td class="right mono">1.809</td>
+            <td><span class="up">Melhor taxa de inicio (27,5%)</span></td>
+          </tr>
+          <tr>
+            <td class="path">/sobre-a-alper</td>
+            <td class="right mono">958</td>
+            <td class="right mono">980</td>
+            <td class="right mono">854</td>
+            <td class="right mono">2.792</td>
+            <td><span class="neutral">Institucional · estável</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight-row">
+      <div class="insight-card pos">
+        <div class="insight-card-title">Homepage é a LP que mais converte</div>
+        <div class="insight-card-body">A homepage respondeu por 186 dos 288 formulários enviados (64,5%). Taxa de conclusão E2→E3 de 15,8% — a mais alta entre todas as páginas rastreadas.</div>
+      </div>
+      <div class="insight-card warn">
+        <div class="insight-card-title">Blog consome tráfego sem retornar</div>
+        <div class="insight-card-body">7.222 sessões no período, apenas 3 inícios de formulário e zero envios. Boa audiência, baixo valor de negócio. Adicionar CTA contextualizado pode mudar isso.</div>
+      </div>
+      <div class="insight-card pos">
+        <div class="insight-card-title">/pme-vitoria: LP mais eficiente em captação</div>
+        <div class="insight-card-body">Taxa de início de formulário de 27,5% — a mais alta entre todas as LPs. Com 1.809 sessões, ainda tem muito espaço para crescer em volume.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ EVENTOS ══════════════════════════════════════════════════════ -->
+  <section id="eventos">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Comportamento</div>
+        <div class="section-title">Eventos e Engajamento</div>
+        <div class="section-sub">Contagem de eventos-chave ao longo dos 3 períodos</div>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-bottom:16px;">
+      <div class="chart-card-title">Generate Lead — evolução semanal (36 semanas)</div>
+      <div class="chart-card-sub">Evento mais relevante de negócio · destaque para o pico da semana 32 (1.461)</div>
+      <div class="chart-wrap" style="height:220px;">
+        <canvas id="genLeadWeekly"></canvas>
+      </div>
+      <div class="annotation">
+        🔥 <strong>A semana 32 (início de agosto) registrou 1.461 eventos generate_lead — 3,6× acima da média de P3.</strong> Isso pode indicar nova campanha ativa, evento de mercado, ou mudança na configuração do evento (verificar se não é disparo duplo no GA4). Requer investigação.
+      </div>
+    </div>
+
+    <div class="chart-card" style="overflow-x:auto;">
+      <div class="chart-card-title">Comparativo de eventos por período</div>
+      <div class="chart-card-sub" style="margin-bottom:14px;">Contagem total acumulada em cada fase</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Evento</th>
+            <th class="right"><span class="tag tag-p1">P1</span></th>
+            <th class="right"><span class="tag tag-p2">P2</span></th>
+            <th class="right">P1→P2</th>
+            <th class="right"><span class="tag tag-p3">P3</span></th>
+            <th class="right">P2→P3</th>
+            <th>Interpretação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;">generate_lead</td>
+            <td class="right mono">4.021</td>
+            <td class="right mono">4.171</td>
+            <td class="right up">+3,7%</td>
+            <td class="right mono">7.330</td>
+            <td class="right up">+75,7%</td>
+            <td><span class="up" style="font-size:11px;">Crescimento expressivo em P3 ✓</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">form_start</td>
+            <td class="right mono">1.545</td>
+            <td class="right mono">4.819</td>
+            <td class="right up">+211,9%</td>
+            <td class="right mono">1.514</td>
+            <td class="right down">−68,6%</td>
+            <td><span style="color:var(--warn);font-size:11px;">Pico em P2 · campanha específica</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">form_submit</td>
+            <td class="right mono">187</td>
+            <td class="right mono">153</td>
+            <td class="right down">−18,2%</td>
+            <td class="right mono">202</td>
+            <td class="right up">+32,0%</td>
+            <td><span class="up" style="font-size:11px;">Recuperou e superou P1 em P3</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">page_view</td>
+            <td class="right mono">34.217</td>
+            <td class="right mono">49.973</td>
+            <td class="right up">+46,0%</td>
+            <td class="right mono">29.632</td>
+            <td class="right down">−40,7%</td>
+            <td><span class="neutral" style="font-size:11px;">Acompanha sessões</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">scroll</td>
+            <td class="right mono">7.025</td>
+            <td class="right mono">9.223</td>
+            <td class="right up">+31,3%</td>
+            <td class="right mono">5.193</td>
+            <td class="right down">−43,7%</td>
+            <td><span class="neutral" style="font-size:11px;">Proporcional ao tráfego</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">RD Popup/WhatsApp</td>
+            <td class="right mono">239</td>
+            <td class="right mono">1.722</td>
+            <td class="right up">+620,5%</td>
+            <td class="right mono">494</td>
+            <td class="right down">−71,3%</td>
+            <td><span style="color:var(--warn);font-size:11px;">Ativo P2 · desativado P3</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="annotation">
+        ⚠️ O evento <strong>RD Popup/WhatsApp</strong> teve +620,5% em P2 e caiu −71,3% em P3 — o popup de captura foi provavelmente desativado. Vale avaliar se reativar esse mecanismo pode capturar a intenção de usuários que não chegam ao formulário principal.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ RECOMENDAÇÕES ═══════════════════════════════════════════════ -->
+  <section id="recomendacoes">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Próximos Passos</div>
+        <div class="section-title">Recomendações Priorizadas</div>
+        <div class="section-sub">Ações ordenadas por impacto e urgência · baseadas nos dados de 36 semanas</div>
+      </div>
+    </div>
+
+    <div class="rec-grid">
+      <div class="rec-card">
+        <div class="rec-num-badge hi">1</div>
+        <div class="rec-content">
+          <div class="rec-title">
+            Corrigir o formulário no mobile — urgente
+            <span class="rec-badge hi">Alto impacto · urgente</span>
+          </div>
+          <div class="rec-body">Mobile = 53,3% do tráfego, mas apenas 6,6% dos envios. A taxa de conclusão E2→E3 no mobile é de 0,65% vs 11% no desktop. Realizar teste de usabilidade em smartphone, verificar campos e validações, e considerar formulário simplificado para mobile (menos campos ou step-by-step). Impacto potencial: dobrar os formulários enviados totais.</div>
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-num-badge hi">2</div>
+        <div class="rec-content">
+          <div class="rec-title">
+            Investigar pico anômalo de generate_lead na semana 32
+            <span class="rec-badge hi">Diagnóstico crítico</span>
+          </div>
+          <div class="rec-body">1.461 eventos na semana de 2 de agosto — 3,6× acima da média do período. Antes de comemorar, verificar no GA4 se é disparo duplo de tag, mudança de configuração no GTM, ou evento de geração de leads extraordinário (campanha offline, PR, etc). Se legítimo, replicar a estratégia.</div>
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-num-badge med">3</div>
+        <div class="rec-content">
+          <div class="rec-title">
+            Revisar estratégia de Paid Search — ROI crítico
+            <span class="rec-badge hi">Alto impacto</span>
+          </div>
+          <div class="rec-body">Paid Search gerou 6.104 sessões e 16,8% de taxa de início de formulário — mas apenas 3 envios em todo o período. A perda acontece entre E2→E3 (0,29% de conclusão). Hipóteses: LP inconsistente com o anúncio, formulário muito longo, falta de confiança no momento de conversão. Testar LPs dedicadas por campanha.</div>
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-num-badge med">4</div>
+        <div class="rec-content">
+          <div class="rec-title">
+            Avaliar reativar o RD Popup / WhatsApp
+            <span class="rec-badge med">Médio impacto</span>
+          </div>
+          <div class="rec-body">Em P2 com o popup ativo: 1.722 interações. Em P3 sem o popup: apenas 494. Se o popup capturava leads que não chegavam ao formulário, sua desativação pode ter reduzido uma fonte de conversão alternativa. Testar versão menos intrusiva com disparo por scroll ou tempo de permanência.</div>
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-num-badge lo">5</div>
+        <div class="rec-content">
+          <div class="rec-title">
+            Decidir sobre o blog de cidades seguras
+            <span class="rec-badge med">Oportunidade de conteúdo</span>
+          </div>
+          <div class="rec-body">7.222 sessões, 0 conversões. É o 2º maior atrativo de tráfego, mas não gera valor de negócio direto. Opções: (a) adicionar CTA contextualizado sobre seguro residencial; (b) criar conteúdo de "próximo passo" para converter essa audiência; (c) redirecionar esforço de SEO para intenção comercial.</div>
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-num-badge lo">6</div>
+        <div class="rec-content">
+          <div class="rec-title">
+            Recuperar canal de Email Marketing
+            <span class="rec-badge lo">Médio prazo</span>
+          </div>
+          <div class="rec-body">O canal de email caiu de 909 sessões em P1 para 162 em P3 — queda de 82% em 6 meses. Era o 5º maior canal em P1. Verificar se as campanhas foram pausadas, se há problemas de entregabilidade, e reativar com sequências segmentadas usando os 7.330 generate_leads de P3 como ponto de partida.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="strategy-box">
+      <div class="strategy-label">Síntese Estratégica</div>
+      <div class="strategy-text">
+        O site Alper demonstra <strong>maturidade crescente em geração de intenção</strong> (generate_lead em alta) mas <strong>gargalos claros na conversão final</strong> — especialmente mobile e Paid Search. O desafio central não é trazer tráfego — o orgânico funciona bem — mas <strong>converter melhor o tráfego que já chega</strong>. Melhorar a experiência do formulário no mobile e alinhar as landing pages de Paid Search podem dobrar os resultados sem aumentar investimento em mídia.
+      </div>
+    </div>
+  </section>
+
+  </div><!-- .content -->
+</div><!-- .main-wrap -->
+
+<script>
+// ─── HELPERS ──────────────────────────────────────────────────────────
+const c = { navy:'#003894', navy2:'#004f94', blue:'#0082DE', teal:'#00d4ab', green:'#7ded8a', warn:'#f0b429', danger:'#e04848', muted:'#8fa0b5', grid:'rgba(0,0,0,.05)', gridX:'rgba(0,0,0,0)' };
+
+function baseOpts(extra={}) {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false }, ...extra.plugins },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: c.muted, font: { size: 10, family: "'Inter', sans-serif" } } },
+      y: { grid: { color: c.grid }, border: { display: false }, ticks: { color: c.muted, font: { size: 10, family: "'Inter', sans-serif" } } },
+      ...extra.scales
+    },
+    ...extra
+  };
+}
+
+// ─── DATA ──────────────────────────────────────────────────────────────
+const weeks = ['S0','S1','S2','S3','S4','S5','S6','S7','S8','S9','S10','S11','S12','S13','S14','S15','S16','S17','S18','S19','S20','S21','S22','S23','S24','S25','S26','S27','S28','S29','S30','S31','S32','S33','S34','S35'];
+const orgSearch = [648,1315,1333,1336,1493,1457,1642,1098,1733,1490,1519,1746,1701,1403,1642,1750,1364,1501,1642,1585,2008,1759,1495,1176,1110,1035,1058,942,1146,1238,1065,869,1018,917,987,1005];
+const direct    = [189,231,466,358,482,426,459,417,762,503,403,406,602,376,530,1242,932,396,383,365,513,470,839,405,347,356,248,247,233,267,365,466,539,492,572,406];
+const paidSearch= [0,0,43,228,32,24,13,17,93,126,146,153,170,153,121,157,190,205,242,347,404,346,387,476,477,348,277,206,80,93,140,111,115,154,164,136];
+const display   = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,64,66,274,1063,566,438,570,1119,711,221,243,214,1,3,0,1,1,2,1,8];
+const email     = [102,43,39,38,159,32,39,28,116,135,45,133,56,29,30,36,120,28,53,33,21,88,51,14,11,20,8,10,24,19,12,14,12,19,2,11];
+const orgSoc    = [33,68,66,46,64,93,95,38,62,44,35,70,60,42,49,31,41,46,47,54,43,40,31,25,37,37,34,21,30,35,31,38,30,18,20,56];
+const paidVid   = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,13,16,41,25,108,185,110,70,0,4,2,0,0,0,0,0,0,0,0];
+const referral  = [21,46,63,69,97,83,91,53,105,66,95,71,87,87,106,145,126,87,122,115,116,102,110,67,82,47,46,46,64,65,43,38,62,48,42,52];
+const genLeadW  = [132,414,581,503,330,348,258,144,291,396,342,282,312,240,536,324,542,260,195,496,384,370,181,331,359,406,365,388,509,808,731,591,1461,867,419,426];
+const totalWeekly = weeks.map((_,i) => orgSearch[i]+direct[i]+paidSearch[i]+display[i]+email[i]+orgSoc[i]+paidVid[i]+referral[i]);
+const weekColors = weeks.map((_,i) => i<12 ? c.navy+'d0' : i<24 ? c.blue+'d0' : c.teal+'d0');
+
+// ─── WEEKLY CHART ──────────────────────────────────────────────────────
+new Chart(document.getElementById('weeklyChart'), {
+  type: 'bar',
+  data: {
+    labels: weeks,
+    datasets: [{ label: 'Sessões', data: totalWeekly, backgroundColor: weekColors, borderRadius: 3, borderSkipped: false }]
+  },
+  options: baseOpts({
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + ctx.parsed.y.toLocaleString('pt-BR') + ' sessões' } } }
+  })
+});
+
+// ─── LEAD CHART ────────────────────────────────────────────────────────
+new Chart(document.getElementById('leadChart'), {
+  type: 'bar',
+  data: {
+    labels: ['P1 Jan–Mar', 'P2 Abr–Jun', 'P3 Jul–Set'],
+    datasets: [{
+      data: [4021, 4171, 7330],
+      backgroundColor: [c.navy+'99', c.blue+'99', c.teal+'99'],
+      borderColor: [c.navy, c.blue, c.teal],
+      borderWidth: 1.5, borderRadius: 6
+    }]
+  },
+  options: baseOpts({ plugins: { tooltip: { callbacks: { label: ctx => ' ' + ctx.parsed.y.toLocaleString('pt-BR') } } } })
+});
+
+// ─── FORM CHART ────────────────────────────────────────────────────────
+new Chart(document.getElementById('formChart'), {
+  type: 'bar',
+  data: {
+    labels: ['P1 Jan–Mar', 'P2 Abr–Jun', 'P3 Jul–Set'],
+    datasets: [
+      { label: 'Form Start',  data: [1545, 4819, 1514], backgroundColor: c.navy+'66', borderColor: c.navy, borderWidth: 1.5, borderRadius: 4 },
+      { label: 'Form Submit', data: [187, 153, 202],    backgroundColor: c.teal+'99', borderColor: c.teal, borderWidth: 1.5, borderRadius: 4 }
+    ]
+  },
+  options: baseOpts({ plugins: { legend: { display: true, labels: { color: c.muted, font: { size: 10 }, boxWidth: 8, padding: 10 } } } })
+});
+
+// ─── MIX CHART ─────────────────────────────────────────────────────────
+new Chart(document.getElementById('mixChart'), {
+  type: 'bar',
+  data: {
+    labels: ['P1 Jan–Mar', 'P2 Abr–Jun', 'P3 Jul–Set'],
+    datasets: [
+      { label: 'Organic Search', data: [16810,19026,12390], backgroundColor: c.navy+'bb', stack:'a' },
+      { label: 'Direct',         data: [5102,7053,4538],   backgroundColor: c.teal+'bb', stack:'a' },
+      { label: 'Paid Search',    data: [875,3198,2301],    backgroundColor: c.blue+'bb', stack:'a' },
+      { label: 'Display',        data: [0,4187,1406],      backgroundColor: c.green+'bb', stack:'a' },
+      { label: 'Outros',         data: [483,2838,1260],    backgroundColor: '#6b7a8dbb', stack:'a' }
+    ]
+  },
+  options: baseOpts({
+    scales: {
+      x: { stacked:true, grid:{ display:false }, ticks:{ color:c.muted, font:{size:10} } },
+      y: { stacked:true, grid:{ color:c.grid }, border:{display:false}, ticks:{ color:c.muted, font:{size:10} } }
+    },
+    plugins: { legend: { display:true, position:'bottom', labels:{ color:c.muted, font:{size:10}, boxWidth:8, padding:10 } } }
+  })
+});
+
+// ─── CHANNEL LINE ──────────────────────────────────────────────────────
+new Chart(document.getElementById('channelLineChart'), {
+  type: 'line',
+  data: {
+    labels: weeks,
+    datasets: [
+      { label:'Organic Search', data:orgSearch, borderColor:c.navy, borderWidth:2, pointRadius:0, tension:.3, backgroundColor:'transparent' },
+      { label:'Direct',         data:direct,    borderColor:c.teal, borderWidth:2, pointRadius:0, tension:.3, backgroundColor:'transparent', borderDash:[5,3] },
+      { label:'Paid Search',    data:paidSearch,borderColor:c.blue, borderWidth:1.5, pointRadius:0, tension:.3, backgroundColor:'transparent', borderDash:[3,3] },
+      { label:'Display',        data:display,   borderColor:c.green,borderWidth:1.5, pointRadius:0, tension:.3, backgroundColor:'transparent', borderDash:[2,4] }
+    ]
+  },
+  options: baseOpts({ plugins: { legend: { display:true, position:'bottom', labels:{ color:c.muted, font:{size:10}, boxWidth:20, padding:8 } } } })
+});
+
+// ─── FUNNEL CONV CHART ─────────────────────────────────────────────────
+new Chart(document.getElementById('funnelConvChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Organic Search','Organic Social','Direct','Paid Search','Display'],
+    datasets: [{
+      data: [12.96, 6.67, 3.45, 0.29, 0],
+      backgroundColor: [c.teal, c.teal+'88', c.blue, c.danger, c.danger+'44'],
+      borderRadius: 4, borderSkipped: false
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend:{display:false}, tooltip:{callbacks:{ label: ctx => ' '+ctx.parsed.x.toFixed(2)+'%' }} },
+    scales: {
+      x: { grid:{color:c.grid}, border:{display:false}, ticks:{ color:c.muted, font:{size:10}, callback: v => v+'%' } },
+      y: { grid:{display:false}, ticks:{ color:c.muted, font:{size:10} } }
+    }
+  }
+});
+
+// ─── DEVICE FUNNEL ─────────────────────────────────────────────────────
+new Chart(document.getElementById('deviceFunnelChart'), {
+  type: 'bar',
+  data: {
+    labels: ['E1 · Acessou','E2 · Iniciou Form','E3 · Enviou Form'],
+    datasets: [
+      { label:'Mobile',  data:[34277,2929,19],  backgroundColor:c.navy+'cc', borderRadius:4 },
+      { label:'Desktop', data:[29956,2436,269], backgroundColor:c.teal+'cc', borderRadius:4 },
+      { label:'Tablet',  data:[283,13,0],       backgroundColor:c.blue+'cc', borderRadius:4 }
+    ]
+  },
+  options: baseOpts({ plugins:{ legend:{ display:true, position:'top', labels:{ color:c.muted, font:{size:10}, boxWidth:8, padding:10 } }, tooltip:{ mode:'index' } } })
+});
+
+// ─── GENERATE LEAD WEEKLY ──────────────────────────────────────────────
+new Chart(document.getElementById('genLeadWeekly'), {
+  type: 'line',
+  data: {
+    labels: weeks,
+    datasets: [{
+      label:'Generate Lead',
+      data: genLeadW,
+      borderColor: c.navy2,
+      backgroundColor: 'rgba(0,79,148,.07)',
+      fill: true,
+      borderWidth: 2,
+      pointRadius: d => d.parsed.y > 700 ? 5 : 0,
+      pointBackgroundColor: c.teal,
+      pointBorderColor: '#fff',
+      pointBorderWidth: 2,
+      tension: .3
+    }]
+  },
+  options: baseOpts({ plugins:{ tooltip:{ callbacks:{ label: ctx => ' '+ctx.parsed.y.toLocaleString('pt-BR')+' eventos' } } } })
+});
+
+// ─── NAV ACTIVE ────────────────────────────────────────────────────────
+function setActive(el) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Scroll spy
+const sections = document.querySelectorAll('section[id]');
+const navItems = document.querySelectorAll('.nav-item');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navItems.forEach(n => {
+        n.classList.remove('active');
+        if (n.getAttribute('href') === '#'+entry.target.id) n.classList.add('active');
+      });
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manual do Método FORMA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#282c26;--night:#273521;--green:#498b2a;--lime:#49cf0b;--paper:#f6f6f2;--white:#fff;--muted:#667067;--line:#dfe4dc;--soft:#edf4e9;--warning:#fff7dd}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65}.cover{min-height:88vh;padding:3rem 7vw;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;background:var(--night);color:#fff}.cover:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(73,139,42,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(73,139,42,.10) 1px,transparent 1px);background-size:52px 52px}.cover:after{content:"";position:absolute;height:3px;background:var(--lime);width:120%;left:-10%;top:42%;transform:rotate(-8deg);opacity:.7}.brand,.cover-content,.cover-footer{position:relative;z-index:1}.brand{font:800 1.05rem Syne,sans-serif;letter-spacing:.08em}.brand span{color:var(--lime)}.eyebrow{margin:0 0 1.25rem;color:var(--lime);font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase}.cover h1{font:800 clamp(3.2rem,9vw,7rem)/.92 Syne,sans-serif;margin:0;letter-spacing:-.045em}.cover h1 span{color:var(--lime)}.cover p.lead{max-width:680px;margin:2rem 0 0;color:rgba(255,255,255,.72);font-size:1.1rem}.cover-footer{display:flex;gap:2rem;flex-wrap:wrap;color:rgba(255,255,255,.55);font-size:.82rem}.layout{display:grid;grid-template-columns:250px minmax(0,1fr);max-width:1500px;margin:auto}.sidebar{position:sticky;top:0;height:100vh;overflow:auto;padding:2rem 1.5rem;background:#fff;border-right:1px solid var(--line)}.sidebar .mini{font:800 .9rem Syne,sans-serif;margin-bottom:1.5rem}.sidebar .mini span{color:var(--green)}.sidebar a{display:block;color:#566057;text-decoration:none;font-size:.82rem;padding:.42rem 0;border-bottom:1px solid transparent}.sidebar a:hover{color:var(--green);border-color:var(--line)}main{padding:3rem clamp(1.5rem,5vw,5rem) 5rem;max-width:1200px}section{padding:2.8rem 0;border-bottom:1px solid var(--line)}h2{font:800 clamp(1.8rem,4vw,2.7rem)/1.08 Syne,sans-serif;margin:0 0 1rem;letter-spacing:-.025em}h3{font:700 1.15rem/1.25 Syne,sans-serif;margin:0 0 .7rem}h4{font-size:.95rem;margin:0 0 .35rem}p{margin:.5rem 0 1rem}.intro{font-size:1.03rem;color:#485148;max-width:830px}.notice{border-left:4px solid var(--lime);background:var(--soft);padding:1.15rem 1.25rem;margin:1.5rem 0}.warning{border-left:4px solid #d6a100;background:var(--warning);padding:1.15rem 1.25rem;margin:1.5rem 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.3rem}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:1.3rem}.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:1.2rem}.card p:last-child{margin-bottom:0}.phase{display:grid;grid-template-columns:72px minmax(0,1fr);gap:1.25rem;padding:1.5rem 0;border-bottom:1px solid var(--line)}.phase-letter{font:800 3.5rem/1 Syne,sans-serif;color:var(--green)}.phase-head{display:flex;justify-content:space-between;gap:1rem;align-items:baseline}.tag{display:inline-block;background:var(--soft);color:#376e20;border-radius:999px;padding:.25rem .55rem;font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}.phase ul,.card ul{padding-left:1.15rem;margin:.55rem 0}.phase li,.card li{margin:.25rem 0}.checklist{list-style:none;padding:0!important}.checklist li{padding-left:1.45rem;position:relative}.checklist li:before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}.roles{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}.role{padding:1rem;border:1px solid var(--line);border-radius:7px}.role strong{display:block;color:var(--green);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem}table{width:100%;border-collapse:collapse;background:#fff;margin-top:1rem;font-size:.86rem}th,td{text-align:left;padding:.8rem;vertical-align:top;border:1px solid var(--line)}th{background:var(--soft);font-weight:700}.footer{background:var(--night);color:rgba(255,255,255,.7);padding:2rem 7vw;font-size:.82rem}.footer strong{color:#fff}@media(max-width:900px){.layout{display:block}.sidebar{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line)}.sidebar a{display:inline-block;margin-right:1rem}.grid,.grid3,.roles{grid-template-columns:1fr}.cover{padding:2rem}.phase{grid-template-columns:1fr}.phase-head{display:block}.phase-head .tag{margin-top:.5rem}main{padding-top:2rem}}
+@media print{.sidebar{display:none}.layout{display:block}.cover{min-height:100vh}.cover, .footer{-webkit-print-color-adjust:exact;print-color-adjust:exact}main{max-width:none}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="cover">
+  <div class="brand">MÉTODO <span>FORMA</span></div>
+  <div class="cover-content">
+    <p class="eyebrow">Documento operacional interno · versão 1.0</p>
+    <h1>Manual do<br>Método <span>FORMA</span></h1>
+    <p class="lead">O padrão de execução da consultoria para profissionalizar clubes brasileiros de futebol com atuação até a Série D e orçamento anual de até R$ 5 milhões.</p>
+  </div>
+  <div class="cover-footer"><span>5 fases</span><span>6 dimensões</span><span>Estrutura antes de crescimento</span><span>Revisão sugerida: anual</span></div>
+</header>
+<div class="layout">
+<nav class="sidebar">
+  <div class="mini">MÉTODO <span>FORMA</span></div>
+  <a href="#proposito">01 · Propósito e escopo</a>
+  <a href="#principios">02 · Princípios de execução</a>
+  <a href="#dimensoes">03 · Dimensões avaliadas</a>
+  <a href="#jornada">04 · Jornada do cliente</a>
+  <a href="#fases">05 · As cinco fases</a>
+  <a href="#qualidade">06 · Qualidade e aceite</a>
+  <a href="#governanca">07 · Governança do projeto</a>
+  <a href="#limites">08 · Limites de escopo</a>
+  <a href="#templates">09 · Biblioteca de templates</a>
+</nav>
+<main>
+<section id="proposito">
+<p class="eyebrow">01 · Fundamento</p><h2>Propósito e escopo</h2>
+<p class="intro">O Método FORMA existe para tirar a gestão do improviso. Ele transforma conhecimento concentrado em estrutura, decisões em rotinas e boa vontade em capacidade operacional.</p>
+<div class="notice"><strong>Cliente ideal:</strong> clube brasileiro profissional ou em processo de profissionalização, com operação até a Série D e orçamento anual de até R$ 5 milhões. O método parte da realidade de equipe enxuta, orçamento limitado e alta dependência da presidência.</div>
+<div class="grid">
+<div class="card"><h3>O que fazemos</h3><p>Diagnóstico, desenho de estrutura, organização de papéis, documentação de processos, desenvolvimento de responsáveis e acompanhamento da implantação.</p></div>
+<div class="card"><h3>O que não prometemos</h3><p>Acesso esportivo, captação de patrocínio garantida, aumento automático de receita ou substituição da gestão do clube. O trabalho cria condições para decisões melhores e execução mais consistente.</p></div>
+</div>
+</section>
+<section id="principios">
+<p class="eyebrow">02 · Regras do método</p><h2>Princípios de execução</h2>
+<div class="grid3">
+<div class="card"><h3>Diagnóstico antes de solução</h3><p>Nenhuma recomendação é tratada como verdade antes de ouvir pessoas, revisar evidências e observar a operação.</p></div>
+<div class="card"><h3>Simples antes de sofisticado</h3><p>O melhor processo é o que o clube consegue executar toda semana com os recursos que realmente possui.</p></div>
+<div class="card"><h3>Dono, prazo e evidência</h3><p>Toda ação recomendada precisa de responsável, data e prova de conclusão. Sem isso, é intenção.</p></div>
+<div class="card"><h3>Construído com o clube</h3><p>Documentos são validados com quem executa. Não se entrega uma estrutura bonita que ninguém adota.</p></div>
+<div class="card"><h3>Prioridade por risco</h3><p>Primeiro vem o que protege caixa, pessoas, contratos, competição e continuidade. Nem toda melhoria precisa ser feita agora.</p></div>
+<div class="card"><h3>Memória institucional</h3><p>Informações críticas deixam de morar exclusivamente na cabeça de dirigentes, funcionários ou fornecedores.</p></div>
+</div>
+</section>
+<section id="dimensoes">
+<p class="eyebrow">03 · Base do diagnóstico</p><h2>Seis dimensões avaliadas</h2>
+<p class="intro">A Fase F avalia estas dimensões. A prioridade de atuação muda de clube para clube, mas a leitura precisa cobrir o conjunto para evitar soluções isoladas.</p>
+<table><thead><tr><th>Dimensão</th><th>O que observar</th><th>Evidências mínimas</th></tr></thead><tbody>
+<tr><td><strong>Governança e estrutura</strong></td><td>Quem decide, como se delega, quais cargos existem e como as áreas se conectam.</td><td>Estatuto, organograma, atas, procurações, descrições de função.</td></tr>
+<tr><td><strong>Processos operacionais</strong></td><td>Como tarefas recorrentes são executadas, aprovadas e registradas.</td><td>Rotinas, checklists, fluxos, calendário operacional, responsáveis.</td></tr>
+<tr><td><strong>Gestão de pessoas</strong></td><td>Cargos, competências, vínculos, contratação, avaliação e desenvolvimento.</td><td>Relação de equipe, contratos, descrições de cargo, políticas básicas.</td></tr>
+<tr><td><strong>Gestão financeira</strong></td><td>Fluxo de caixa, orçamento, pagamentos, controles, dívidas e previsibilidade.</td><td>Fluxo de caixa, extratos, contas a pagar/receber, DRE quando houver, contratos.</td></tr>
+<tr><td><strong>Imagem e comunicação</strong></td><td>Marca, comunicação de jogo, imprensa, canais digitais e relação com torcedor.</td><td>Calendário editorial, acessos, peças, relatórios de canais e responsáveis.</td></tr>
+<tr><td><strong>Comercial e patrocínios</strong></td><td>Inventário comercial, proposta de valor, parceiros, entregas e renovação.</td><td>Contratos, mídia kit, lista de prospects, controles de entregas e receitas.</td></tr>
+</tbody></table>
+</section>
+<section id="jornada">
+<p class="eyebrow">04 · Do primeiro contato à evolução</p><h2>Jornada padrão do cliente</h2>
+<div class="grid">
+<div class="card"><h3>1. Qualificação</h3><p>Confirmar perfil, principal dor, autonomia do decisor, orçamento e disposição para fornecer evidências e dedicar tempo da liderança.</p></div>
+<div class="card"><h3>2. Contratação e preparação</h3><p>Formalizar escopo, indicar patrocinador interno, abrir canal de comunicação e enviar checklist de documentos e pré-diagnóstico.</p></div>
+<div class="card"><h3>3. Kickoff</h3><p>Alinhar objetivo, cronograma, pessoas entrevistadas, regras de confidencialidade, cadência e critérios de aceite.</p></div>
+<div class="card"><h3>4. Execução por fase</h3><p>Coletar evidências, construir com responsáveis, validar entregáveis e registrar decisões, pendências e riscos.</p></div>
+<div class="card"><h3>5. Devolutiva e aceite</h3><p>Apresentar achados ou entregáveis, ajustar dentro do escopo e obter aceite formal do patrocinador do projeto.</p></div>
+<div class="card"><h3>6. Transição</h3><p>Encerrar a fase com plano de 30, 60 e 90 dias ou iniciar a fase seguinte. A Fase A acompanha adoção e evolução.</p></div>
+</div>
+</section>
+<section id="fases">
+<p class="eyebrow">05 · O método em operação</p><h2>As cinco fases</h2>
+<p class="intro">As fases podem ser contratadas separadamente, mas a sequência F → O → R → M → A é a rota recomendada. Pular etapas só é indicado quando houver evidência de que a etapa anterior já está consolidada.</p>
+
+<article class="phase" id="fase-f"><div class="phase-letter">F</div><div><div class="phase-head"><h3>Formatar</h3><span class="tag">3 a 4 semanas</span></div><p><strong>Objetivo:</strong> construir um retrato verificável da realidade do clube, com riscos, gargalos, prioridades e linha de base de maturidade.</p><div class="grid"><div class="card"><h4>Atividades</h4><ul><li>Enviar questionário pré-diagnóstico e checklist documental.</li><li>Realizar kickoff e entrevistas com liderança, futebol e áreas críticas.</li><li>Revisar documentos, controles e rotinas existentes.</li><li>Mapear as seis dimensões e registrar evidências.</li><li>Classificar riscos e priorizar recomendações.</li></ul></div><div class="card"><h4>Entregáveis</h4><ul><li>Mapa de Maturidade Organizacional.</li><li>Relatório de Diagnóstico.</li><li>Matriz de riscos e prioridades.</li><li>Plano de ação inicial de 90 dias.</li><li>Apresentação de devolutiva.</li></ul></div></div><div class="roles"><div class="role"><strong>Consultor</strong>Conduz coleta, preserva evidências, sintetiza achados, recomenda prioridades e facilita a devolutiva.</div><div class="role"><strong>Clube</strong>Indica patrocinador, libera acesso a pessoas e documentos, participa das entrevistas e valida fatos antes da entrega final.</div></div><div class="notice"><strong>Critério de aceite:</strong> as seis dimensões foram avaliadas; os principais achados têm evidência; riscos e prioridades foram apresentados; patrocinador interno aprovou o diagnóstico e o plano inicial.</div><div class="warning"><strong>Riscos recorrentes:</strong> documentos indisponíveis, entrevistas canceladas, versões conflitantes da realidade e expectativa de “solução pronta” antes da coleta. Mitigação: checklist, agenda fechada no kickoff e registro de premissas.</div></div></article>
+
+<article class="phase" id="fase-o"><div class="phase-letter">O</div><div><div class="phase-head"><h3>Organizar</h3><span class="tag">4 a 6 semanas</span></div><p><strong>Objetivo:</strong> definir uma estrutura proporcional ao clube, com papéis claros, limites de decisão e fluxo mínimo de informação.</p><div class="grid"><div class="card"><h4>Atividades</h4><ul><li>Desenhar estrutura atual e estrutura-alvo viável.</li><li>Definir áreas, cargos críticos e relações de reporte.</li><li>Descrever responsabilidades e requisitos essenciais dos cargos.</li><li>Construir matriz de decisão e alçadas.</li><li>Validar fluxo entre presidência, futebol, financeiro e comercial.</li></ul></div><div class="card"><h4>Entregáveis</h4><ul><li>Organograma atual e organograma-alvo.</li><li>Manual de Estrutura Organizacional.</li><li>Descrições de cargos críticos.</li><li>Matriz de Decisão e Alçadas.</li><li>Plano de transição da estrutura.</li></ul></div></div><div class="roles"><div class="role"><strong>Consultor</strong>Propõe alternativas realistas, facilita decisões e documenta responsabilidades, alçadas e fluxos.</div><div class="role"><strong>Clube</strong>Define responsáveis, aprova a estrutura, comunica mudanças e assume decisões que não podem ser terceirizadas.</div></div><div class="notice"><strong>Critério de aceite:</strong> existe organograma aprovado; todo cargo crítico tem responsável ou plano de cobertura; decisões financeiras, esportivas e operacionais têm alçada definida; a liderança recebeu o plano de transição.</div><div class="warning"><strong>Riscos recorrentes:</strong> organograma inflado, cargos sem orçamento, conflito de poder e dependência total do presidente. Mitigação: trabalhar com funções acumuladas formalizadas e priorizar clareza antes de criar novos postos.</div></div></article>
+
+<article class="phase" id="fase-r"><div class="phase-letter">R</div><div><div class="phase-head"><h3>Rotinizar</h3><span class="tag">4 a 6 semanas</span></div><p><strong>Objetivo:</strong> transformar atividades críticas em processos simples, repetíveis e rastreáveis, com responsável, prazo, ferramenta e registro.</p><div class="grid"><div class="card"><h4>Atividades</h4><ul><li>Selecionar processos por risco, frequência e impacto no caixa ou competição.</li><li>Mapear o processo atual e eliminar etapas sem valor.</li><li>Definir entrada, saída, responsável, aprovador e indicador.</li><li>Documentar POPs e checklists.</li><li>Criar calendário operacional e testar as novas rotinas.</li></ul></div><div class="card"><h4>Entregáveis</h4><ul><li>Manual de Processos.</li><li>POPs e checklists prioritários.</li><li>Calendário operacional mensal/anual.</li><li>Fluxos de aprovação e comunicação.</li><li>Plano de implantação das rotinas.</li></ul></div></div><div class="roles"><div class="role"><strong>Consultor</strong>Mapeia, simplifica, documenta e orienta testes de rotina. Não executa continuamente a operação do clube.</div><div class="role"><strong>Clube</strong>Designa donos de processo, testa os procedimentos, registra desvios e incorpora as rotinas à agenda real de trabalho.</div></div><div class="notice"><strong>Critério de aceite:</strong> processos críticos foram priorizados; cada processo tem dono, versão aprovada e local de armazenamento; a rotina foi testada ao menos uma vez; pendências de implantação têm responsável e data.</div><div class="warning"><strong>Riscos recorrentes:</strong> tentar documentar tudo, escrever processos longos demais ou criar procedimento sem dono. Mitigação: começar por 5 a 10 processos críticos e usar uma página por POP sempre que possível.</div></div></article>
+
+<article class="phase" id="fase-m"><div class="phase-letter">M</div><div><div class="phase-head"><h3>Maturar</h3><span class="tag">3 a 4 semanas</span></div><p><strong>Objetivo:</strong> garantir que as pessoas certas sustentem a estrutura e as rotinas criadas, mesmo com equipe reduzida, rotatividade e vínculos temporários.</p><div class="grid"><div class="card"><h4>Atividades</h4><ul><li>Mapear pessoas, funções reais e competências necessárias.</li><li>Identificar lacunas, riscos de dependência e sobrecarga.</li><li>Definir prioridades de contratação, desenvolvimento ou terceirização.</li><li>Construir rituais mínimos de gestão e feedback.</li><li>Consolidar diretrizes práticas de cultura.</li></ul></div><div class="card"><h4>Entregáveis</h4><ul><li>Mapa de Pessoas e Competências.</li><li>Matriz de cobertura de funções críticas.</li><li>Plano de desenvolvimento de 90 dias.</li><li>Critérios de contratação e integração.</li><li>Guia de cultura e comportamentos esperados.</li></ul></div></div><div class="roles"><div class="role"><strong>Consultor</strong>Estrutura a leitura de competências, propõe critérios e desenha plano de desenvolvimento viável.</div><div class="role"><strong>Clube</strong>Decide sobre pessoas, remuneração, contratação e desligamento; realiza conversas e acompanha compromissos de desenvolvimento.</div></div><div class="notice"><strong>Critério de aceite:</strong> funções críticas têm cobertura ou plano de contingência; gaps prioritários têm ação definida; responsáveis entendem expectativas; a liderança aprovou o plano de pessoas.</div><div class="warning"><strong>Riscos recorrentes:</strong> tratar pessoas como organograma, ignorar cultura real ou propor contratações sem caixa. Mitigação: priorizar clareza de expectativa, desenvolvimento interno e combinações de função documentadas.</div></div></article>
+
+<article class="phase" id="fase-a"><div class="phase-letter">A</div><div><div class="phase-head"><h3>Avançar</h3><span class="tag">Acompanhamento mensal</span></div><p><strong>Objetivo:</strong> apoiar a implantação, corrigir desvios, acompanhar prioridades e aumentar a maturidade do clube sem criar dependência do consultor.</p><div class="grid"><div class="card"><h4>Atividades</h4><ul><li>Reuniões quinzenais ou mensais de acompanhamento.</li><li>Revisão do plano de ação, riscos e indicadores.</li><li>Apoio pontual a decisões estratégicas dentro do escopo.</li><li>Revisão de processos e documentos conforme uso real.</li><li>Reaplicação periódica do Mapa de Maturidade.</li></ul></div><div class="card"><h4>Entregáveis</h4><ul><li>Relatório executivo de acompanhamento.</li><li>Plano de ação atualizado.</li><li>Registro de decisões e pendências.</li><li>Painel enxuto de indicadores.</li><li>Reavaliação de maturidade semestral ou anual.</li></ul></div></div><div class="roles"><div class="role"><strong>Consultor</strong>Questiona, orienta, dá visibilidade a riscos e acompanha compromissos. Não assume a gestão diária do clube.</div><div class="role"><strong>Clube</strong>Executa o plano, atualiza dados, resolve pendências internas e sustenta as rotinas entre as reuniões.</div></div><div class="notice"><strong>Critério de aceite:</strong> cadência acordada está ativa; plano de ação possui atualização recorrente; indicadores mínimos são acompanhados; evolução e bloqueios são registrados.</div><div class="warning"><strong>Risco recorrente:</strong> transformar acompanhamento em terceirização de gestão. Mitigação: manter responsáveis internos nomeados e registrar claramente o que é orientação, decisão ou execução do clube.</div></div></article>
+</section>
+<section id="qualidade">
+<p class="eyebrow">06 · Padrão de entrega</p><h2>Qualidade, revisão e aceite</h2>
+<div class="grid"><div class="card"><h3>Regras de qualidade</h3><ul class="checklist"><li>Todo diagnóstico diferencia fato, percepção e recomendação.</li><li>Todo entregável informa versão, data, responsável e aprovador.</li><li>Todo plano tem prioridade, responsável, prazo e status.</li><li>Todo documento é escrito em linguagem direta e aplicável.</li><li>Todo material final fica em repositório definido com o clube.</li></ul></div><div class="card"><h3>Revisões</h3><p>Cada entregável inclui uma rodada consolidada de ajustes após a devolutiva. Alterações que ampliem escopo, criem novas áreas ou exijam coleta adicional devem ser registradas como mudança de escopo.</p><h3 style="margin-top:1rem">Aceite</h3><p>O aceite deve ser feito pelo patrocinador interno ou decisor indicado no kickoff, por e-mail, formulário da futura plataforma ou ata de reunião.</p></div></div>
+</section>
+<section id="governanca">
+<p class="eyebrow">07 · Como o projeto é conduzido</p><h2>Governança do projeto</h2>
+<table><thead><tr><th>Ritual</th><th>Participantes</th><th>Frequência</th><th>Finalidade</th></tr></thead><tbody>
+<tr><td>Kickoff</td><td>Patrocinador, responsáveis de área e consultor</td><td>Uma vez por projeto/fase</td><td>Alinhar objetivo, escopo, agenda, evidências e regras.</td></tr>
+<tr><td>Reunião de trabalho</td><td>Responsáveis envolvidos e consultor</td><td>Semanal ou quinzenal</td><td>Coletar informações, construir entregáveis e resolver pendências.</td></tr>
+<tr><td>Status executivo</td><td>Patrocinador e consultor</td><td>Quinzenal</td><td>Decidir prioridades, tratar bloqueios e validar direção.</td></tr>
+<tr><td>Devolutiva</td><td>Liderança definida pelo clube</td><td>Ao fim de cada fase</td><td>Apresentar resultados, obter ajustes consolidados e formalizar aceite.</td></tr>
+</tbody></table>
+<div class="notice"><strong>Escalonamento:</strong> pendência sem resolução por mais de cinco dias úteis, risco de atraso relevante ou conflito entre áreas deve ser levado ao patrocinador interno com alternativas de decisão.</div>
+</section>
+<section id="limites">
+<p class="eyebrow">08 · Proteção de escopo</p><h2>Limites e premissas</h2>
+<div class="grid"><div class="card"><h3>Premissas do clube</h3><ul><li>Indicar um patrocinador com poder de decisão.</li><li>Disponibilizar documentos e dados solicitados.</li><li>Garantir participação de pessoas-chave nas entrevistas e validações.</li><li>Nomear responsáveis internos para implantação.</li><li>Respeitar cronograma e condições comerciais.</li></ul></div><div class="card"><h3>Fora do escopo padrão</h3><ul><li>Execução operacional cotidiana pelo consultor.</li><li>Assessoria jurídica, contábil, trabalhista ou tributária especializada.</li><li>Auditoria financeira ou perícia.</li><li>Implantação técnica de softwares por terceiros.</li><li>Negociação de atletas, patrocínios ou contratos em nome do clube.</li></ul></div></div>
+</section>
+<section id="templates">
+<p class="eyebrow">09 · Ativos da consultoria</p><h2>Biblioteca de templates</h2>
+<p class="intro">Estes materiais devem ser desenvolvidos e mantidos como componentes reutilizáveis da futura plataforma FORMA. O objetivo é reduzir trabalho manual sem tornar a entrega genérica.</p>
+<table><thead><tr><th>Ativo</th><th>Fase</th><th>Finalidade</th><th>Prioridade</th></tr></thead><tbody>
+<tr><td>Questionário pré-diagnóstico</td><td>F</td><td>Coletar informações antes do kickoff.</td><td>1</td></tr>
+<tr><td>Roteiro de entrevistas</td><td>F</td><td>Padronizar escuta com presidência, futebol e áreas críticas.</td><td>1</td></tr>
+<tr><td>Mapa de Maturidade editável</td><td>F / A</td><td>Avaliar linha de base e evolução.</td><td>1</td></tr>
+<tr><td>Matriz de Decisão e Alçadas</td><td>O</td><td>Definir quem recomenda, aprova, executa e é informado.</td><td>1</td></tr>
+<tr><td>Manual de Processos e POPs</td><td>R</td><td>Documentar rotinas críticas.</td><td>2</td></tr>
+<tr><td>Mapa de Pessoas e Competências</td><td>M</td><td>Identificar cobertura, gaps e desenvolvimento.</td><td>2</td></tr>
+<tr><td>Painel de acompanhamento</td><td>A</td><td>Monitorar plano, riscos e indicadores mínimos.</td><td>2</td></tr>
+</tbody></table>
+</section>
+</main>
+</div>
+<footer class="footer"><strong>MÉTODO FORMA</strong> · Manual operacional interno · Estrutura antes de crescimento. Este documento deve ser revisado após cada projeto-piloto para incorporar aprendizados de execução.</footer>
+</body></html>
